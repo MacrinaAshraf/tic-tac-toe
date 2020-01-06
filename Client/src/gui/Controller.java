@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,16 +23,16 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Button[] btns = new Button[5];
+        Button[] inviteBtns = new Button[5];
         for (int i = 0; i < 5; i++) {
-            btns[i] = new Button("Invite");
-            btns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            inviteBtns[i] = new Button("Invite");
+            inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    Alert a = new Alert(Alert.AlertType.INFORMATION);
-                    a.setHeaderText("Hello");
-                    a.setContentText(null);
-                    a.showAndWait();
+                	Scene scene = new Scene(new Label("Hello"), 100, 100);
+                    Stage newStage = new Stage();
+                    newStage.setScene(scene);
+                    newStage.show();
                 }
             });
         }
@@ -40,7 +42,7 @@ public class Controller implements Initializable {
             fPaneChildren[i].setPrefWidth(100);
             fPaneChildren[i].getChildren().add(new Label("User"));
             fPaneChildren[i].setHgap(5);
-            fPaneChildren[i].getChildren().add(btns[i]);
+            fPaneChildren[i].getChildren().add(inviteBtns[i]);
             fPane.getChildren().add(fPaneChildren[i]);
         }
     }
