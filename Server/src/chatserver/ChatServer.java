@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import org.json.JSONObject;
 
 public class ChatServer {
     ServerSocket myServerSocket = null;
