@@ -20,14 +20,14 @@ import java.sql.PreparedStatement;
  * @author Ismail_khadr
  */
 public class LoginController {
-	DatabaseConnection con;
+	private DatabaseConnection con = new DatabaseConnection();
 	PreparedStatement stmt;
 	ResultSet rs ;
 	
 	public void Check(String username, String password) {
 	    try {
 	    	System.out.println("Connected to database!");
-	        stmt = con.getCon().prepareStatement("SELECT * From player WHERE name = ? AND password = ?");
+	        stmt = con.getCon().prepareStatement("SELECT id, name, score From player WHERE name = ? AND password = ?");
 	        stmt.setString(1, username);
 	        stmt.setString(2, password);
 	        rs = stmt.executeQuery();
@@ -45,4 +45,5 @@ public class LoginController {
 	            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
+	
 }

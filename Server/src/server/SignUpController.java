@@ -3,7 +3,7 @@ import java.sql.*;
 import java.sql.Connection;
 
 public class SignUpController {
-    DatabaseConnection con = new DatabaseConnection();  
+    private DatabaseConnection con = new DatabaseConnection();  
     
     public void update(String FullName, String Password, String Email){
     	String query = "INSERT INTO Player (name,Password,email) VALUES (?,?,?);";
@@ -21,8 +21,5 @@ public class SignUpController {
         }catch(SQLException ex){
             System.err.println("Error in update: " + ex);
         }
-    }
-    public static void main(String[] args) {
-        SignUpController db = new SignUpController();
     }
 }

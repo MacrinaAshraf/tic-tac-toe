@@ -10,7 +10,7 @@ package server;
  * @author Ismail_khadr
  */
 public class LogIn extends javax.swing.JDialog {
- LoginController login=new LoginController();
+	LoginController login=new LoginController();
    
    
     public LogIn(java.awt.Frame parent, boolean modal) {
