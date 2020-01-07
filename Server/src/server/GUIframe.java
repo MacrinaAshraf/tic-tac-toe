@@ -11,7 +11,7 @@ package server;
  */
 public class GUIframe extends javax.swing.JFrame {
 
-    DataBaseManagement dataBase;
+    SignUpController dataBase;
 
     public javax.swing.JTextField getFirstNameField() {
         return jTextField1;
@@ -30,7 +30,7 @@ public class GUIframe extends javax.swing.JFrame {
      */
     public GUIframe() {
         initComponents();
-        dataBase = new DataBaseManagement();
+        dataBase = new SignUpController();
     }
 
     /**
