@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.FlowPane?>
 <BorderPane fx:controller="gui.Controller"
             xmlns:fx="http://javafx.com/fxml">
-    <right>
-        <TitledPane animated="true" collapsible="false" prefWidth="100">
+    <left>
+        <TitledPane animated="true" collapsible="false">
             <text>Available Players</text>
             <content>
-                <FlowPane fx:id="fPane" vgap="5" orientation="VERTICAL" prefWidth="100">
+                <FlowPane fx:id="fPane" vgap="5" orientation="VERTICAL">
 
                 </FlowPane>
             </content>
         </TitledPane>
-    </right>
+    </left>
     <bottom>
 
     </bottom>

@@ -17,10 +17,11 @@ public class Main extends Application {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\xml\\PlayersMenu.fxml"));
         Parent root = loader.load();
     	primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 400, 450));
         primaryStage.show();
         cl = (Controller)loader.getController();
-        cl.setActionHandler(primaryStage);
+        cl.setStage(primaryStage);
+        cl.setActionHandler();
     }
 
 
