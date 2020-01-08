@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class ChatHandler extends Thread {
+class GameHandler extends Thread {
 
     Client client;
     DataInputStream dis;
@@ -26,7 +26,7 @@ class ChatHandler extends Thread {
     //vectors with the clients objects
     static Vector<Client> clientsVector = new Vector<Client>();
 
-    public ChatHandler(Socket socket) throws IOException, SQLException {
+    public GameHandler(Socket socket) throws IOException, SQLException {
         players = new AllPlayers();
         players.getAllPlayers();       
         try {
@@ -69,9 +69,9 @@ class ChatHandler extends Thread {
                         sendMessage(message.toString());
                 }
             } catch (IOException ex) {
-                Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
-                Logger.getLogger(ChatHandler.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

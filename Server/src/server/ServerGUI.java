@@ -6,6 +6,7 @@
 package server;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ import javafx.stage.Stage;
  * @author Feeshar
  */
 public class ServerGUI extends Application {
-    ChatServer chatServer;
+    GameServer gameServer;
     ServerRunning runServer;
     @Override
     public void start(Stage primaryStage) {
@@ -49,9 +50,9 @@ public class ServerGUI extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                    if(chatServer != null){
-                        chatServer.stop();
-                        chatServer = null;
+                    if(gameServer != null){
+                        gameServer.stop();
+                        gameServer = null;
                         runServer.stop();
                         runServer = null;
                         System.out.println("Server Closing");
@@ -79,17 +80,19 @@ public class ServerGUI extends Application {
     class ServerRunning extends Thread {
         public void run() {
             try {
-                chatServer = new ChatServer();
-                chatServer.start();
+                gameServer = new GameServer();
+                gameServer.start();
                 System.out.println("Server Running");
                 
             } catch (IOException ex) {
                 Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             // the server failed
             System.out.println("Server crashed\n");
-            chatServer.stop();
-            chatServer = null;
+            gameServer.stop();
+            gameServer = null;
         }
     }
 
