@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject; 
  
 public class GUIframe extends JFrame {
+ 
+
     JSONObject registerData;
     Socket mySocket;
     DataInputStream dis ;
