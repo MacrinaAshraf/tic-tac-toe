@@ -5,6 +5,10 @@
  */
 package server;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+
 /**
  *
  * @author aliismail
@@ -66,7 +70,12 @@ public class GUIframe extends javax.swing.JFrame {
         jToggleButton1.setName("Signup"); // NOI18N
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                try {
+					jToggleButton1ActionPerformed(evt);
+				} catch (IOException | JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -122,7 +131,7 @@ public class GUIframe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException, JSONException {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // Signup button
         String fullname = jTextField1.getText();
         System.out.println(fullname);

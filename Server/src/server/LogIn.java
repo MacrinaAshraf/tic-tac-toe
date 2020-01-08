@@ -5,6 +5,8 @@
  */
 package server;
 
+import org.json.JSONException;
+
 /**
  *
  * @author Ismail_khadr
@@ -48,7 +50,12 @@ public class LogIn extends javax.swing.JDialog {
         jButton1.setText("LogIn");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -112,7 +119,7 @@ public class LogIn extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException {//GEN-FIRST:event_jButton1ActionPerformed
         
         
         

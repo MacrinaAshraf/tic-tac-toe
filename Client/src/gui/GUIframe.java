@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.io.DataInputStream;
@@ -11,9 +6,13 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONException; 
 
-   
+import javax.swing.JFrame;
+
+import org.json.JSONException;
+import org.json.JSONObject; 
+ 
+public class GUIframe extends JFrame {
     JSONObject registerData;
     Socket mySocket;
     DataInputStream dis ;
