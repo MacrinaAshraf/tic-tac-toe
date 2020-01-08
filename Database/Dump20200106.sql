@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `tictactoe_db`;
 
-DROP TABLE IF EXISTS `player`;
+
 
 CREATE TABLE `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

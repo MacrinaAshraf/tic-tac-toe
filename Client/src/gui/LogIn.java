@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package gui;
 
 /**
  *
  * @author Ismail_khadr
  */
 public class LogIn extends javax.swing.JDialog {
-	LoginController login=new LoginController();
+	
    
    
     public LogIn(java.awt.Frame parent, boolean modal) {
@@ -116,7 +116,7 @@ public class LogIn extends javax.swing.JDialog {
         
         
         
-        login.Check(jTextField1.getText(), jPasswordField1.getText());
+      
         
        
         

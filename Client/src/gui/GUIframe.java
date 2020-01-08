@@ -3,15 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package gui;
 
-/**
- *
- * @author aliismail
- */
-public class GUIframe extends javax.swing.JFrame {
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException; 
 
-    SignUpController dataBase;
+   
+    JSONObject registerData;
+    Socket mySocket;
+    DataInputStream dis ;
+    PrintStream ps ;   
 
     public javax.swing.JTextField getFirstNameField() {
         return jTextField1;
@@ -28,9 +34,12 @@ public class GUIframe extends javax.swing.JFrame {
     /**
      * Creates new form GUIframe
      */
-    public GUIframe() {
-        initComponents();
-        dataBase = new SignUpController();
+    public GUIframe() throws IOException {
+        mySocket = new Socket("127.0.0.1", 5008);
+        dis = new DataInputStream(mySocket.getInputStream());
+        ps = new PrintStream(mySocket.getOutputStream());       
+        initComponents();        
+        
     }
 
     /**
@@ -123,15 +132,27 @@ public class GUIframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        
+        
+        
         // Signup button
         String fullname = jTextField1.getText();
-        System.out.println(fullname);
+        String password = jTextField4.getText();
+        String email = jTextField3.getText();
 
-        String Password = jTextField4.getText();
-        System.out.println(Password);
-        String Email = jTextField3.getText();
-        System.out.println(Email);
-        dataBase.update(fullname, Password, Email);
+        registerData = new JSONObject();
+        try {
+            registerData.put("type", "register");
+            registerData.put("name", fullname);
+            registerData.put("mail", email);
+            registerData.put("password", password);
+            registerData.put("name", email);           
+            String msg = registerData.toString();  
+            System.out.print(msg);
+            ps.print(msg);           
+        } catch (JSONException ex) {
+            System.err.println("Exception client: " + ex);
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
@@ -165,7 +186,11 @@ public class GUIframe extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new GUIframe().setVisible(true);
+                try {
+                    new GUIframe().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIframe.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

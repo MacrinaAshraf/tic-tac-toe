@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.sql.PreparedStatement;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -23,8 +25,9 @@ public class LoginController {
 	private DatabaseConnection con = new DatabaseConnection();
 	PreparedStatement stmt;
 	ResultSet rs ;
-	
-	public void Check(String username, String password) {
+	JSONObject result;
+	public void Check(String username, String password) throws JSONException {
+            result=new JSONObject();
 	    try {
 	    	System.out.println("Connected to database!");
 	        stmt = con.getCon().prepareStatement("SELECT id, name, score From player WHERE name = ? AND password = ?");
@@ -35,15 +38,19 @@ public class LoginController {
 	        
 	        if(rs.next()) {
 	        	System.out.println("you are welcome");
+                        result.put("res", "Successfully");
 	            flag = false;
 	        }
 	        
 	        if(flag) {
+                       result.put("res", "failed");
 	        	System.err.println("Not a member");
 	        }
 	    } catch (SQLException ex) {
 	            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
-	
+    public JSONObject getResult(){
+             return result;
+    }
 }
