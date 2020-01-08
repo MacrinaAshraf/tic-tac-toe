@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,14 +13,14 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import org.json.JSONObject;
 
-public class ChatServer {
+public class GameServer {
     ServerSocket myServerSocket;
     boolean keepRunning;
-    ChatHandler ch;
+    GameHandler ch;
     
-    public ChatServer() throws IOException{
+    public GameServer() throws IOException{
     }
-    public void start(){
+    public void start() throws SQLException{
         try {
             keepRunning = true;
             //waiting on socket
@@ -33,12 +34,12 @@ public class ChatServer {
                 }
               Socket socket = myServerSocket.accept();
               System.out.println("I am running");
-              ch = new ChatHandler(socket);
+              ch = new GameHandler(socket);
                 
                 
             }
         } catch (IOException ex) {
-            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             myServerSocket.close();
@@ -54,7 +55,7 @@ public class ChatServer {
         try {
             //new Socket("localhost", 5008);
             myServerSocket.close();
-            System.out.println("Stoppeds");
+            System.out.println("Stopped");
         }catch(Exception ex){
             System.out.println(ex);
         }
