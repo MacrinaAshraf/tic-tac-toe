@@ -43,7 +43,7 @@ public class Controller implements Initializable {
             btnPane[i].setHgap(5);
             btnPane[i].getChildren().addAll(inviteBtns[i], chatBtns[i]);
             fPaneChildren[i].getChildren().add(new Label("User"));
-            fPaneChildren[i].setHgap(200);
+            fPaneChildren[i].setHgap(250);
             fPaneChildren[i].getChildren().add(btnPane[i]);
             fPane.getChildren().add(fPaneChildren[i]);
         }
@@ -65,7 +65,7 @@ public class Controller implements Initializable {
                 	alert.setContentText(null);
                 	Optional<ButtonType> btnType = alert.showAndWait();
                 	if(btnType.get() == ButtonType.OK) {
-                		Scene scene = new Scene(new Label("Hello"), 400, 450);
+                		Scene scene = new Scene(new Label("Hello"), 400, 500);
                     	stage.setScene(scene);
                     }
                 }

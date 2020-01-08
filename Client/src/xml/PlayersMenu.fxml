@@ -23,6 +23,6 @@
         </TitledPane>
     </left>
     <bottom>
-
+		<Button BorderPane.alignment="BASELINE_CENTER">Return to Home</Button>
     </bottom>
 </BorderPane>
