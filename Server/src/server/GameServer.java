@@ -19,6 +19,7 @@ public class GameServer {
     GameHandler ch;
     
     public GameServer() throws IOException{
+        
     }
     public void start() throws SQLException{
         try {
@@ -35,7 +36,7 @@ public class GameServer {
               Socket socket = myServerSocket.accept();
               System.out.println("I am running");
               ch = new GameHandler(socket);
-                
+                System.out.println("new online user");
                 
             }
         } catch (IOException ex) {

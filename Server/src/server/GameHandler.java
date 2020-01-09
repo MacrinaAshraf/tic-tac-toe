@@ -16,26 +16,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class GameHandler extends Thread {
-
     Client client;
     DataInputStream dis;
-    PrintWriter ps;
+    PrintStream ps;
     boolean keepRunning;
     AllPlayers players;
     //dictionary {value : username, key: its printstream}
     static Dictionary streams = new Hashtable();
     //vectors with the clients objects
     static Vector<Client> clientsVector = new Vector<Client>();
-
+    static int countGameHandler=0;
     public GameHandler(Socket socket) throws IOException, SQLException {
-        players = new AllPlayers();
-        players.getAllPlayers();
+        countGameHandler++;
+        if(countGameHandler==0){
+             players = new AllPlayers();
+             players.getAllPlayers();
+        }       
         try {
             //making streams on socket, create client object and send to it the streams
             dis = new DataInputStream(socket.getInputStream());
-            ps = new PrintWriter(socket.getOutputStream(), true);
-//            client = new Client(dis, ps);    
-//            clientsVector.add(client);
+            ps = new PrintStream(socket.getOutputStream());
+            System.out.print(ps);
+            System.out.println(dis);
             start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,6 +140,9 @@ class GameHandler extends Thread {
             for (Client c : clientsVector) {
                 if (c.getUserName() == (String) data.get("username")) {
                     c.setStatus("online");
+                    c.setDataInputStream(dis);
+                    c.setPrintStream(ps);
+                    streams.put(c.getUserName(),c.getPrintStream());
                 }
             }
         }
