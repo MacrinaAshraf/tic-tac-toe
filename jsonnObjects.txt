@@ -1,0 +1,33 @@
+all json objects  should have a type key with values could be depending on the case:
+type :
+1- invite
+2-responsetoinvite
+3-login
+4-register
+5- chat
+from clients to servers:
+
+1-invite json object will also have
+
+-askingplayername key with value of the username sending the request.
+-toPlayWith key with value of the username who will got the request.
+
+
+2- responsetoinvite object will also have
+
+-toPlayWith key with the username of the player to respond to
+-username key with the value of the username responding to the request
+-response key with value accept or rejected
+
+3-login jSONObject will also have:
+
+username key with value which the user entered
+password key with value which the user entered
+
+4-register
+keys:
+username 
+password
+email
+
+
