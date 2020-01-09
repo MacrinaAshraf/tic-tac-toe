@@ -1,5 +1,6 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.PrintStream;
 
@@ -9,14 +10,14 @@ public class Client {
     int score;
     Boolean isPlaying;    
     String status;
-    DataInputStream diss;
+    BufferedReader diss;
     PrintStream pss;
     Client(){
         isPlaying=false;  
         status="offline";
         score=0;
     }
-    Client(DataInputStream dis,PrintStream ps){
+    Client(BufferedReader dis,PrintStream ps){
         diss = dis;
         pss = ps; 
         isPlaying=false;  
@@ -43,10 +44,10 @@ public class Client {
     public void setPlayingWith(String playingWith) {
         this.playingWith = playingWith;
     }
-    public DataInputStream getDataInputStream() {
+    public BufferedReader getDataInputStream() {
         return diss;
     }
-    public void setDataInputStream(DataInputStream diss) {
+    public void setDataInputStream(BufferedReader diss) {
         this.diss = diss;
     }
     public PrintStream getPrintStream() {
