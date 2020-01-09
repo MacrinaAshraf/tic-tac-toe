@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +29,7 @@ class GameHandler extends Thread {
 
     public GameHandler(Socket socket) throws IOException, SQLException {
         players = new AllPlayers();
-        players.getAllPlayers();       
+        players.getAllPlayers();
         try {
             //making streams on socket, create client object and send to it the streams
             dis = new DataInputStream(socket.getInputStream());
@@ -44,8 +45,9 @@ class GameHandler extends Thread {
     public void run() {
         String str;
         JSONObject message;
+        keepRunning = true;
         ps.print("hiii");
-        while (true) {
+        while (keepRunning) {
 
             try {
                 str = dis.readLine();
@@ -68,14 +70,10 @@ class GameHandler extends Thread {
                     case "chat":
                         sendMessage(message.toString());
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
+            } catch (IOException | JSONException ex) {
                 Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }
 
     public void stopSending() {
@@ -136,28 +134,60 @@ class GameHandler extends Thread {
         LoginController login = new LoginController();
         login.Check((String) data.get("username"), (String) data.get("password"));
         ps.print(login.getResult());
-        if(login.getResult().get("res")=="Successfully"){
-            for(Client c:clientsVector){
-                if(c.getUserName()==(String) data.get("username")){
+        if (login.getResult().get("res") == "Successfully") {
+            for (Client c : clientsVector) {
+                if (c.getUserName() == (String) data.get("username")) {
                     c.setStatus("online");
                 }
             }
         }
-        
+
     }
 
     public void register(JSONObject data) throws JSONException, IOException {
 
         SignUpController signup = new SignUpController();
         signup.update((String) data.get("username"), (String) data.get("password"), (String) data.get("email"));
-        
-        if(signup.getResult().get("res")=="Successfully"){
-            Client temp=new Client();
+
+        if (signup.getResult().get("res") == "Successfully") {
+            Client temp = new Client();
             temp.setUserName((String) data.get("username"));
             clientsVector.add(temp);
         }
-        }
-
     }
 
+    public static JSONObject playersJSON() throws JSONException {
+        JSONObject player;
+        //players tiers (Gold, Silver, Bronze)
+        JSONArray playersJSONArrayGold = new JSONArray();
+        JSONArray playersJSONArraySilver = new JSONArray();
+        JSONArray playersJSONArrayBronze = new JSONArray();
+        JSONObject playersJSONObject = new JSONObject();
+        
+        for (Client c : clientsVector) {
+            try {
+                player = new JSONObject();
+                player.put("username", c.getUserName());
+                player.put("score", c.getScore());
+                player.put("status", c.getStatus());
 
+                if (c.getScore() >= 300) {
+                    playersJSONArrayGold.put(player);
+                } else if (c.getScore() >= 200) {
+                    playersJSONArraySilver.put(player);
+                } else {
+                    playersJSONArrayBronze.put(player);
+                }
+
+            } catch (JSONException ex) {
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        playersJSONObject.put("Gold", playersJSONArrayGold);
+        playersJSONObject.put("Silver", playersJSONArraySilver);
+        playersJSONObject.put("bronze", playersJSONArrayBronze);
+        return playersJSONObject;
+    }
+
+}
