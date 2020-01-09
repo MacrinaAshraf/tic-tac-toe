@@ -10,13 +10,18 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	//HomePageController cl;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("..\\xml\\sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\xml\\Signup.fxml"));
+        Parent root = loader.load();
+    	primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        //cl = (HomePageController)loader.getController();
+        //cl.setStage(primaryStage);
+        //cl.setActionHandler();
     }
 
 
