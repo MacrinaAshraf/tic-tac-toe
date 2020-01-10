@@ -11,10 +11,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -24,23 +31,32 @@ import javafx.stage.Stage;
  * @author Feeshar
  */
 public class ServerGUI extends Application {
+
     GameServer gameServer;
     ServerRunning runServer;
+    ObservableList list;
+    TableView<Client> table;
+    BorderPane root;
+
     @Override
     public void start(Stage primaryStage) {
         Button start = new Button();
         Button stop = new Button();
+        Button displayPlayers = new Button();
         start.setText("run Server");
         stop.setText("stop Server");
+        displayPlayers.setText("Show all players");
         start.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    if(runServer == null){
+                    if (runServer == null) {
                         runServer = new ServerRunning();
                         runServer.start();
+
                     }
+
 //                    Thread.getAllStackTraces().keySet().forEach((t) -> System.out.println(t.getName() + "\nIs Daemon " + t.isDaemon() + "\nIs Alive " + t.isAlive()));
                 } catch (Exception ex) {
                     Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,25 +64,48 @@ public class ServerGUI extends Application {
             }
         });
         stop.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
-                    if(gameServer != null){
-                        gameServer.stop();
-                        gameServer = null;
-                        runServer.stop();
-                        runServer = null;
-                        System.out.println("Server Closing");
-                    }
+                if (gameServer != null) {
+                    gameServer.stop();
+                    gameServer = null;
+                    runServer.stop();
+                    runServer = null;
+                    System.out.println("Server Closing");
+                }
             }
         });
-        
-        BorderPane root = new BorderPane();
-        root.setRight(start);
-        root.setLeft(stop);
-        
+        displayPlayers.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                list = FXCollections.observableList(GameServer.clientsVector);
+                TableColumn<Client, String> usernameColumn = new TableColumn<>("username");
+                usernameColumn.setMinWidth(200);
+                usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+                TableColumn<Client, String> statusColumn = new TableColumn<>("status");
+                statusColumn.setMinWidth(200);
+                statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+                TableColumn<Client, Integer> scoreColumn = new TableColumn<>("score");
+                scoreColumn.setMinWidth(200);
+                scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+                table = new TableView<>();
+                table.setItems(list);
+                table.getColumns().addAll(usernameColumn, statusColumn, scoreColumn);
+                root.setCenter(table);
+                System.out.print(table);
+            }
+        });
+
+        root = new BorderPane(table);
+        root.setLeft(start);
+        root.setCenter(table);
+        root.setBottom(stop);
+        root.setRight(displayPlayers);
+
         Scene scene = new Scene(root, 300, 250);
-        
+
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -77,14 +116,17 @@ public class ServerGUI extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+
     }
+
     class ServerRunning extends Thread {
+
         public void run() {
             try {
                 gameServer = new GameServer();
                 gameServer.start();
                 System.out.println("Server Running");
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

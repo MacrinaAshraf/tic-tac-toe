@@ -28,7 +28,7 @@ public class AllPlayers {
                tmp = new Client();
                tmp.setUserName(rs.getString("name"));
                tmp.setScore(rs.getInt("score"));          
-               GameHandler.clientsVector.add(tmp);
+               GameServer.clientsVector.add(tmp);
            }
    }
 }
