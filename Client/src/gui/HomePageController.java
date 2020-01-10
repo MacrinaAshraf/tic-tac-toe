@@ -5,51 +5,86 @@
  */
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseDragEvent;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Noran
  */
 public class HomePageController implements Initializable {
-    
-    private Label label;
-    
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+	@FXML
+	MenuItem logOutBtn;
+	@FXML
+	MenuItem helpBtn;
+	@FXML
+	Button singlePlayer;
+	@FXML
+	Button multiPlayer;
+	
+	Parent loginUI, playersMenuUI;
+	Controller cl;
+	LoginController loginControl;
+	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void SingleGameButtonAction(ActionEvent event) {
-        System.out.println("hello signle game");
+    	
+        
     }
+    
+    public void setActionHandler(Stage stage) {
+    	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+    	FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
+    	
+        try {
+			loginUI = loginLoader.load();
+			playersMenuUI = playersMenuLoader.load();
+			
+			cl = (Controller) playersMenuLoader.getController();
+			loginControl = (LoginController) loginLoader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-    private void singlGame_mousedrage(MouseDragEvent event) {
-        System.out.println("hello signle game mouse drage");
-    }
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				stage.setScene(new Scene(loginUI));
+				loginControl.setActionHandler(stage);
+			}
+    		
+    	});
+    	
+    	multiPlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-    @FXML
-    private void LogOutAction(ActionEvent event) {
-        System.out.println("You loged out");
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				stage.setScene(new Scene(playersMenuUI));
+				cl.setActionHandler(stage);
+			}
+    		
+    	});
     }
-
-    @FXML
-    private void HelpButtonAction(ActionEvent event) {
-        System.out.println("You Enterded help");
-    }
+    
 
     
 }

@@ -28,15 +28,15 @@
       <PasswordField layoutX="86.0" layoutY="186.0" prefHeight="27.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
       <FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="59.0" layoutY="144.0" size="20" />
       <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="57.0" layoutY="208.0" size="20" text="" />
-      <Button layoutX="76.0" layoutY="302.0" mnemonicParsing="false" onAction="#LonginAction" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #eed555;" text="login" textFill="#141414">
+      <Button fx:id="loginBtn" layoutX="76.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #eed555;" text="login" textFill="#141414">
          <font>
             <Font name="Segoe UI Black" size="16.0" />
          </font>
       </Button>
-      <Hyperlink layoutX="219.0" layoutY="254.0" text="Forget Your Password ?" textFill="#eed555" />
+      <Hyperlink layoutX="219.0" layoutY="254.0" text="Forget Your Password?" textFill="#eed555" />
       <CheckBox layoutX="59.0" layoutY="256.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="115.0" style="-fx-text-fill: #eed555;" text="Remember me" textFill="#9e8585" />
       <Hyperlink layoutX="170.0" layoutY="356.0" text="Sign Up" textFill="#eed555" />
-      <Text fill="#cdb4b4" layoutX="86.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New ?" />
+      <Text fill="#cdb4b4" layoutX="86.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?" />
       <FontAwesomeIconView fill="#eed555" glyphName="USERS" layoutX="159.0" layoutY="71.0" size="40" wrappingWidth="50.0000009778887" />
       <Text fill="#eed555" layoutX="123.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login " wrappingWidth="133.00000093877316">
          <font>

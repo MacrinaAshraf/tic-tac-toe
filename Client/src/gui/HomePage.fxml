@@ -18,8 +18,8 @@
       </ImageView>
       <MenuButton layoutX="377.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#LogOutAction" style="-fx-background-color: black; -fx-text-fill: white;" text="Logout" />
-          <MenuItem mnemonicParsing="false" onAction="#HelpButtonAction" style="-fx-background-color: black; -fx-text-fill: white;" text="Help" />
+          <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
+          <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" /> <!--  style="-fx-background-color: black; -fx-text-fill: white;"  -->
         </items>
          <font>
             <Font name="Segoe UI Black Italic" size="17.0" />
@@ -28,12 +28,12 @@
             <Bloom />
          </effect>
       </MenuButton>
-      <Button layoutX="131.0" layoutY="146.0" mnemonicParsing="false" onAction="#SingleGameButtonAction" opacity="0.72" prefHeight="54.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 60;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="singlePlayer" layoutX="131.0" layoutY="146.0" mnemonicParsing="false" opacity="0.72" prefHeight="54.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 60;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>
       </Button>
-      <Button layoutX="127.0" layoutY="219.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="224.0" style="-fx-background-color: black; -fx-background-radius: 35;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="multiPlayer" layoutX="127.0" layoutY="219.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="224.0" style="-fx-background-color: black; -fx-background-radius: 35;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>

@@ -33,6 +33,7 @@ public class Controller implements Initializable {
     	btnPane = new FlowPane[5];
     	chatBtns = new Button[5];
         inviteBtns = new Button[5];
+        
 
         for (int i = 0; i < 5; i++) {
         	chatBtns[i] = new Button("Chat");
@@ -54,7 +55,7 @@ public class Controller implements Initializable {
     }
     
     
-    public void setActionHandler() {
+    public void setActionHandler(Stage stage) {
     	for (int i = 0; i < 5; i++) {
             
             inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
