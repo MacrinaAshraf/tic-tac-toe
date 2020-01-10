@@ -17,7 +17,10 @@ public class GameServer {
     ServerSocket myServerSocket;
     boolean keepRunning;
     GameHandler ch;
-    
+    AllPlayers players;
+    static Vector<Client> clientsVector = new Vector<Client>();
+    static int countStart=0;
+
     public GameServer() throws IOException{
         
     }
@@ -26,6 +29,12 @@ public class GameServer {
             keepRunning = true;
             //waiting on socket
             myServerSocket = new ServerSocket(5008);
+            if(countStart==0){
+             players = new AllPlayers();
+             players.getAllPlayers();
+            }
+            countStart++;
+             
             System.out.println("i am about to run");
             while(keepRunning){
                 //create socket and send it to chathandler
