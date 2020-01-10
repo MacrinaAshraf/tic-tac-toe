@@ -19,7 +19,7 @@
       <MenuButton layoutX="377.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
         <items>
           <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
-          <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" /> <!--  style="-fx-background-color: black; -fx-text-fill: white;"  -->
+          <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
         </items>
          <font>
             <Font name="Segoe UI Black Italic" size="17.0" />

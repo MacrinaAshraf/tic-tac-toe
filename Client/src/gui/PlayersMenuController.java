@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class PlayersMenuController implements Initializable {
     @FXML
     FlowPane fPane;
     Button[] inviteBtns;

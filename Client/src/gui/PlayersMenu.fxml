@@ -17,7 +17,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
-<BorderPane fx:controller="gui.Controller"
+<BorderPane fx:controller="gui.PlayersMenuController"
             xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/8.0.171">
     <top>
     	

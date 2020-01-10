@@ -11,30 +11,49 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="413.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
-    <children>
-      <ImageView fitHeight="430.0" fitWidth="361.0" layoutX="-21.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/signup.jpg" />
-         </image>
-      </ImageView>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TextField layoutX="69.0" layoutY="137.0" prefHeight="25.0" prefWidth="174.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
-      <Button layoutX="64.0" layoutY="365.0" mnemonicParsing="false" onAction="#signuphandleButtonAction" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up" textAlignment="CENTER" textFill="#222121">
-         <font>
-            <Font name="Segoe UI Black" size="12.0" />
-         </font></Button>
-      <TextField layoutX="69.0" layoutY="287.0" prefHeight="25.0" prefWidth="174.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
-      <PasswordField layoutX="69.0" layoutY="213.0" prefHeight="25.0" prefWidth="174.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
-      <FontAwesomeIconView />
-      <FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="47.0" layoutY="154.0" size="15" wrappingWidth="22.0" />
-      <Text fill="#f5e463" layoutX="124.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SignUp">
-         <font>
-            <Font name="Segoe UI Black" size="22.0" />
-         </font>
-      </Text>
-      <FontAwesomeIconView fill="#eed555" glyphName="LOCK" layoutX="47.0" layoutY="230.0" size="15" />
-      <FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE" layoutX="45.0" layoutY="304.0" size="15" />
-      <FontAwesomeIconView fill="#eed555" fontSmoothingType="LCD" glyphName="USERS" layoutX="139.0" layoutY="76.0" size="40" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="413.0" prefWidth="299.0"
+	xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.SignUpController">
+	<children>
+		<ImageView fitHeight="430.0" fitWidth="361.0" layoutX="-21.0"
+			layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../img/signup.jpg" />
+			</image>
+		</ImageView>
+		<Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+		<TextField layoutX="69.0" layoutY="137.0" prefHeight="25.0"
+			prefWidth="174.0" promptText="Username"
+			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
+		<Button fx:id="signUpBtn" layoutX="64.0" layoutY="365.0" mnemonicParsing="false"
+			prefHeight="30.0" prefWidth="185.0"
+			style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up"
+			textAlignment="CENTER" textFill="#222121">
+			<font>
+				<Font name="Segoe UI Black" size="12.0" />
+			</font>
+		</Button>
+		<TextField layoutX="69.0" layoutY="287.0" prefHeight="25.0"
+			prefWidth="174.0" promptText="Email"
+			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+		<PasswordField layoutX="69.0" layoutY="213.0"
+			prefHeight="25.0" prefWidth="174.0" promptText="Password"
+			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+		<FontAwesomeIconView />
+		<FontAwesomeIconView fill="#eed555" glyphName="USER"
+			layoutX="47.0" layoutY="154.0" size="15" wrappingWidth="22.0" />
+		<Text fill="#f5e463" layoutX="124.0" layoutY="114.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="SignUp">
+			<font>
+				<Font name="Segoe UI Black" size="22.0" />
+			</font>
+		</Text>
+		<FontAwesomeIconView fill="#eed555" glyphName="LOCK"
+			layoutX="47.0" layoutY="230.0" size="15" />
+		<FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE"
+			layoutX="45.0" layoutY="304.0" size="15" />
+		<FontAwesomeIconView fill="#eed555"
+			fontSmoothingType="LCD" glyphName="USERS" layoutX="139.0" layoutY="76.0"
+			size="40" />
+	</children>
 </AnchorPane>

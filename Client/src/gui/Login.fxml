@@ -20,7 +20,6 @@
             <Image url="@../img/Login%20(1).png" />
          </image>
       </ImageView>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TextField layoutX="83.0" layoutY="124.0" prefHeight="27.0" prefWidth="217.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-text-fill: white; -fx-prompt-text-fill: #eed555;">
          <cursor>
            
@@ -35,8 +34,8 @@
       </Button>
       <Hyperlink layoutX="219.0" layoutY="254.0" text="Forget Your Password?" textFill="#eed555" />
       <CheckBox layoutX="59.0" layoutY="256.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="115.0" style="-fx-text-fill: #eed555;" text="Remember me" textFill="#9e8585" />
-      <Hyperlink layoutX="170.0" layoutY="356.0" text="Sign Up" textFill="#eed555" />
-      <Text fill="#cdb4b4" layoutX="86.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?" />
+      <Hyperlink fx:id="signUpLink" layoutX="150.0" layoutY="354.0" text="Sign Up" textFill="#eed555"/>
+      <Text fill="#cdb4b4" layoutX="70.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?" />
       <FontAwesomeIconView fill="#eed555" glyphName="USERS" layoutX="159.0" layoutY="71.0" size="40" wrappingWidth="50.0000009778887" />
       <Text fill="#eed555" layoutX="123.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login " wrappingWidth="133.00000093877316">
          <font>

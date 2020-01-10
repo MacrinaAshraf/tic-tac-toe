@@ -37,7 +37,7 @@ public class HomePageController implements Initializable {
 	Button multiPlayer;
 	
 	Parent loginUI, playersMenuUI;
-	Controller cl;
+	PlayersMenuController playersMenuControl;
 	LoginController loginControl;
 	
     @Override
@@ -55,7 +55,7 @@ public class HomePageController implements Initializable {
 			loginUI = loginLoader.load();
 			playersMenuUI = playersMenuLoader.load();
 			
-			cl = (Controller) playersMenuLoader.getController();
+			playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
 			loginControl = (LoginController) loginLoader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -79,7 +79,7 @@ public class HomePageController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(playersMenuUI));
-				cl.setActionHandler(stage);
+				playersMenuControl.setActionHandler(stage);
 			}
     		
     	});
