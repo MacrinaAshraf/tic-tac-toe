@@ -75,6 +75,9 @@ class GameHandler extends Thread {
                         case "chat":
                             sendMessage(message.toString());
                             break;
+                        case "endofgame":
+                            endOfGame(message);
+                            break;
                         case "stop":
                             System.out.println("stop");
                             stopClient();                            
@@ -152,7 +155,7 @@ class GameHandler extends Thread {
                     c.setStatus("online");
                     c.setDataInputStream(dis);
                     c.setPrintStream(ps);
-                    placeInVector=clientsVector.indexOf(c);                 
+                    placeInVector=clientsVector.indexOf(c);                
                     
                     streams.put(c.getUserName(),c.getPrintStream());
                 }
@@ -201,6 +204,22 @@ class GameHandler extends Thread {
         playersJSONObject.put("Silver", playersJSONArraySilver);
         playersJSONObject.put("bronze", playersJSONArrayBronze);
         return playersJSONObject;
+    }
+    public void endOfGame(JSONObject data){
+        for (Client client : clientsVector) {
+            try {
+                if(client.getUserName().equals(data.get("username"))){
+                    client.setIsPlaying(false);
+                    client.setScore((int)data.get("firstplayerscore"));
+                }
+                else if(client.getUserName().equals(data.get("secondplayername"))){
+                    client.setIsPlaying(false);
+                    client.setScore((int)data.get("secondplayerscore"));
+                }
+            } catch (JSONException ex) {
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     public void stopClient(){
         try {
