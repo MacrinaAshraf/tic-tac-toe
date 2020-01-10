@@ -62,8 +62,8 @@ public class ServerGUI extends Application {
         });
         
         BorderPane root = new BorderPane();
-        root.setBottom(start);
-        root.setBottom(stop);
+        root.setRight(start);
+        root.setLeft(stop);
         
         Scene scene = new Scene(root, 300, 250);
         
