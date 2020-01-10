@@ -1,9 +1,9 @@
 package server;
 
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.Dictionary;
@@ -17,8 +17,10 @@ import org.json.JSONObject;
 
 class GameHandler extends Thread {
     Client client;
-    DataInputStream dis;
+    BufferedReader dis;
+    Socket clientSocket;
     PrintStream ps;
+    int placeInVector;
     boolean keepRunning;
     AllPlayers players;
     //dictionary {value : username, key: its printstream}
@@ -27,14 +29,16 @@ class GameHandler extends Thread {
     static Vector<Client> clientsVector = new Vector<Client>();
     static int countGameHandler=0;
     public GameHandler(Socket socket) throws IOException, SQLException {
-        countGameHandler++;
+        clientSocket=socket;
+        
         if(countGameHandler==0){
              players = new AllPlayers();
              players.getAllPlayers();
-        }       
+        } 
+        countGameHandler++;
         try {
             //making streams on socket, create client object and send to it the streams
-            dis = new DataInputStream(socket.getInputStream());
+            dis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             ps = new PrintStream(socket.getOutputStream());
             System.out.print(ps);
             System.out.println(dis);
@@ -45,43 +49,51 @@ class GameHandler extends Thread {
     }
 
     public void run() {
-        String str;
-        JSONObject message;
-        keepRunning = true;
-        ps.print("hiii");
-        while (keepRunning) {
-
-            try {
-                str = dis.readLine();
-                message = new JSONObject(str);
-                String type = (String) message.get("type");
-                switch (type) {
-                    case "invite":
-                        invite(message);
-                        break;
-                    case "responsetoinvite":
-                        respondToInvite(message);
-                        break;
-                    case "login":
-                        login(message);
-                        break;
-                    case "register":
-                        System.out.print("hello");
-                        register(message);
-                        break;
-                    case "chat":
-                        sendMessage(message.toString());
+        try {
+            String str;
+            JSONObject message;
+            keepRunning = true;
+            String inputLine;
+            ps.flush();            
+            while ((inputLine = dis.readLine()) != null) {               
+                try {                   
+                    message = new JSONObject(inputLine);
+                    String type = (String) message.get("type");                    
+                    switch (type) {
+                        case "invite":
+                            invite(message);
+                            break;
+                        case "responsetoinvite":
+                            respondToInvite(message);
+                            break;
+                        case "login":
+                            login(message);
+                            break;
+                        case "register":                            
+                            register(message);
+                            break;
+                        case "chat":
+                            sendMessage(message.toString());
+                            break;
+                        case "stop":
+                            System.out.println("stop");
+                            stopClient();                            
+                            break;                           
+                    }
+                } catch (IOException | JSONException ex) {                    
+                    Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException | JSONException ex) {
-                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+            }            
+        } catch (IOException ex) {         
+            System.out.print("Client Closed");         
+        } catch(NullPointerException e){                     
+            e.printStackTrace();
+            System.out.print("closed");                 
+        }            
     }
-
     public void stopSending() {
         keepRunning = false;
     }
-
     public void sendMessage(String msg) {
         //get the stream of the player's opponent from the dictionary with getPLayingWith
         PrintStream opponentPS = (PrintStream) streams.get(client.getPlayingWith());
@@ -89,10 +101,10 @@ class GameHandler extends Thread {
         opponentPS.println(msg);
         client.getPrintStream().println(msg);
     }
-
     public void invite(JSONObject msg) throws JSONException {
         //get the stream of the one to ask to play via the json Object toPlayWith key
         PrintStream playerToPlayWithStream = (PrintStream) streams.get(msg.get("toPlayWith"));
+        System.out.print(streams.get(msg.get("toPlayWith")));
         //write in the player's stream and his/her opponent's stream
         JSONObject inviteMessage = new JSONObject();
         //setting mesage type key and the username of the asking player
@@ -101,7 +113,6 @@ class GameHandler extends Thread {
         //sendint to the player the invitation object
         playerToPlayWithStream.println(inviteMessage.toString());
     }
-
     public void respondToInvite(JSONObject msg) throws JSONException {
         //getting the stream of the player to respond to
         PrintStream opponentPS = (PrintStream) streams.get(msg.get("toPlayWith"));
@@ -109,7 +120,7 @@ class GameHandler extends Thread {
         //setting the type of the JSON Object and username of the player who accepted/rejected the invitation
         responseToInviteMessage.put("type", "responsetoinvite");
         responseToInviteMessage.put("username", msg.get("username"));
-        if (msg.get("response") == "accept") {
+        if (msg.get("response").equals("accept") ){
             //setting connections
             String username = (String) msg.get("username");
             String toPlayWith = (String) msg.get("toPlayWith");
@@ -131,36 +142,33 @@ class GameHandler extends Thread {
         //sending the response JSON object to the askingPlayer
         opponentPS.println(responseToInviteMessage.toString());
     }
-
     public void login(JSONObject data) throws JSONException {
         LoginController login = new LoginController();
         login.Check((String) data.get("username"), (String) data.get("password"));
-        ps.print(login.getResult());
+        ps.println(login.getResult());
         if (login.getResult().get("res") == "Successfully") {
             for (Client c : clientsVector) {
-                if (c.getUserName() == (String) data.get("username")) {
+                if (c.getUserName().equals(data.get("username")) ) {
                     c.setStatus("online");
                     c.setDataInputStream(dis);
                     c.setPrintStream(ps);
+                    placeInVector=clientsVector.indexOf(c);                 
+                    
                     streams.put(c.getUserName(),c.getPrintStream());
                 }
             }
         }
 
     }
-
     public void register(JSONObject data) throws JSONException, IOException {
-
         SignUpController signup = new SignUpController();
         signup.update((String) data.get("username"), (String) data.get("password"), (String) data.get("email"));
-
-        if (signup.getResult().get("res") == "Successfully") {
+        if (signup.getResult().get("res").equals("Successfully")) {
             Client temp = new Client();
             temp.setUserName((String) data.get("username"));
             clientsVector.add(temp);
         }
     }
-
     public static JSONObject playersJSON() throws JSONException {
         JSONObject player;
         //players tiers (Gold, Silver, Bronze)
@@ -194,5 +202,23 @@ class GameHandler extends Thread {
         playersJSONObject.put("bronze", playersJSONArrayBronze);
         return playersJSONObject;
     }
-
+    public void stopClient(){
+        try {
+            System.out.print(clientsVector.size());
+            System.out.print(placeInVector);
+            clientsVector.elementAt(placeInVector).setStatus("offline");
+            clientsVector.elementAt(placeInVector).setIsPlaying(false);
+            clientsVector.elementAt(placeInVector).setPlayingWith(null);
+            System.out.print(clientsVector.elementAt(placeInVector).getStatus());
+          
+            ps.close();
+            dis.close();
+            clientSocket.close();
+            keepRunning=false;           
+            stop();
+        } catch (IOException ex) {
+            Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   
 }
