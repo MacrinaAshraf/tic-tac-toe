@@ -104,9 +104,9 @@ public class ServerGUI extends Application {
         root.setBottom(stop);
         root.setRight(displayPlayers);
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 800, 550);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Server");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

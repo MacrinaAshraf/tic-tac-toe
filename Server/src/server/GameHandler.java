@@ -131,6 +131,7 @@ class GameHandler extends Thread {
                 }
             }
             responseToInviteMessage.put("response", "accept");
+            playersJSON();
 
         } else {
             responseToInviteMessage.put("response", "rejected");
@@ -149,8 +150,8 @@ class GameHandler extends Thread {
                     c.setStatus("online");
                     c.setDataInputStream(dis);
                     c.setPrintStream(ps);
-                    placeInVector=GameServer.clientsVector.indexOf(c);                
-                    
+                    placeInVector=GameServer.clientsVector.indexOf(c);              
+                    playersJSON();
                     streams.put(c.getUserName(),c.getPrintStream());
                 }
             }
@@ -164,9 +165,11 @@ class GameHandler extends Thread {
             Client temp = new Client();
             temp.setUserName((String) data.get("username"));
             GameServer.clientsVector.add(temp);
+            placeInVector=GameServer.clientsVector.size()-1;
+            playersJSON();
         }
     }
-    public static JSONObject playersJSON() throws JSONException {
+    public static void playersJSON() throws JSONException {
         JSONObject player;
         //players tiers (Gold, Silver, Bronze)
         JSONArray playersJSONArrayGold = new JSONArray();
@@ -197,22 +200,29 @@ class GameHandler extends Thread {
         playersJSONObject.put("Gold", playersJSONArrayGold);
         playersJSONObject.put("Silver", playersJSONArraySilver);
         playersJSONObject.put("bronze", playersJSONArrayBronze);
-        return playersJSONObject;
+        playersJSONObject.put("type", "playerlist");
+        for (Client c : GameServer.clientsVector) {
+              c.getPrintStream().println(playersJSONObject);        
+        }
+       
+       
     }
     public void endOfGame(JSONObject data){
         for (Client client : GameServer.clientsVector) {
             try {
                 if(client.getUserName().equals(data.get("username"))){
                     client.setIsPlaying(false);
-                    client.setScore((int)data.get("firstplayerscore"));
+                    client.setScore((int)data.get("score"));
                 }
-                else if(client.getUserName().equals(data.get("secondplayername"))){
-                    client.setIsPlaying(false);
-                    client.setScore((int)data.get("secondplayerscore"));
-                }
+               
             } catch (JSONException ex) {
                 Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        try {
+            playersJSON();
+        } catch (JSONException ex) {
+            Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void stopClient(){

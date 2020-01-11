@@ -3,8 +3,10 @@ package server;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.PrintStream;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
-public class Client {
+public class Client implements Observable{
     String userName;
     String playingWith;
     int score;
@@ -67,6 +69,16 @@ public class Client {
     }
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        System.out.print("changed");//To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
