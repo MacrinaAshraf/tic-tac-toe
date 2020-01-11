@@ -82,10 +82,13 @@ class GameHandler extends Thread {
                 }
             }            
         } catch (IOException ex) {         
-            System.out.print("Client Closed");         
+           
+            GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
+            GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
+            
         } catch(NullPointerException e){                     
             e.printStackTrace();
-            System.out.print("closed");                 
+                          
         }            
     }
     public void stopSending() {
@@ -202,6 +205,7 @@ class GameHandler extends Thread {
         playersJSONObject.put("bronze", playersJSONArrayBronze);
         playersJSONObject.put("type", "playerlist");
         for (Client c : GameServer.clientsVector) {
+            if(c.getPrintStream()!=null)
               c.getPrintStream().println(playersJSONObject);        
         }
        
