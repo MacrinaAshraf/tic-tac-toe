@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import org.json.JSONObject;
 
 public class GameServer {
@@ -34,6 +36,7 @@ public class GameServer {
              players.getAllPlayers();
             }
             countStart++;
+     
              
             System.out.println("i am about to run");
             while(keepRunning){

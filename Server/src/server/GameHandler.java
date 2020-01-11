@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class GameHandler extends Thread {
+
     Client client;
     BufferedReader dis;
     Socket clientSocket;
@@ -25,11 +26,10 @@ class GameHandler extends Thread {
     AllPlayers players;
     //dictionary {value : username, key: its printstream}
     static Dictionary streams = new Hashtable();
-   
+
     public GameHandler(Socket socket) throws IOException, SQLException {
-        clientSocket=socket;
-        
-       
+        clientSocket = socket;
+
         try {
             //making streams on socket, create client object and send to it the streams
             dis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -48,11 +48,11 @@ class GameHandler extends Thread {
             JSONObject message;
             keepRunning = true;
             String inputLine;
-            ps.flush();            
-            while ((inputLine = dis.readLine()) != null) {               
-                try {                   
+            ps.flush();
+            while ((inputLine = dis.readLine()) != null) {
+                try {
                     message = new JSONObject(inputLine);
-                    String type = (String) message.get("type");                    
+                    String type = (String) message.get("type");
                     switch (type) {
                         case "invite":
                             invite(message);
@@ -63,7 +63,10 @@ class GameHandler extends Thread {
                         case "login":
                             login(message);
                             break;
-                        case "register":                            
+                        case "logout":
+                            logout();
+                            break;
+                        case "register":
                             register(message);
                             break;
                         case "chat":
@@ -74,26 +77,29 @@ class GameHandler extends Thread {
                             break;
                         case "stop":
                             System.out.println("stop");
-                            stopClient();                            
-                            break;                           
+                            stopClient();
+                            break;
                     }
-                } catch (IOException | JSONException ex) {                    
+                } catch (IOException | JSONException ex) {
                     Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }            
-        } catch (IOException ex) {         
-           
+            }
+        } catch (IOException ex) {
             GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
             GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
-            
-        } catch(NullPointerException e){                     
+            ServerGUI.table.refresh();
+            logout();
+
+        } catch (NullPointerException e) {
             e.printStackTrace();
-                          
-        }            
+
+        }
     }
+
     public void stopSending() {
         keepRunning = false;
     }
+
     public void sendMessage(String msg) {
         //get the stream of the player's opponent from the dictionary with getPLayingWith
         PrintStream opponentPS = (PrintStream) streams.get(client.getPlayingWith());
@@ -101,6 +107,7 @@ class GameHandler extends Thread {
         opponentPS.println(msg);
         client.getPrintStream().println(msg);
     }
+
     public void invite(JSONObject msg) throws JSONException {
         //get the stream of the one to ask to play via the json Object toPlayWith key
         PrintStream playerToPlayWithStream = (PrintStream) streams.get(msg.get("toPlayWith"));
@@ -113,6 +120,7 @@ class GameHandler extends Thread {
         //sendint to the player the invitation object
         playerToPlayWithStream.println(inviteMessage.toString());
     }
+
     public void respondToInvite(JSONObject msg) throws JSONException {
         //getting the stream of the player to respond to
         PrintStream opponentPS = (PrintStream) streams.get(msg.get("toPlayWith"));
@@ -120,15 +128,15 @@ class GameHandler extends Thread {
         //setting the type of the JSON Object and username of the player who accepted/rejected the invitation
         responseToInviteMessage.put("type", "responsetoinvite");
         responseToInviteMessage.put("username", msg.get("username"));
-        if (msg.get("response").equals("accept") ){
+        if (msg.get("response").equals("accept")) {
             //setting connections
             String username = (String) msg.get("username");
             String toPlayWith = (String) msg.get("toPlayWith");
             for (int i = 0; i < GameServer.clientsVector.size(); i++) {
-                if (GameServer.clientsVector.elementAt(i).getUserName().equals(msg.get("toPlayWith")) ){
+                if (GameServer.clientsVector.elementAt(i).getUserName().equals(msg.get("toPlayWith"))) {
                     GameServer.clientsVector.elementAt(i).setPlayingWith(username);
                     GameServer.clientsVector.elementAt(i).setIsPlaying(true);
-                } else if (GameServer.clientsVector.elementAt(i).getUserName().equals( msg.get("username"))) {
+                } else if (GameServer.clientsVector.elementAt(i).getUserName().equals(msg.get("username"))) {
                     GameServer.clientsVector.elementAt(i).setPlayingWith(toPlayWith);
                     GameServer.clientsVector.elementAt(i).setIsPlaying(true);
                 }
@@ -143,24 +151,26 @@ class GameHandler extends Thread {
         //sending the response JSON object to the askingPlayer
         opponentPS.println(responseToInviteMessage.toString());
     }
+
     public void login(JSONObject data) throws JSONException {
         LoginController login = new LoginController();
         login.Check((String) data.get("username"), (String) data.get("password"));
         ps.println(login.getResult());
         if (login.getResult().get("res") == "Successfully") {
             for (Client c : GameServer.clientsVector) {
-                if (c.getUserName().equals(data.get("username")) ) {
+                if (c.getUserName().equals(data.get("username"))) {
                     c.setStatus("online");
                     c.setDataInputStream(dis);
                     c.setPrintStream(ps);
-                    placeInVector=GameServer.clientsVector.indexOf(c);              
+                    placeInVector = GameServer.clientsVector.indexOf(c);
                     playersJSON();
-                    streams.put(c.getUserName(),c.getPrintStream());
+                    streams.put(c.getUserName(), c.getPrintStream());
                 }
             }
         }
 
     }
+
     public void register(JSONObject data) throws JSONException, IOException {
         SignUpController signup = new SignUpController();
         signup.update((String) data.get("username"), (String) data.get("password"), (String) data.get("email"));
@@ -168,10 +178,11 @@ class GameHandler extends Thread {
             Client temp = new Client();
             temp.setUserName((String) data.get("username"));
             GameServer.clientsVector.add(temp);
-            placeInVector=GameServer.clientsVector.size()-1;
+            placeInVector = GameServer.clientsVector.size() - 1;
             playersJSON();
         }
     }
+
     public static void playersJSON() throws JSONException {
         JSONObject player;
         //players tiers (Gold, Silver, Bronze)
@@ -179,7 +190,7 @@ class GameHandler extends Thread {
         JSONArray playersJSONArraySilver = new JSONArray();
         JSONArray playersJSONArrayBronze = new JSONArray();
         JSONObject playersJSONObject = new JSONObject();
-        
+
         for (Client c : GameServer.clientsVector) {
             try {
                 player = new JSONObject();
@@ -199,26 +210,28 @@ class GameHandler extends Thread {
                 Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         playersJSONObject.put("Gold", playersJSONArrayGold);
         playersJSONObject.put("Silver", playersJSONArraySilver);
         playersJSONObject.put("bronze", playersJSONArrayBronze);
         playersJSONObject.put("type", "playerlist");
         for (Client c : GameServer.clientsVector) {
-            if(c.getPrintStream()!=null)
-              c.getPrintStream().println(playersJSONObject);        
+            if (c.getPrintStream() != null) {
+                c.getPrintStream().println(playersJSONObject);
+            }
         }
-       
-       
+        ServerGUI.table.refresh();
+
     }
-    public void endOfGame(JSONObject data){
+
+    public void endOfGame(JSONObject data) {
         for (Client client : GameServer.clientsVector) {
             try {
-                if(client.getUserName().equals(data.get("username"))){
+                if (client.getUserName().equals(data.get("username"))) {
                     client.setIsPlaying(false);
-                    client.setScore((int)data.get("score"));
+                    client.setScore((int) data.get("score"));
                 }
-               
+
             } catch (JSONException ex) {
                 Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -229,22 +242,39 @@ class GameHandler extends Thread {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void stopClient(){
+
+    public void logout() {
+
+        GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
+        GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
+         try {
+                playersJSON();
+            } catch (JSONException ex) {
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        ServerGUI.table.refresh();
+    }
+
+    public void stopClient() {
         try {
-            System.out.print(GameServer.clientsVector.size());
-            System.out.print(placeInVector);
+            
             GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
             GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
             GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
-            System.out.print(GameServer.clientsVector.elementAt(placeInVector).getStatus());          
+            try {
+                playersJSON();
+            } catch (JSONException ex) {
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ServerGUI.table.refresh();
             ps.close();
             dis.close();
             clientSocket.close();
-            keepRunning=false;           
+            keepRunning = false;
             stop();
         } catch (IOException ex) {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+
 }

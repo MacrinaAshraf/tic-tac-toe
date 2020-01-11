@@ -12,17 +12,21 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -34,14 +38,19 @@ public class ServerGUI extends Application {
 
     GameServer gameServer;
     ServerRunning runServer;
-    ObservableList list;
-    TableView<Client> table;
+    static ObservableList list;
+    static TableView<Client> table;
+    HBox box;
     BorderPane root;
+    BorderPane bottomPane;
+    FlowPane boxPane;
 
     @Override
     public void start(Stage primaryStage) {
         Button start = new Button();
         Button stop = new Button();
+        box = new HBox();
+        boxPane = new FlowPane();
         Button displayPlayers = new Button();
         start.setText("run Server");
         stop.setText("stop Server");
@@ -94,17 +103,19 @@ public class ServerGUI extends Application {
                 table.setItems(list);
                 table.getColumns().addAll(usernameColumn, statusColumn, scoreColumn);
                 root.setCenter(table);
-                System.out.print(table);
+
             }
         });
-
-        root = new BorderPane(table);
-        root.setLeft(start);
+        boxPane.setHgap(100);
+        boxPane.setPadding(new Insets(10, 10, 10, 60));
+        boxPane.getChildren().addAll(start, stop, displayPlayers);
+        root = new BorderPane();
+        bottomPane = new BorderPane();
+        bottomPane.setCenter(boxPane);
         root.setCenter(table);
-        root.setBottom(stop);
-        root.setRight(displayPlayers);
+        root.setBottom(bottomPane);
 
-        Scene scene = new Scene(root, 800, 550);
+        Scene scene = new Scene(root, 620, 550);
 
         primaryStage.setTitle("Server");
         primaryStage.setScene(scene);
