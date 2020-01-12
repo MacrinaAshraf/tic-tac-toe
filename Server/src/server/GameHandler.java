@@ -49,7 +49,8 @@ class GameHandler extends Thread {
             keepRunning = true;
             String inputLine;
             ps.flush();
-            while ((inputLine = dis.readLine()) != null) {
+            while ((inputLine = dis.readLine()) != null&&GameServer.keepRunning==true) {
+                if(!GameServer.keepRunning)break;
                 try {
                     message = new JSONObject(inputLine);
                     String type = (String) message.get("type");
@@ -64,7 +65,7 @@ class GameHandler extends Thread {
                             login(message);
                             break;
                         case "logout":
-                            logout();
+                            stopClient();
                             break;
                         case "register":
                             register(message);
@@ -84,11 +85,12 @@ class GameHandler extends Thread {
                     Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            System.out.println("stopped11");
         } catch (IOException ex) {
             GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
             GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
             ServerGUI.table.refresh();
-            logout();
+            stopClient();
 
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -174,11 +176,15 @@ class GameHandler extends Thread {
     public void register(JSONObject data) throws JSONException, IOException {
         SignUpController signup = new SignUpController();
         signup.update((String) data.get("username"), (String) data.get("password"), (String) data.get("email"));
-        if (signup.getResult().get("res").equals("Successfully")) {
+        System.out.println(signup.getResult().get("res"));
+        if (signup.getResult().get("res").equals("Successfuly")) {
             Client temp = new Client();
             temp.setUserName((String) data.get("username"));
+            temp.setPrintStream(ps);
+            temp.setDataInputStream(dis);
+            temp.setStatus("online");
             GameServer.clientsVector.add(temp);
-            placeInVector = GameServer.clientsVector.size() - 1;
+            placeInVector = GameServer.clientsVector.indexOf(temp);            
             playersJSON();
         }
     }
@@ -197,6 +203,7 @@ class GameHandler extends Thread {
                 player.put("username", c.getUserName());
                 player.put("score", c.getScore());
                 player.put("status", c.getStatus());
+                player.put("playing", c.getIsPlaying());
 
                 if (c.getScore() >= 300) {
                     playersJSONArrayGold.put(player);
@@ -216,20 +223,31 @@ class GameHandler extends Thread {
         playersJSONObject.put("bronze", playersJSONArrayBronze);
         playersJSONObject.put("type", "playerlist");
         for (Client c : GameServer.clientsVector) {
-            if (c.getPrintStream() != null) {
+            if (c.getPrintStream() != null&&c.getStatus().equals("online")) {
                 c.getPrintStream().println(playersJSONObject);
             }
         }
-        ServerGUI.table.refresh();
+       if(ServerGUI.table!=null) ServerGUI.table.refresh();
 
     }
 
     public void endOfGame(JSONObject data) {
+        int score=0;
+        String s;
+        
+        try {
+            s = (String)data.get("score");            
+            score=Integer.parseInt(s);
+        } catch (JSONException ex) {
+            Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         for (Client client : GameServer.clientsVector) {
             try {
                 if (client.getUserName().equals(data.get("username"))) {
                     client.setIsPlaying(false);
-                    client.setScore((int) data.get("score"));
+                    System.out.println(score);
+                    client.setScore(score);
                 }
 
             } catch (JSONException ex) {
@@ -243,17 +261,7 @@ class GameHandler extends Thread {
         }
     }
 
-    public void logout() {
-
-        GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
-        GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
-         try {
-                playersJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        ServerGUI.table.refresh();
-    }
+   
 
     public void stopClient() {
         try {
@@ -266,6 +274,7 @@ class GameHandler extends Thread {
             } catch (JSONException ex) {
                 Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println("hi");
             ServerGUI.table.refresh();
             ps.close();
             dis.close();

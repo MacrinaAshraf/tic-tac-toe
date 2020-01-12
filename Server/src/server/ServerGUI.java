@@ -83,6 +83,7 @@ public class ServerGUI extends Application {
                     runServer = null;
                     System.out.println("Server Closing");
                 }
+                table.setVisible(false);
             }
         });
         displayPlayers.setOnAction(new EventHandler<ActionEvent>() {
@@ -99,10 +100,14 @@ public class ServerGUI extends Application {
                 TableColumn<Client, Integer> scoreColumn = new TableColumn<>("score");
                 scoreColumn.setMinWidth(200);
                 scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+                TableColumn<Client, String> playingWithColum = new TableColumn<>("playingWith");
+                playingWithColum.setMinWidth(200);
+                playingWithColum.setCellValueFactory(new PropertyValueFactory<>("playingWith"));
                 table = new TableView<>();
                 table.setItems(list);
-                table.getColumns().addAll(usernameColumn, statusColumn, scoreColumn);
+                table.getColumns().addAll(usernameColumn, statusColumn, scoreColumn,playingWithColum);
                 root.setCenter(table);
+                table.setVisible(true);
 
             }
         });
@@ -115,7 +120,7 @@ public class ServerGUI extends Application {
         root.setCenter(table);
         root.setBottom(bottomPane);
 
-        Scene scene = new Scene(root, 620, 550);
+        Scene scene = new Scene(root, 820, 550);
 
         primaryStage.setTitle("Server");
         primaryStage.setScene(scene);

@@ -13,16 +13,17 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GameServer {
     ServerSocket myServerSocket;
-    boolean keepRunning;
+    static boolean keepRunning;
     GameHandler ch;
     AllPlayers players;
     static Vector<Client> clientsVector = new Vector<Client>();
     static int countStart=0;
-
+    JSONObject message;
     public GameServer() throws IOException{
         
     }
@@ -64,7 +65,25 @@ public class GameServer {
         
     }
     public void stop(){
-        keepRunning = false;
+        message=new JSONObject();
+        for(Client c: clientsVector){
+            if(c.getStatus().equals("online")){
+                try {
+                    System.out.print(message);
+                    message.put("type", "stop");
+                    c.getPrintStream().println(message);
+                    c.setStatus("offline");
+                    c.setIsPlaying(false);
+                    c.setPrintStream(null);
+                    c.setDataInputStream(null);
+                    
+                } catch (JSONException ex) {
+                    Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            keepRunning = false;
+        }
         try {
             //new Socket("localhost", 5008);
             myServerSocket.close();
