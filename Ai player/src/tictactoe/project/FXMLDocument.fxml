@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="783.0"
 	xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="playscreen.FXMLDocumentController">
+	fx:controller="playscreen.GameController">
 	<children>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="-2.0"
 			pickOnBounds="true" preserveRatio="true">
@@ -52,28 +52,28 @@
 			<children>
 				<Button fx:id="button1" mnemonicParsing="false" onAction="#btn1"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button2" mnemonicParsing="false" onAction="#btn2"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="1">
+					textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button3" mnemonicParsing="false" onAction="#btn3"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button4" mnemonicParsing="false" onAction="#btn4"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.rowIndex="1">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
@@ -95,7 +95,7 @@
 				</Button>
 				<Button fx:id="button7" mnemonicParsing="false" onAction="#btn7"
 					prefHeight="92.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.rowIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>

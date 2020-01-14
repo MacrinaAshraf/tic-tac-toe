@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe.project;
+package playscreen;
 
 /**
  *
@@ -11,18 +11,15 @@ package tictactoe.project;
  */
 public class Point {
 
-    public int x, y;
-    public  Point (int x ,int y)
-    {
-    
-    this.x=x;
-    this.y=y;
-   }
+	public int x, y;
 	
-//    @Override
-//    public String toString() {
-//       return "["+x+" , "+y +"]";
-//    }
-    
+	public Point() {
+		this.x = 0;
+		this.y = 0;
+	}
 
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 }

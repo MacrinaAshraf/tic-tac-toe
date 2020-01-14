@@ -14,15 +14,15 @@ public class Main extends Application {
 	//Controller cl;
     @Override
     public void start(Stage primaryStage) throws Exception{
-    	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
+    	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent loginUI = loginLoader.load();
     	primaryStage.setTitle("TicTacToe");
         primaryStage.setScene(new Scene(loginUI));
         primaryStage.show();
         primaryStage.setMinWidth(200);
         primaryStage.setMinHeight(120);
-        //loginControl = (LoginController)loginLoader.getController();
-        //loginControl.setActionHandler(primaryStage);
+        loginControl = (LoginController)loginLoader.getController();
+        loginControl.setActionHandler(primaryStage);
         /*cl = (Controller)loginLoader.getController();
         cl.setActionHandler(primaryStage);*/
     }

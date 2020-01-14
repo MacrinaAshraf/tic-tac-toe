@@ -11,14 +11,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setMinWidth(200);
         primaryStage.setMinHeight(120);
         primaryStage.show();
         
-        FXMLDocumentController cl = (FXMLDocumentController)loader.getController();
+        GameController cl = (GameController)loader.getController();
+        cl.assignNumber();
+        //cl.playAgainstComputer();
         //cl.setActionListener();
 		
 	}

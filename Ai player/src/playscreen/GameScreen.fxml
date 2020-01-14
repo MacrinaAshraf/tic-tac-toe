@@ -14,24 +14,22 @@
 
 <AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="783.0"
 	xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="playscreen.FXMLDocumentController">
+	fx:controller="playscreen.GameController">
 	<children>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="-2.0"
 			pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../image/screen.gif" />
+				<Image url="@screen.gif" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="414.0"
 			layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../image/screen.gif" />
+				<Image url="@screen.gif" />
 			</image>
 		</ImageView>
-		<Label fx:id="label" layoutX="126" layoutY="120" minHeight="16"
-			minWidth="69" />
-		<GridPane fx:id="gridPane" gridLinesVisible="true" layoutX="123.0"
-			layoutY="137.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0"
+		<GridPane gridLinesVisible="true" layoutX="123.0" layoutY="137.0"
+			opacity="0.73" prefHeight="275.0" prefWidth="539.0"
 			style="-fx-background-color: #f2f2f2; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
@@ -52,28 +50,28 @@
 			<children>
 				<Button fx:id="button1" mnemonicParsing="false" onAction="#btn1"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button2" mnemonicParsing="false" onAction="#btn2"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="1">
+					textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button3" mnemonicParsing="false" onAction="#btn3"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button4" mnemonicParsing="false" onAction="#btn4"
 					prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.rowIndex="1">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
@@ -87,31 +85,28 @@
 				</Button>
 				<Button fx:id="button6" mnemonicParsing="false" onAction="#btn6"
 					prefHeight="102.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="2"
-					GridPane.rowIndex="1">
+					textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button7" mnemonicParsing="false" onAction="#btn7"
 					prefHeight="92.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.rowIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button8" mnemonicParsing="false" onAction="#btn8"
 					prefHeight="90.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="1"
-					GridPane.rowIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 				<Button fx:id="button9" mnemonicParsing="false" onAction="#btn9"
 					prefHeight="80.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;"
-					textFill="#2f902b" GridPane.columnIndex="2"
-					GridPane.rowIndex="2">
+					textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
@@ -166,7 +161,7 @@
 		<FontAwesomeIconView fill="#f2efef" glyphName="LIST"
 			layoutX="705.0" layoutY="55.0" size="20" text="" textAlignment="CENTER"
 			wrappingWidth="41.0" />
-		<Button fx:id="Resetbuttton" layoutX="362.0" layoutY="500.0"
+		<Button layoutX="362.0" layoutY="500.0"
 			mnemonicParsing="false" onAction="#Reset" prefHeight="25.0"
 			prefWidth="80.0" text="Reset" />
 	</children>

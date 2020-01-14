@@ -36,9 +36,10 @@ public class HomePageController implements Initializable {
 	@FXML
 	Button multiPlayer;
 	
-	Parent loginUI, playersMenuUI;
+	Parent loginUI, playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
 	LoginController loginControl;
+	private GameController gameControl;
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,13 +51,15 @@ public class HomePageController implements Initializable {
     public void setActionHandler(Stage stage) {
     	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
     	FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
-    	
+    	FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
         try {
 			loginUI = loginLoader.load();
 			playersMenuUI = playersMenuLoader.load();
+			gameScreenUI = gameLoader.load();
 			
 			playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
 			loginControl = (LoginController) loginLoader.getController();
+			gameControl = (GameController) gameLoader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,6 +83,18 @@ public class HomePageController implements Initializable {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(playersMenuUI));
 				playersMenuControl.setActionHandler(stage);
+			}
+    		
+    	});
+    	
+    	singlePlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				gameControl.setStage(stage);
+				stage.setScene(new Scene(gameScreenUI));
+				gameControl.assignNumber();
 			}
     		
     	});
