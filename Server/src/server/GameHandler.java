@@ -30,7 +30,7 @@ class GameHandler extends Thread {
 
     public GameHandler(Socket socket) throws IOException, SQLException {
         clientSocket = socket;
-
+        client=new Client();
         try {
             //making streams on socket, create client object and send to it the streams
             dis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -172,7 +172,11 @@ class GameHandler extends Thread {
                     streams.put(c.getUserName(), c.getPrintStream());
                     playersJSON();
                 }
+                
             }
+            
+            client.setUserName((String)data.get("username"));
+
         }
 
     }
@@ -193,6 +197,7 @@ class GameHandler extends Thread {
             streams.put(temp.getUserName(), temp.getPrintStream());
             playersJSON();
         }
+        ps.println(signup.getResult());
     }
 
     public static void playersJSON() throws JSONException {
@@ -244,9 +249,11 @@ class GameHandler extends Thread {
     public void endOfGame(JSONObject data) {
         int score = 0;
         String s;
+        ScoreController scoreCtrl=new ScoreController();
         try {
             s = (String) data.get("score");
             score = Integer.parseInt(s);
+            scoreCtrl.setScore(client.getUserName(), s);
         } catch (JSONException ex) {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

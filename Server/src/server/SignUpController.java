@@ -25,8 +25,7 @@ public class SignUpController {
     	    PreparedStatement pst = con.getCon().prepareStatement(query);
             pst.setString(1,FullName);
             pst.setString(2,Password);
-            pst.setString(3,Email);
-            
+            pst.setString(3,Email);            
             pst.executeUpdate();
             result.put("res", "Successfuly");
             System.out.println("Inserted");
