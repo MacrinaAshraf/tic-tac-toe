@@ -83,7 +83,7 @@ public class ServerGUI extends Application {
                     runServer = null;
                     System.out.println("Server Closing");
                 }
-                table.setVisible(false);
+              if(table!=null)  table.setVisible(false);
             }
         });
         displayPlayers.setOnAction(new EventHandler<ActionEvent>() {

@@ -20,11 +20,8 @@
             <Image url="@../img/Login%20(1).png" />
          </image>
       </ImageView>
-      <TextField layoutX="83.0" layoutY="124.0" prefHeight="27.0" prefWidth="217.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-text-fill: white; -fx-prompt-text-fill: #eed555;">
-         <cursor>
-           
-         </cursor></TextField>
-      <PasswordField layoutX="86.0" layoutY="186.0" prefHeight="27.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+      <TextField fx:id="username" layoutX="83.0" layoutY="124.0" prefHeight="27.0" prefWidth="217.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-text-fill: white; -fx-prompt-text-fill: #eed555;"/>
+      <PasswordField fx:id="password" layoutX="86.0" layoutY="186.0" prefHeight="27.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
       <FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="59.0" layoutY="144.0" size="20" />
       <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="57.0" layoutY="208.0" size="20" text="" />
       <Button fx:id="loginBtn" layoutX="76.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #eed555;" text="login" textFill="#141414">
