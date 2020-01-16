@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
 		// TODO
 	}
 
-	public void setActionHandler(Stage stage, Client client) {
+	public void setActionHandler(Stage stage) {
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
 		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
 		try {
@@ -75,27 +75,27 @@ public class LoginController implements Initializable {
 				// TODO Auto-generated method stub
 
 				try {
-					sendPlayerData(client);
+					sendPlayerData();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				while (client.getPlayer().getId() == 0) {
-					System.out.println(client.getPlayer().getId());
-					if (client.getPlayer().getId() == -1) {
+				while (Main.client.getPlayer().getId() == 0) {
+					System.out.println(Main.client.getPlayer().getId());
+					if (Main.client.getPlayer().getId() == -1) {
 						System.out.println("you can't login.");
 						break;
-					} else if (client.getPlayer().getId() > 0) {
+					} else if (Main.client.getPlayer().getId() > 0) {
 						stage.setScene(new Scene(homePageUI));
-						homePageControl.setActionHandler(stage, client);
+						homePageControl.setActionHandler(stage);
 						break;
 					} else {
 
 					}
 				}
 				
-				client.getPlayer().setId(0);
+				Main.client.getPlayer().setId(0);
 
 			}
 
@@ -107,16 +107,16 @@ public class LoginController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(signUpUI));
-				signUpControl.setActionHandler(stage, client);
+				signUpControl.setActionHandler(stage);
 			}
 
 		});
 
 	}
 
-	public void sendPlayerData(Client client) throws JSONException {
-		client.login(username.getText(), password.getText());
-		client.ps.println(client.sendJson);
+	public void sendPlayerData() throws JSONException {
+		Main.client.login(username.getText(), password.getText());
+		Main.client.ps.println(Main.client.sendJson);
 	}
 
 }

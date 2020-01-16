@@ -358,7 +358,7 @@ public class GameController implements Initializable {
 		
 		HomePageController homePageControl = (HomePageController)homePageLoader.getController();
 		stage.setScene(new Scene(homePageUI));
-		homePageControl.setActionHandler(stage, client);
+		homePageControl.setActionHandler(stage);
 	}
 	
 	
