@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	LoginController loginControl;
+	Client client = new Client();
 	//Controller cl;
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -22,7 +23,9 @@ public class Main extends Application {
         primaryStage.setMinWidth(200);
         primaryStage.setMinHeight(120);
         loginControl = (LoginController)loginLoader.getController();
-        loginControl.setActionHandler(primaryStage);
+        loginControl.setActionHandler(primaryStage, client);
+        
+        
         /*cl = (Controller)loginLoader.getController();
         cl.setActionHandler(primaryStage);*/
     }

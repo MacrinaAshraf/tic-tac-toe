@@ -48,7 +48,7 @@ public class HomePageController implements Initializable {
         
     }
     
-    public void setActionHandler(Stage stage) {
+    public void setActionHandler(Stage stage, Client client) {
     	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
     	FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
     	FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
@@ -71,7 +71,7 @@ public class HomePageController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(loginUI));
-				loginControl.setActionHandler(stage);
+				loginControl.setActionHandler(stage, client);
 			}
     		
     	});

@@ -158,7 +158,7 @@ class GameHandler extends Thread {
     }
 
     public void login(JSONObject data) throws JSONException {
-        LoginController login = new LoginController();
+        LoginManager login = new LoginManager();
         login.Check((String) data.get("username"), (String) data.get("password"));
         ps.println(login.getResult());
         if (login.getResult().get("res") == "Successfully") {
@@ -178,7 +178,7 @@ class GameHandler extends Thread {
     }
 
     public void register(JSONObject data) throws JSONException, IOException {
-        SignUpController signup = new SignUpController();
+        SignUpManager signup = new SignUpManager();
         signup.update((String) data.get("username"), (String) data.get("password"), (String) data.get("email"));
         System.out.println(signup.getResult().get("res"));
         if (signup.getResult().get("res").equals("Successfuly")) {

@@ -39,7 +39,7 @@ public class GameController implements Initializable {
 	private String player = "";
 	private Point position = new Point();
 	private Boolean turnFlag = true; // true if its user player, false if its computer player
-
+	Client client;
 	@FXML
 	private GridPane gridPane;
 	@FXML
@@ -358,7 +358,7 @@ public class GameController implements Initializable {
 		
 		HomePageController homePageControl = (HomePageController)homePageLoader.getController();
 		stage.setScene(new Scene(homePageUI));
-		homePageControl.setActionHandler(stage);
+		homePageControl.setActionHandler(stage, client);
 	}
 	
 	

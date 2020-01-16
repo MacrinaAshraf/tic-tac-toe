@@ -21,7 +21,7 @@ import org.json.JSONObject;
  *
  * @author Ismail_khadr
  */
-public class LoginController {
+public class LoginManager {
 	private DatabaseConnection con = new DatabaseConnection();
 	PreparedStatement stmt;
 	ResultSet rs ;
@@ -39,15 +39,20 @@ public class LoginController {
 	        if(rs.next()) {
 	        	System.out.println("you are welcome");
                         result.put("res", "Successfully");
+                        result.put("type","login");
+                        result.put("name", rs.getString("name"));
+                        result.put("id", rs.getInt("id"));
+                        result.put("score", rs.getInt("score"));
 	            flag = false;
 	        }
 	        
 	        if(flag) {
-                       result.put("res", "failed");
+	        	result.put("type","login");
+                result.put("res", "failed");
 	        	System.err.println("Not a member");
 	        }
 	    } catch (SQLException ex) {
-	            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+	            Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
     public JSONObject getResult(){

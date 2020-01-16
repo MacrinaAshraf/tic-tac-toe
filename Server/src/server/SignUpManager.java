@@ -8,7 +8,7 @@ import java.sql.Connection;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SignUpController {
+public class SignUpManager {
     private DatabaseConnection con = new DatabaseConnection(); 
     Socket mySocket;
     DataInputStream dis ;
