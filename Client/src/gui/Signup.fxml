@@ -22,7 +22,7 @@
 			</image>
 		</ImageView>
 		<Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-		<TextField layoutX="69.0" layoutY="137.0" prefHeight="25.0"
+		<TextField fx:id="username" layoutX="69.0" layoutY="137.0" prefHeight="25.0"
 			prefWidth="174.0" promptText="Username"
 			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
 		<Button fx:id="signUpBtn" layoutX="64.0" layoutY="365.0" mnemonicParsing="false"

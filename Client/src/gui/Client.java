@@ -20,7 +20,6 @@ public class Client {
 	Socket clientSocket;
 	BufferedReader dis;
 	PrintStream ps;
-	JSONObject message;
 	Boolean keepRunning;
 	JSONObject sendJson;
 	JSONObject recieveJson;
@@ -46,9 +45,9 @@ public class Client {
 							recieveJson = new JSONObject(msg);
 							String type = (String) recieveJson.get("type");
 							switch(type) {
-							case "login":
-								handleLogin();
-								break;
+								case "login":
+									handleLogin();
+									break;
 							}
 						} catch (IOException ex) {
 
@@ -104,16 +103,16 @@ public class Client {
 		
 	}
 
-	public void sendStopSignalToServer() {
+	/*public void sendStopSignalToServer() {
 		try {
-			message.put("type", "stop");
-			System.out.print(message);
-			ps.print(message);
+			sendJson.put("type", "stop");
+			System.out.print(sendJson);
+			ps.print(sendJson);
 			System.out.print("closed");
 		} catch (JSONException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public void stopConnection() {
 		try {
