@@ -8,6 +8,8 @@ package gui;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.json.JSONException;
 
 
 public class PlayersMenuController implements Initializable {
@@ -65,7 +68,7 @@ public class PlayersMenuController implements Initializable {
     	stage = primaryStage;
     }
     
-    public void setActionHandler(final Stage stage) {
+    public void setActionHandler(Stage stage) {
     	for (int i = 0; i < 5; i++) {
             
             inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -82,6 +85,23 @@ public class PlayersMenuController implements Initializable {
                 }
             });
         }
+          logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+                            try {
+                                // TODO Auto-generated method stub
+
+                                Main.client.logout();
+                            } catch (JSONException ex) {
+                                Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                                
+				stage.setScene(new Scene(HomePageController.loginUI));
+				HomePageController.loginControl.setActionHandler(stage);
+			}
+    		
+    	});
     }
     @FXML
     private void ReturnHomeAction(ActionEvent event) {

@@ -116,7 +116,6 @@ public class LoginController implements Initializable {
 
 	public void sendPlayerData() throws JSONException {
 		Main.client.login(username.getText(), password.getText());
-		Main.client.ps.println(Main.client.sendJson);
 	}
 
 }

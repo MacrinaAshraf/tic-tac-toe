@@ -57,6 +57,7 @@ class GameHandler extends Thread {
                 try {
                     message = new JSONObject(inputLine);
                     String type = (String) message.get("type");
+                    System.out.println(type);
                     switch (type) {
                         case "invite":
                             invite(message);
