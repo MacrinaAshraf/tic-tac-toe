@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class TestBoard {
 
-    public static final String No_player = "-";
-    public static final String PLAYER_X = "X";
-    public static final String PLAYER_O = "O";
+    public static  String No_player = "-";
+    public static  String PLAYER_X = "X";
+    public static  String PLAYER_O = "O";
     public  String value="" ;
  
     public String[][] board = new String[3][3];

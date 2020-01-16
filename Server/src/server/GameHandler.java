@@ -57,6 +57,7 @@ class GameHandler extends Thread {
                 try {
                     message = new JSONObject(inputLine);
                     String type = (String) message.get("type");
+                    System.out.println(type);
                     switch (type) {
                         case "invite":
                             invite(message);
@@ -68,7 +69,7 @@ class GameHandler extends Thread {
                             login(message);
                             break;
                         case "logout":
-                            stopClient();
+                            logout();
                             break;
                         case "register":
                             register(message);
@@ -266,7 +267,19 @@ class GameHandler extends Thread {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void logout(){
+        GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
+        GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
+        GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
+        client.setUserName("");
+        client.setStatus("offline");
+                
+        try {
+               playersJSON();
+            } catch (JSONException ex) {
+                Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     public void stopClient() {
         try {
 

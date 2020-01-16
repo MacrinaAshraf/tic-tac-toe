@@ -10,6 +10,8 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseDragEvent;
 import javafx.stage.Stage;
+import org.json.JSONException;
 
 /**
  *
@@ -36,9 +39,10 @@ public class HomePageController implements Initializable {
 	@FXML
 	Button multiPlayer;
 	
-	Parent loginUI, playersMenuUI, gameScreenUI;
+	static Parent loginUI;
+        Parent playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
-	LoginController loginControl;
+	static LoginController loginControl;
 	private GameController gameControl;
 	
     @Override
@@ -48,7 +52,7 @@ public class HomePageController implements Initializable {
         
     }
     
-    public void setActionHandler(Stage stage, Client client) {
+    public void setActionHandler(Stage stage) {
     	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
     	FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
     	FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
@@ -69,9 +73,16 @@ public class HomePageController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+                            try {
+                                // TODO Auto-generated method stub
+
+                                Main.client.logout();
+                            } catch (JSONException ex) {
+                                Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                                
 				stage.setScene(new Scene(loginUI));
-				loginControl.setActionHandler(stage, client);
+				loginControl.setActionHandler(stage);
 			}
     		
     	});
