@@ -38,8 +38,8 @@ public class Main extends Application {
         //loginControl = (LoginController)loginLoader.getController();
         //loginControl.setActionHandler(primaryStage, client);
 
-        loginControl = (LoginController)loginLoader.getController();
-        loginControl.setActionHandler(primaryStage);
+        //loginControl = (LoginController)loginLoader.getController();
+        //loginControl.setActionHandler(primaryStage);
         
         
         /*cl = (Controller)loginLoader.getController();
