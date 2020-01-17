@@ -40,7 +40,7 @@ public class HomePageController implements Initializable {
 	Button multiPlayer;
 	
 	static Parent loginUI;
-        Parent playersMenuUI, gameScreenUI;
+    Parent playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
 	static LoginController loginControl;
 	private GameController gameControl;
