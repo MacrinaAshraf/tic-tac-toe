@@ -71,7 +71,7 @@ public class GameController implements Initializable {
 		System.out.println(GridPane.getRowIndex(button1));
 
 	}
-	
+
 	public void setStage(Stage primaryStage) {
 		stage = primaryStage;
 	}
@@ -87,11 +87,13 @@ public class GameController implements Initializable {
 		position.x = 0;
 		position.y = 0;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button1.setOnAction(null);
 	}
 
@@ -106,11 +108,13 @@ public class GameController implements Initializable {
 		position.x = 0;
 		position.y = 1;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button2.setOnAction(null);
 	}
 
@@ -125,11 +129,13 @@ public class GameController implements Initializable {
 		position.x = 0;
 		position.y = 2;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button3.setOnAction(null);
 	}
 
@@ -144,11 +150,13 @@ public class GameController implements Initializable {
 		position.x = 1;
 		position.y = 0;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button4.setOnAction(null);
 	}
 
@@ -163,11 +171,13 @@ public class GameController implements Initializable {
 		position.x = 1;
 		position.y = 1;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button5.setOnAction(null);
 	}
 
@@ -182,11 +192,13 @@ public class GameController implements Initializable {
 		position.x = 1;
 		position.y = 2;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button6.setOnAction(null);
 	}
 
@@ -201,11 +213,13 @@ public class GameController implements Initializable {
 		position.x = 2;
 		position.y = 0;
 		turnFlag = false;
-		playAgainstComputer();
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button7.setOnAction(null);
 	}
 
@@ -220,10 +234,13 @@ public class GameController implements Initializable {
 		position.x = 2;
 		position.y = 1;
 		turnFlag = false;
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button8.setOnAction(null);
 	}
 
@@ -238,12 +255,15 @@ public class GameController implements Initializable {
 		position.x = 2;
 		position.y = 1;
 		turnFlag = false;
-		if(testBoard.isGameOver())
-			gameOverAlert();
-		else
+		if (HomePageController.vsComputer) {
 			playAgainstComputer();
+			if (testBoard.isGameOver())
+				gameOverAlert();
+			else
+				playAgainstComputer();
+		}
 		button9.setOnAction(null);
-			
+
 	}
 
 	@FXML
@@ -270,21 +290,17 @@ public class GameController implements Initializable {
 
 	public void assignNumber() {
 		testBoard.printBoard();
-		/*Point p = null;
-		Alert choiceAlert = new Alert(AlertType.CONFIRMATION);
-		choiceAlert.setHeaderText("Do you want to start first?");
-		Optional<ButtonType> btn = choiceAlert.showAndWait();
-
-		if (!(btn.get() == ButtonType.OK)) {
-			p = new Point(RANDOM.nextInt(3), RANDOM.nextInt(3));
-			testBoard.placeMove(p, TestBoard.PLAYER_X);
-			player = TestBoard.PLAYER_X;
-		} else {
-			p = new Point(RANDOM.nextInt(3), RANDOM.nextInt(3));
-			testBoard.placeMove(p, TestBoard.PLAYER_O);
-			player = TestBoard.PLAYER_O;
-		}
-		return p;*/
+		/*
+		 * Point p = null; Alert choiceAlert = new Alert(AlertType.CONFIRMATION);
+		 * choiceAlert.setHeaderText("Do you want to start first?");
+		 * Optional<ButtonType> btn = choiceAlert.showAndWait();
+		 * 
+		 * if (!(btn.get() == ButtonType.OK)) { p = new Point(RANDOM.nextInt(3),
+		 * RANDOM.nextInt(3)); testBoard.placeMove(p, TestBoard.PLAYER_X); player =
+		 * TestBoard.PLAYER_X; } else { p = new Point(RANDOM.nextInt(3),
+		 * RANDOM.nextInt(3)); testBoard.placeMove(p, TestBoard.PLAYER_O); player =
+		 * TestBoard.PLAYER_O; } return p;
+		 */
 		player = TestBoard.PLAYER_O;
 	}
 
@@ -297,7 +313,7 @@ public class GameController implements Initializable {
 			placeComputerMove(position.x, position.y);
 			turnFlag = true;
 		}
-		if(testBoard.isGameOver())
+		if (testBoard.isGameOver())
 			gameOverAlert();
 	}
 
@@ -305,49 +321,41 @@ public class GameController implements Initializable {
 		if (GridPane.getRowIndex(button1) == row && GridPane.getColumnIndex(button1) == column) {
 			button1.setText("X");
 			button1.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button2) == row && GridPane.getColumnIndex(button2) == column) {
+		} else if (GridPane.getRowIndex(button2) == row && GridPane.getColumnIndex(button2) == column) {
 			button2.setText("X");
 			button2.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button3) == row && GridPane.getColumnIndex(button3) == column) {
+		} else if (GridPane.getRowIndex(button3) == row && GridPane.getColumnIndex(button3) == column) {
 			button3.setText("X");
 			button3.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button4) == row && GridPane.getColumnIndex(button4) == column) {
+		} else if (GridPane.getRowIndex(button4) == row && GridPane.getColumnIndex(button4) == column) {
 			button4.setText("X");
 			button4.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button5) == row && GridPane.getColumnIndex(button5) == column) {
+		} else if (GridPane.getRowIndex(button5) == row && GridPane.getColumnIndex(button5) == column) {
 			button5.setText("X");
 			button5.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button6) == row && GridPane.getColumnIndex(button6) == column) {
+		} else if (GridPane.getRowIndex(button6) == row && GridPane.getColumnIndex(button6) == column) {
 			button6.setText("X");
 			button6.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button7) == row && GridPane.getColumnIndex(button7) == column) {
+		} else if (GridPane.getRowIndex(button7) == row && GridPane.getColumnIndex(button7) == column) {
 			button7.setText("X");
 			button7.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button8) == row && GridPane.getColumnIndex(button8) == column) {
+		} else if (GridPane.getRowIndex(button8) == row && GridPane.getColumnIndex(button8) == column) {
 			button8.setText("X");
 			button8.setOnAction(null);
-		}
-		else if (GridPane.getRowIndex(button9) == row && GridPane.getColumnIndex(button9) == column) {
+		} else if (GridPane.getRowIndex(button9) == row && GridPane.getColumnIndex(button9) == column) {
 			button9.setText("X");
 			button9.setOnAction(null);
 		}
 
 	}
-	
+
 	private void gameOverAlert() {
 		Parent homePageUI = null;
 		Alert gameOverAlert = new Alert(AlertType.INFORMATION);
 		gameOverAlert.setHeaderText("The Game is Over!");
 		gameOverAlert.setContentText(null);
 		gameOverAlert.showAndWait();
-		//if()
+		// if()
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
 		try {
 			homePageUI = homePageLoader.load();
@@ -355,12 +363,10 @@ public class GameController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		HomePageController homePageControl = (HomePageController)homePageLoader.getController();
+
+		HomePageController homePageControl = (HomePageController) homePageLoader.getController();
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage, client);
 	}
-	
-	
 
 }

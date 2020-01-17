@@ -36,6 +36,8 @@ public class HomePageController implements Initializable {
 	@FXML
 	Button multiPlayer;
 	
+	static Boolean vsComputer = false;
+	
 	Parent loginUI, playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
 	LoginController loginControl;
@@ -81,8 +83,11 @@ public class HomePageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				stage.setScene(new Scene(playersMenuUI));
-				playersMenuControl.setActionHandler(stage);
+				//stage.setScene(new Scene(playersMenuUI));
+				//playersMenuControl.setActionHandler(stage);
+				gameControl.setStage(stage);
+				stage.setScene(new Scene(gameScreenUI));
+				gameControl.assignNumber();
 			}
     		
     	});
@@ -92,6 +97,7 @@ public class HomePageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				vsComputer = true;
 				gameControl.setStage(stage);
 				stage.setScene(new Scene(gameScreenUI));
 				gameControl.assignNumber();
