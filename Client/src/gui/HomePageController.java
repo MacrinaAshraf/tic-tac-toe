@@ -107,18 +107,5 @@ public class HomePageController implements Initializable {
     		
     	});
     }
-
-  
-
-    @FXML
-    private void PlayingVsComputer(ActionEvent event) {
-        playerChoose=true;
-    }
-
-    @FXML
-    private void TwoPlayer(ActionEvent event) {
-        playerChoose=false;
-    }
-
     
 }

@@ -43,6 +43,7 @@ public class Client {
 						try {
 							System.out.println("client !");
 							String msg = dis.readLine(); 
+							System.out.println(msg);
 							recieveJson = new JSONObject(msg);
 							String type = (String) recieveJson.get("type");
 							switch(type) {
