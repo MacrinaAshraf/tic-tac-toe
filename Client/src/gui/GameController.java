@@ -38,10 +38,9 @@ public class GameController implements Initializable {
 	private TestBoard testBoard = new TestBoard();
 	private String player = "";
 	private Point position = new Point();
-	private Boolean turnFlag = true; // true if its user player, false if its computer player
+	private Boolean turnFlag = true; 
 	Client client;
-	@FXML
-	private GridPane gridPane;
+        int x=1;
 	@FXML
 	private Button button1;
 	@FXML
@@ -61,10 +60,7 @@ public class GameController implements Initializable {
 	@FXML
 	private Button button9;
 
-	/**
-	 * Initializes the controller class.
-	 */
-
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
@@ -75,7 +71,7 @@ public class GameController implements Initializable {
 	public void setStage(Stage primaryStage) {
 		stage = primaryStage;
 	}
-
+       
 	@FXML
 	private void btn1(ActionEvent event) {
 		if (player.equals(TestBoard.PLAYER_X)) {
@@ -266,15 +262,7 @@ public class GameController implements Initializable {
 
 	}
 
-	@FXML
-	private void LogOutAction(ActionEvent event) {
-	}
 
-	@FXML
-	private void HelpButtonAction(ActionEvent event) {
-	}
-
-	@FXML
 	private void Reset(ActionEvent event) {
 		testBoard.resetBoard();
 		button1.setText(null);
@@ -368,5 +356,5 @@ public class GameController implements Initializable {
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage, client);
 	}
+}	
 
-}

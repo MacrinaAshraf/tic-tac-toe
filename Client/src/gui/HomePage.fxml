@@ -28,12 +28,12 @@
             <Bloom />
          </effect>
       </MenuButton>
-      <Button fx:id="singlePlayer" layoutX="131.0" layoutY="146.0" mnemonicParsing="false" opacity="0.72" prefHeight="54.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 60;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="singlePlayer" layoutX="131.0" layoutY="146.0" mnemonicParsing="false" onAction="#PlayingVsComputer" opacity="0.72" prefHeight="54.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 60;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="multiPlayer" layoutX="127.0" layoutY="219.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="224.0" style="-fx-background-color: black; -fx-background-radius: 35;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="multiPlayer" layoutX="127.0" layoutY="219.0" mnemonicParsing="false" onAction="#TwoPlayer" opacity="0.72" prefHeight="57.0" prefWidth="224.0" style="-fx-background-color: black; -fx-background-radius: 35;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>
