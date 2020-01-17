@@ -22,7 +22,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import org.json.JSONException;
@@ -35,37 +34,44 @@ public class PlayersMenuController implements Initializable {
     @FXML
     private MenuItem helpBtn;
     @FXML
-    ListView lview;
+    ListView<FlowPane> lview;
     Button[] inviteBtns;
     FlowPane[] fPane;
+    Label[] usernames;
+    Label[] score;
     FlowPane headerPane;
     Stage stage;
     int size;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setSize(10);
+    	setSize(Main.client.bronzePlayers.size());
         inviteBtns = new Button[size];
         fPane = new FlowPane[size];
+        usernames = new Label[size];
+        score = new Label[size];
         headerPane = new FlowPane();
         //System.out.print();
         headerPane.setHgap(390 / 4);
         headerPane.getChildren().addAll(new Label("Name"),new Label("Score"),new Label("Rank"));
         lview.getItems().add(headerPane);
-        
-        
-        
-        
-        
-        
-
+      
         for (int i = 0; i < size; i++) {
             inviteBtns[i] = new Button("Invite");
             fPane[i] = new FlowPane ();
             fPane[i].setHgap(400 / 4);
-            fPane[i].getChildren().addAll(new Label("Noura"), new Label("100") , new Label("Gold"),  inviteBtns[i]);
-            lview.getItems().add(fPane[i]);
-
+            try {
+				usernames[i] = new Label(Main.client.bronzePlayers.get(i).get("username").toString());
+				score[i] = new Label(Main.client.bronzePlayers.get(i).get("score").toString());
+				fPane[i].getChildren().add(usernames[i]);
+	            fPane[i].getChildren().add(score[i]);
+	            fPane[i].getChildren().addAll(new Label("Bronze"),  inviteBtns[i]);
+	            lview.getItems().add(fPane[i]);
+            } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
            
         }  
     }
@@ -79,7 +85,7 @@ public class PlayersMenuController implements Initializable {
     }
     
     public void setActionHandler(Stage stage) {
-    	for (int i = 0; i < 5; i++) {
+    	for (int i = 0; i < size; i++) {
             
             inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                 @Override
