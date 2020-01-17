@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HelpController">
+   <children>
+      <ImageView fitHeight="506.0" fitWidth="704.0" layoutX="40.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/home.png" />
+         </image>
+      </ImageView>
+      <TextArea layoutX="135.0" layoutY="43.0" opacity="0.47" prefHeight="258.0" prefWidth="619.0" style="-fx-border-color: #fceeb0; -fx-border-width: 5px;" text="You can go to Home Page : to select your Game if you want&#10;to play single with the computer or you want to play with another&#10;player.&#10;&#10;About the Game:-&#10;You are collecting score after winning the game, you can&#10;use click on mouse only to play.&#10;You have to collect 3 X or 3 O as per of your character, it&#10;can be horizontal or vertical or cross line.">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </TextArea>
+      <Text fill="#fceeb0" layoutX="56.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits" wrappingWidth="142.13671875">
+         <font>
+            <Font name="Segoe UI Black" size="35.0" />
+         </font>
+         <effect>
+            <ColorAdjust>
+               <input>
+                  <Lighting>
+                     <bumpInput>
+                        <Blend />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </ColorAdjust>
+         </effect>
+      </Text>
+      <Text fill="#fceeb0" layoutX="49.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" wrappingWidth="142.13671875">
+         <font>
+            <Font name="Segoe UI Black" size="35.0" />
+         </font>
+         <effect>
+            <ColorAdjust>
+               <input>
+                  <Lighting>
+                     <bumpInput>
+                        <Blend />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </ColorAdjust>
+         </effect>
+      </Text>
+      <TextArea layoutX="191.0" layoutY="310.0" opacity="0.47" prefHeight="177.0" prefWidth="539.0" style="-fx-border-color: #fceeb0; -fx-border-width: 5px;" text="Ali &#10;Ismaail&#10;Macrina Ashraf&#10;Mohamed Adham&#10;Mohamed Mostafa&#10;Nouran Mohamed">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </TextArea>
+      <Circle fill="#111111" layoutX="196.0" layoutY="334.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#111111" layoutX="196.0" layoutY="360.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#111111" layoutX="196.0" layoutY="386.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#111111" layoutX="196.0" layoutY="411.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#111111" layoutX="196.0" layoutY="435.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#111111" layoutX="196.0" layoutY="461.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+      <MenuButton layoutX="657.0" layoutY="-3.0" mnemonicParsing="false" opacity="0.85" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
+         <items>
+            <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
+            <MenuItem fx:id="homeBtn" mnemonicParsing="false" text="Return to Home" />
+         </items>
+         <font>
+            <Font name="Segoe UI Black Italic" size="17.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </MenuButton>
+   </children>
+</AnchorPane>
