@@ -25,8 +25,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(loginUI));
         primaryStage.setOnCloseRequest(e -> {
                 try {
+                    if(client.clientSocket!=null)
                     client.stop();
                 } catch (JSONException ex) {
+                    
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
             client.stopConnection();
