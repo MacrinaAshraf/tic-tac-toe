@@ -40,7 +40,7 @@ public class SignUpController implements Initializable {
         // TODO
     }    
 
-	public void setActionHandler(Stage stage, Client client) {
+	public void setActionHandler(Stage stage) {
 		// TODO Auto-generated method stub
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
     	FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
@@ -59,7 +59,7 @@ public class SignUpController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(homePageUI));
-				homePageControl.setActionHandler(stage, client);
+				homePageControl.setActionHandler(stage);
 			}
     		
     	});

@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-image: img.jpg;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomePageController">
+<Pane maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomePageController">
    <children>
-      <ImageView fitHeight="538.0" fitWidth="574.0" layoutX="-62.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="506.0" fitWidth="715.0" layoutX="39.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/home.png" />
          </image>
       </ImageView>
-      <MenuButton layoutX="377.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
+      <MenuButton layoutX="657.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
         <items>
           <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
           <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
@@ -28,12 +28,12 @@
             <Bloom />
          </effect>
       </MenuButton>
-      <Button fx:id="singlePlayer" layoutX="131.0" layoutY="146.0" mnemonicParsing="false" opacity="0.72" prefHeight="54.0" prefWidth="215.0" style="-fx-background-color: black; -fx-background-radius: 60;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="singlePlayer" layoutX="278.0" layoutY="182.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="248.0" style="-fx-background-color: black; -fx-background-radius: 30; -fx-border-color: fceeb0; -fx-border-radius: 30;" text="VS. Computer" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="multiPlayer" layoutX="127.0" layoutY="219.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="224.0" style="-fx-background-color: black; -fx-background-radius: 35;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
+      <Button fx:id="multiPlayer" layoutX="276.0" layoutY="252.0" mnemonicParsing="false" opacity="0.72" prefHeight="57.0" prefWidth="248.0" style="-fx-background-color: black; -fx-background-radius: 30; -fx-border-color: fceeb0; -fx-border-radius: 30;" text="VS. Player" textAlignment="CENTER" textFill="#fceeb0" wrapText="true">
          <font>
             <Font name="Segoe UI Black" size="25.0" />
          </font>

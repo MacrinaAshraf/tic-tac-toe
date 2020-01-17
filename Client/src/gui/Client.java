@@ -7,16 +7,12 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Client {
 
-	static Player player; 
+	static Player player;
 	Socket clientSocket;
 	BufferedReader dis;
 	PrintStream ps;
@@ -41,13 +37,13 @@ public class Client {
 
 						try {
 							System.out.println("client !");
-							String msg = dis.readLine(); 
+							String msg = dis.readLine();
 							recieveJson = new JSONObject(msg);
 							String type = (String) recieveJson.get("type");
-							switch(type) {
-								case "login":
-									handleLogin();
-									break;
+							switch (type) {
+							case "login":
+								handleLogin();
+								break;
 							}
 						} catch (IOException ex) {
 
@@ -71,22 +67,21 @@ public class Client {
 		}
 
 	}
-	
-	public void handleLogin(){
+
+	public void handleLogin() {
 		String result = null;
 		try {
 			result = (String) recieveJson.get("res");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		if(result.equals("Successfully")) {
+		if (result.equals("Successfully")) {
 			setPlayer();
-		}
-		else {
+		} else {
 			player.setId(-1);
 		}
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -100,19 +95,15 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	/*public void sendStopSignalToServer() {
-		try {
-			sendJson.put("type", "stop");
-			System.out.print(sendJson);
-			ps.print(sendJson);
-			System.out.print("closed");
-		} catch (JSONException e) { // TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
+	/*
+	 * public void sendStopSignalToServer() { try { sendJson.put("type", "stop");
+	 * System.out.print(sendJson); ps.print(sendJson); System.out.print("closed"); }
+	 * catch (JSONException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } }
+	 */
 
 	public void stopConnection() {
 		try {
@@ -129,6 +120,7 @@ public class Client {
 		sendJson.put("type", "login");
 		sendJson.put("username", userName);
 		sendJson.put("password", password);
+		sendToServer();
 
 	}
 
@@ -150,23 +142,28 @@ public class Client {
 		sendJson.put("username", userName);
 		sendJson.put("password", password);
 		sendJson.put("email", email);
+		sendToServer();
 
 	}
 
-	public void stop(String userName) throws JSONException {
+	public void stop() throws JSONException {
 		sendJson.put("type", "stop");
-		sendJson.put("username", userName);
+		sendToServer();
 	}
 
-	public void logout(String userName) throws JSONException {
+	public void logout() throws JSONException {
+		System.out.println("logout");
 		sendJson.put("type", "logout");
-		sendJson.put("username", userName);
+		sendToServer();
+
 	}
 
 	public void endOfGame(String userName, int score, String userName2, int score2) throws JSONException {
 		sendJson.put("type", "endofgame");
-		sendJson.put("score1", score);
-		sendJson.put("username", userName);
+		sendJson.put("score", score);
+	}
 
+	public void sendToServer() {
+		ps.println(sendJson);
 	}
 }
