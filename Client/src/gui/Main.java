@@ -24,9 +24,10 @@ public class Main extends Application {
 		primaryStage.setScene(new Scene(loginUI));
 		primaryStage.setOnCloseRequest(e -> {
 			try {
-				client.stop();
+				if (client.clientSocket != null)
+					client.stop();
 			} catch (JSONException ex) {
-				//Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+				// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 				System.exit(0);
 			}
 			client.stopConnection();
@@ -36,17 +37,13 @@ public class Main extends Application {
 		primaryStage.setMinWidth(200);
 		primaryStage.setMinHeight(120);
 
-
-		loginControl = (LoginController)loginLoader.getController();
+		loginControl = (LoginController) loginLoader.getController();
 		loginControl.setActionHandler(primaryStage);
 
-		/*
-		 * cl = (Controller)loginLoader.getController();
-		 * cl.setActionHandler(primaryStage);
-		 */
 	}
 
 	public static void main(String[] args) {
 		Main.launch(args);
 	}
+
 }
