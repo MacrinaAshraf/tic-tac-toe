@@ -35,11 +35,12 @@ public class HomePageController implements Initializable {
 	Button singlePlayer;
 	@FXML
 	Button multiPlayer;
-	
+        
 	Parent loginUI, playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
 	LoginController loginControl;
 	private GameController gameControl;
+    public boolean playerChoose=true;
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,18 +78,19 @@ public class HomePageController implements Initializable {
     	});
     	
     	multiPlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
+                                             
+                      
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				stage.setScene(new Scene(playersMenuUI));
+				stage.setScene(new Scene(gameScreenUI));
 				playersMenuControl.setActionHandler(stage);
 			}
+                        
     		
     	});
     	
     	singlePlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -99,7 +101,18 @@ public class HomePageController implements Initializable {
     		
     	});
     }
-    
+
+  
+
+    @FXML
+    private void PlayingVsComputer(ActionEvent event) {
+        playerChoose=true;
+    }
+
+    @FXML
+    private void TwoPlayer(ActionEvent event) {
+        playerChoose=false;
+    }
 
     
 }
