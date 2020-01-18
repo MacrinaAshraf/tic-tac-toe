@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 
 public class GameController1 implements Initializable {
 
-	Alert alert, alert2, alert3;
+	Alert alert, alert2, alert3,alert4,alert5,alert6;
 	public ArrayList<Integer> intarr = new ArrayList<>(9);
 	public boolean flag = false;
 	public static final Random RANDOM = new Random();
@@ -76,11 +76,12 @@ public class GameController1 implements Initializable {
 		//vsComputerFlag = HomePageController.vsComputer;
 		alert = new Alert(Alert.AlertType.INFORMATION);
 		alert2 = new Alert(Alert.AlertType.INFORMATION);
-
 		alert3 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
+                alert4 = new Alert(Alert.AlertType.INFORMATION);
+		alert5 = new Alert(Alert.AlertType.INFORMATION);
+		alert6 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
 		for (int i = 0; i < 9; i++) {
 			intarr.add(1);
-
 		}
 
 	}
@@ -96,10 +97,14 @@ public class GameController1 implements Initializable {
 	}
 
 	public void draw() {
-		alert3.setTitle("TicTacToe");
-		alert3.setHeaderText(null);
-		alert3.setContentText("No one wins");
-		alert3.show();
+//		alert3.setTitle("TicTacToe");
+//		alert3.setHeaderText(null);
+//		alert3.setContentText("No one wins");
+//		alert3.show();
+                alert6.setTitle("TicTacToe");
+		alert6.setHeaderText(null);
+		alert6.setContentText("No one wins");
+		alert6.show();
 	}
 
 	public void setValues(int index) {
@@ -110,36 +115,162 @@ public class GameController1 implements Initializable {
 	}
 
 	public void winning() {
-		String arr[] = { button1.getText(), button2.getText(), button3.getText(), button4.getText(), button5.getText(),
-				button6.getText(), button7.getText(), button8.getText(), button9.getText() };
-		if (arr[0].equals("X") && arr[1].equals("X") && arr[3].equals("X")
-				|| arr[4].equals("X") && arr[5].equals("X") && arr[6].equals("X")
-				|| arr[7].equals("X") && arr[8].equals("X") && arr[9].equals("X")
-				|| arr[1].equals("X") && arr[4].equals("X") && arr[7].equals("X")
-				|| arr[2].equals("X") && arr[5].equals("X") && arr[8].equals("X")
-				|| arr[3].equals("X") && arr[6].equals("X") && arr[9].equals("X")
-				|| arr[1].equals("X") && arr[5].equals("X") && arr[9].equals("X")
-				|| arr[3].equals("X") && arr[5].equals("X") && arr[7].equals("X")) {
-			alert.setTitle("TicTacToe");
-			alert.setHeaderText(null);
-			alert.setContentText("player X wins");
-			flag = true;
-			alert.show();
-		} else if (arr[0].equals("O") && arr[1].equals("O") && arr[3].equals("O")
-				|| arr[4].equals("O") && arr[5].equals("O") && arr[6].equals("O")
-				|| arr[7].equals("O") && arr[8].equals("O") && arr[9].equals("O")
-				|| arr[1].equals("O") && arr[4].equals("O") && arr[7].equals("O")
-				|| arr[2].equals("O") && arr[5].equals("O") && arr[8].equals("O")
-				|| arr[3].equals("O") && arr[6].equals("O") && arr[9].equals("O")
-				|| arr[1].equals("O") && arr[5].equals("O") && arr[9].equals("O")
-				|| arr[3].equals("O") && arr[5].equals("O") && arr[7].equals("O")) {
-			alert2.setTitle("TicTacToe");
-			alert2.setHeaderText(null);
-			alert2.setContentText("player O wins");
-			flag = true;
-			alert2.show();
+//		String arr[] = { button1.getText(), button2.getText(), button3.getText(), button4.getText(), button5.getText(),
+//				button6.getText(), button7.getText(), button8.getText(), button9.getText() };
+//		if (arr[0].equals("X") && arr[1].equals("X") && arr[3].equals("X")
+//				|| arr[4].equals("X") && arr[5].equals("X") && arr[6].equals("X")
+//				|| arr[7].equals("X") && arr[8].equals("X") && arr[9].equals("X")
+//				|| arr[1].equals("X") && arr[4].equals("X") && arr[7].equals("X")
+//				|| arr[2].equals("X") && arr[5].equals("X") && arr[8].equals("X")
+//				|| arr[3].equals("X") && arr[6].equals("X") && arr[9].equals("X")
+//				|| arr[1].equals("X") && arr[5].equals("X") && arr[9].equals("X")
+//				|| arr[3].equals("X") && arr[5].equals("X") && arr[7].equals("X")) {
+//			alert4.setTitle("TicTacToe");
+//			alert4.setHeaderText(null);
+//			alert4.setContentText("player X wins");
+//			flag = true;
+//			alert4.show();
+//		} else if (arr[0].equals("O") && arr[1].equals("O") && arr[3].equals("O")
+//				|| arr[4].equals("O") && arr[5].equals("O") && arr[6].equals("O")
+//				|| arr[7].equals("O") && arr[8].equals("O") && arr[9].equals("O")
+//				|| arr[1].equals("O") && arr[4].equals("O") && arr[7].equals("O")
+//				|| arr[2].equals("O") && arr[5].equals("O") && arr[8].equals("O")
+//				|| arr[3].equals("O") && arr[6].equals("O") && arr[9].equals("O")
+//				|| arr[1].equals("O") && arr[5].equals("O") && arr[9].equals("O")
+//				|| arr[3].equals("O") && arr[5].equals("O") && arr[7].equals("O")) {
+//			alert5.setTitle("TicTacToe");
+//			alert5.setHeaderText(null);
+//			alert5.setContentText("player O wins");
+//			flag = true;
+//			alert5.show();
+//
+//		}
 
-		}
+
+String buttn1 = button1.getText();
+        String buttn2 = button2.getText();
+        String buttn3 = button3.getText();
+        String buttn4 = button4.getText();
+        String buttn5 = button5.getText();
+        String buttn6 = button6.getText();
+        String buttn7 = button7.getText();
+        String buttn8 = button8.getText();
+        String buttn9 = button9.getText();
+
+        if (buttn1 == ("X") && buttn2 == ("X") && buttn3 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn1 == ("O") && buttn2 == ("O") && buttn3 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            flag = true;
+            alert5.show();
+        }
+
+        if (buttn4 == ("X") && buttn5 == ("X") && buttn6 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn4 == ("O") && buttn5 == ("O") && buttn6 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            alert5.show();
+        }
+
+        if (buttn7 == ("X") && buttn8 == ("X") && buttn9 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn7 == ("O") && buttn8 == ("O") && buttn9 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            flag = true;
+            alert5.show();
+        }
+        //vertical
+        if (buttn1 == ("X") && buttn4 == ("X") && buttn7 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn1 == ("O") && buttn4 == ("O") && buttn7 == ("O")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player O wins");
+            flag = true;
+            alert4.show();
+        }
+
+        if (buttn2 == ("X") && buttn5 == ("X") && buttn8 == ("X")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player X wins");
+            flag = true;
+            alert5.show();
+        } else if (buttn2 == ("O") && buttn5 == ("O") && buttn8 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            flag = true;
+            alert5.show();
+        }
+
+        if (buttn3 == ("X") && buttn6 == ("X") && buttn9 == ("X")) {
+            alert6.setTitle("TicTacToe");
+            alert6.setHeaderText(null);
+            alert6.setContentText("player X wins");
+            flag = true;
+            alert6.show();
+        } else if (buttn3 == ("O") && buttn6 == ("O") && buttn9 == ("O")) {
+            alert6.setTitle("TicTacToe");
+            alert6.setHeaderText(null);
+            alert6.setContentText("player O wins");
+            flag = true;
+            alert6.show();
+        }
+        //diagonal
+        if (buttn1 == ("X") && buttn5 == ("X") && buttn9 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn1 == ("O") && buttn5 == ("O") && buttn9 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            flag = true;
+            alert5.show();
+        }
+        if (buttn3 == ("X") && buttn5 == ("X") && buttn7 == ("X")) {
+            alert4.setTitle("TicTacToe");
+            alert4.setHeaderText(null);
+            alert4.setContentText("player X wins");
+            flag = true;
+            alert4.show();
+        } else if (buttn3 == ("O") && buttn5 == ("O") && buttn7 == ("O")) {
+            alert5.setTitle("TicTacToe");
+            alert5.setHeaderText(null);
+            alert5.setContentText("player O wins");
+            flag = true;
+            alert5.show();}
+
+
+
+
+
+
 	}
 	////////////////////////////////////////// Ai Player
 	////////////////////////////////////////// ///////////////////////////////////////////////
