@@ -339,7 +339,7 @@ public class GameController1 implements Initializable {
 
         HomePageController homePageControl = (HomePageController) homePageLoader.getController();
         stage.setScene(new Scene(homePageUI));
-        homePageControl.setActionHandler(stage, client);}
+        homePageControl.setActionHandler(stage);}
     //////////////////////////////// buttonAction intwo
     //////////////////////////////// cases///////////////////////////////////////
 
