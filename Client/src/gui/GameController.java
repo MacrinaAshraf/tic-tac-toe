@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,8 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.json.JSONException;
 
 /**
  * FXML Controller class
@@ -34,8 +39,6 @@ public class GameController implements Initializable {
 	private Point position = new Point();
 	private Boolean turnFlag = true; // true if its user player, false if its computer player
 	Client client;
-	@FXML
-	private GridPane gridPane;
 	@FXML
 	private Button button1;
 	@FXML
@@ -54,21 +57,60 @@ public class GameController implements Initializable {
 	private Button button8;
 	@FXML
 	private Button button9;
+        static Parent helpUI;
+        static HelpController helpControl;
+        @FXML
+        private MenuItem logOutBtn;
+        @FXML
+        private MenuItem helpBtn;
 
 	/**
 	 * Initializes the controller class.
 	 */
+        
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 		System.out.println(GridPane.getRowIndex(button1));
-
+                
 	}
 
 	public void setStage(Stage primaryStage) {
 		stage = primaryStage;
 	}
+        public void setActionHandler(Stage stage) throws IOException {
+                FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+                helpUI = helpLoader.load();
+                helpControl = (HelpController) helpLoader.getController();
+                
+                logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					// TODO Auto-generated method stub
+
+					Main.client.logout();
+				} catch (JSONException ex) {
+					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+				stage.setScene(new Scene(HomePageController.loginUI));
+				HomePageController.loginControl.setActionHandler(stage);
+			}
+        });
+                    helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+                            @Override
+                            public void handle(ActionEvent event) {
+                            stage.setScene(new Scene(helpUI));
+                            helpControl.setActionHandler(stage);
+                }
+            
+        });
+                
+                
+                        }
 
 	@FXML
 	private void btn1(ActionEvent event) {
@@ -251,13 +293,22 @@ public class GameController implements Initializable {
 
 	}
 
-	@FXML
 	private void LogOutAction(ActionEvent event) {
+             try {
+				Main.client.logout();
+				} catch (JSONException ex) {
+					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+				stage.setScene(new Scene(HomePageController.loginUI));
+				HomePageController.loginControl.setActionHandler(stage);
 	}
 
-	@FXML
 	private void HelpButtonAction(ActionEvent event) {
-	}
+           stage.setScene(new Scene(helpUI));
+           helpControl.setActionHandler(stage);
+			}
+
 
 	@FXML
 	private void Reset(ActionEvent event) {
