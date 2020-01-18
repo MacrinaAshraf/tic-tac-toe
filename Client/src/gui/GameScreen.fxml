@@ -109,8 +109,22 @@
 				<Font name="Tahoma Bold" size="24.0" />
 			</font>
 		</Label>
-		<FontAwesomeIconView fill="#f2efef" glyphName="LIST" layoutX="705.0" layoutY="55.0" size="20" text="" textAlignment="CENTER" wrappingWidth="41.0" />
-		<Button layoutX="362.0" layoutY="500.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Reset" />
-      <FontAwesomeIconView fill="WHITE" glyphName="COGS" layoutX="686.0" layoutY="54.0" size="20" />
+		<FontAwesomeIconView fill="#f2efef" glyphName="LIST" layoutX="725.0" layoutY="31.0" size="20" text="" textAlignment="CENTER" wrappingWidth="41.0" />
+      <FontAwesomeIconView fill="WHITE" glyphName="COGS" layoutX="700.0" layoutY="30.0" size="20" />
+      <Label layoutX="342.0" layoutY="464.0" text="Score " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreplayerX" layoutX="169.0" layoutY="536.0" text="0" textFill="#e80a0a">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreplayerO" layoutX="644.0" layoutY="530.0" text="0" textFill="#1042f5">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
 	</children>
 </AnchorPane>

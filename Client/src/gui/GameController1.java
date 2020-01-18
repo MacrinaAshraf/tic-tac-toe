@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GameController1 implements Initializable {
 
@@ -61,7 +62,13 @@ public class GameController1 implements Initializable {
     private Button button8;
     @FXML
     private Button button9;
-
+    @FXML
+    private Label scoreplayerX;
+    @FXML
+    private Label scoreplayerO;
+    private  Alert gameOverAlert ;
+     ButtonType yesbtn=new ButtonType("Yes");
+        ButtonType nobtn=new ButtonType("No");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -85,9 +92,9 @@ public class GameController1 implements Initializable {
     }
     public GameController1() {
         //vsComputerFlag = HomePageController.vsComputer;
-        alert = new Alert(Alert.AlertType.INFORMATION);
-        alert2 = new Alert(Alert.AlertType.INFORMATION);
-        alert3 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
+//        alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert2 = new Alert(Alert.AlertType.INFORMATION);
+//        alert3 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
         alert4 = new Alert(Alert.AlertType.INFORMATION);
         alert5 = new Alert(Alert.AlertType.INFORMATION);
         alert6 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
@@ -106,7 +113,10 @@ public class GameController1 implements Initializable {
             theFirstPlayer = "X";
         }
     }
-
+    public void score(){
+        scoreplayerX.setText(String.valueOf(xCount));
+        scoreplayerO.setText(String.valueOf(oCount));
+    }
     public void draw() {
 
         alert6.setTitle("TicTacToe");
@@ -142,6 +152,8 @@ public class GameController1 implements Initializable {
                 || arr[2].equals("X") && arr[5].equals("X") && arr[8].equals("X")
                 || arr[0].equals("X") && arr[4].equals("X") && arr[8].equals("X")
                 || arr[2].equals("X") && arr[4].equals("X") && arr[6].equals("X")) {
+            xCount++;
+            score();
             alert4.setTitle("TicTacToe");
             alert4.setHeaderText(null);
             alert4.setContentText("player X wins");
@@ -161,6 +173,8 @@ public class GameController1 implements Initializable {
                 || arr[2].equals("O") && arr[5].equals("O") && arr[8].equals("O")
                 || arr[0].equals("O") && arr[4].equals("O") && arr[8].equals("O")
                 || arr[2].equals("O") && arr[4].equals("O") && arr[6].equals("O")) {
+            oCount++;
+            score();
             alert5.setTitle("TicTacToe");
             alert5.setHeaderText(null);
             alert5.setContentText("player O wins");
@@ -198,7 +212,9 @@ public class GameController1 implements Initializable {
             turnFlag = true;
         }
         if (testBoard.isGameOver()) {
+            
             gameOverAlert();
+            
         }
     }
 
@@ -235,29 +251,85 @@ public class GameController1 implements Initializable {
     }
 
     private void gameOverAlert() {
-        Parent homePageUI = null;
-        Alert gameOverAlert ;
+       
+        
+        
+        
         if(TestBoard.checkWinner.equals("X")){
-          gameOverAlert=  new Alert(AlertType.INFORMATION);
-        gameOverAlert.setHeaderText("The Player X has won!");
-        gameOverAlert.setContentText(null);
-        gameOverAlert.showAndWait();
-        reset();
+         gameOverAlert=  new Alert(AlertType.CONFIRMATION);
+         gameOverAlert.setTitle("player x won");
+         gameOverAlert.setContentText("Do you Want Play Agian ?");
+         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
+         Optional<ButtonType>result=gameOverAlert.showAndWait();
+         if(result.get()==yesbtn)
+         {
+           playerXwin();
+             
+           testBoard.resetBoard();
+            
+            
+         }
+        else if(result.get()==nobtn){
+           gotoHomePage();
+            }
+        
         }
         else if(TestBoard.checkWinner.equals("O")){
-        gameOverAlert=  new Alert(AlertType.INFORMATION);
-        gameOverAlert.setHeaderText("The Player O has won!");
-        gameOverAlert.setContentText(null);
-        gameOverAlert.showAndWait();
-        reset();}
+            gameOverAlert=  new Alert(AlertType.CONFIRMATION);
+            gameOverAlert.setTitle("player o won");
+            gameOverAlert.setContentText("Do you Want Play Agian ?");
+         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
+         Optional<ButtonType>result=gameOverAlert.showAndWait();
+        
+       if(result.get()==yesbtn){
+           playerOwin();
+           testBoard.resetBoard();
+          
+           
+       //reset();
+       }
+        else if(result.get()==nobtn){
+           gotoHomePage();
+        }
+        }
         else if(TestBoard.checkWinner.equals("noWinner")){
-        gameOverAlert=  new Alert(AlertType.INFORMATION);
-        gameOverAlert.setHeaderText("Draw!");
-        gameOverAlert.setContentText(null);
-        gameOverAlert.showAndWait();
-        reset();}
+           gameOverAlert=  new Alert(AlertType.CONFIRMATION);
+           gameOverAlert.setTitle("Draw!");
+           gameOverAlert.setContentText("Do you Want Play Agian ?");
+         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
+         Optional<ButtonType>result=gameOverAlert.showAndWait();
+        if(result.get()==yesbtn){
+           DrawXWithO();
+           testBoard.resetBoard();
+            
+          
+           //reset();
+        }
+        else if(result.get()==nobtn){
+           gotoHomePage();}
+        }
         // if()
-        FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        
+    }
+    public void playerXwin(){gameOverAlert.setHeaderText("The Player X has won!");
+        
+            gameOverAlert.setContentText(null);
+        
+        //gameOverAlert.showAndWait();
+        //gameOverAlert.show();
+        reset();}
+     public void playerOwin(){gameOverAlert.setHeaderText("The Player O has won!");
+        gameOverAlert.setContentText(null);
+         //gameOverAlert.show();       
+         reset();}
+      public void DrawXWithO(){gameOverAlert.setHeaderText("Draw!");
+        gameOverAlert.setContentText(null);
+        //gameOverAlert.show();        
+        reset();}
+    
+    public void gotoHomePage(){
+         Parent homePageUI = null;
+    FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         try {
             homePageUI = homePageLoader.load();
         } catch (IOException e) {
@@ -267,8 +339,7 @@ public class GameController1 implements Initializable {
 
         HomePageController homePageControl = (HomePageController) homePageLoader.getController();
         stage.setScene(new Scene(homePageUI));
-        homePageControl.setActionHandler(stage, client);
-    }
+        homePageControl.setActionHandler(stage, client);}
     //////////////////////////////// buttonAction intwo
     //////////////////////////////// cases///////////////////////////////////////
 
