@@ -58,6 +58,7 @@ public class Client {
 								fillPlayersVectors();
 								break;
 							case "invite":
+								getInviterInfo();
 								break;
 							case "responsetoinvite":
 								break;
@@ -86,6 +87,13 @@ public class Client {
 	}
 	
 	
+
+	protected void getInviterInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 	public Vector<JSONObject> getGoldPlayers() {
 		return goldPlayers;
@@ -132,7 +140,7 @@ public class Client {
 			
 			System.out.println(HomePageController.playersMenuControl == null);
 			
-			if(HomePageController.playersMenuControl.getList() != null)
+			if(HomePageController.playersMenuControl != null && HomePageController.playersMenuControl.getList() != null)
 				HomePageController.playersMenuControl.getList().refresh();
 			
 		} catch (JSONException e) {

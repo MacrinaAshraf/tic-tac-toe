@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PlayersMenuController implements Initializable {
 
@@ -39,15 +43,19 @@ public class PlayersMenuController implements Initializable {
 	private FlowPane headerPane;
 	private Stage stage;
 	private int size;
+	
+	ObservableList<JSONObject> gold;
+	ObservableList<JSONObject> silver;
+	ObservableList<JSONObject> bronze;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
-		// }
-
+		
 	}
 
 	public void init() {
+		bronze = FXCollections.observableArrayList(Main.client.getBronzePlayers());
+		
 		setSize(Main.client.getGoldPlayers().size() + Main.client.getSilverPlayers().size()
 				+ Main.client.getBronzePlayers().size());
 		inviteBtns = new Button[size];
@@ -63,14 +71,14 @@ public class PlayersMenuController implements Initializable {
 			fPane[i] = new FlowPane();
 			fPane[i].setHgap(400 / 4);
 			try {
-				usernames[i] = new Label(Main.client.getBronzePlayers().get(i).get("username").toString());
-				score[i] = new Label(Main.client.getBronzePlayers().get(i).get("score").toString());
+				usernames[i] = new Label(bronze.get(i).get("username").toString());
+				score[i] = new Label(bronze.get(i).get("score").toString());
 				fPane[i].getChildren().add(usernames[i]);
 				fPane[i].getChildren().add(score[i]);
 				fPane[i].getChildren().addAll(new Label("Bronze"), inviteBtns[i]);
 				lview.getItems().add(fPane[i]);
 
-				if (Main.client.getBronzePlayers().get(i).get("status").toString().equals("offline"))
+				if (bronze.get(i).get("status").toString().equals("offline"))
 					inviteBtns[i].setDisable(true);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

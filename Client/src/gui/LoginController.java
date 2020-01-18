@@ -70,8 +70,6 @@ public class LoginController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
 				try {
 					sendPlayerData();
 				} catch (JSONException e) {
@@ -80,7 +78,7 @@ public class LoginController implements Initializable {
 				}
 
 				while (Main.client.getPlayer().getId() == 0) {
-					System.out.println(Main.client.getPlayer().getId());
+					//System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
 						System.out.println("you can't login.");
 						Main.client.getPlayer().setId(0);
