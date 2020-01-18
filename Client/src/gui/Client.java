@@ -174,6 +174,7 @@ public class Client {
 			player.setId(recieveJson.getInt("id"));
 		} catch (JSONException e) {
 			e.printStackTrace();
+			//System.out.println("");
 		}
 
 	}

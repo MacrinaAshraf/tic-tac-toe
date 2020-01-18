@@ -44,7 +44,7 @@ public class PlayersMenuController implements Initializable {
 	private Stage stage;
 	private int size;
 	
-	ObservableList<JSONObject> gold;
+	ObservableList<JSONObject> players;
 	ObservableList<JSONObject> silver;
 	ObservableList<JSONObject> bronze;
 
@@ -54,10 +54,13 @@ public class PlayersMenuController implements Initializable {
 	}
 
 	public void init() {
-		bronze = FXCollections.observableArrayList(Main.client.getBronzePlayers());
+		players = FXCollections.observableArrayList(Main.client.getGoldPlayers());
+		players.addAll(Main.client.getSilverPlayers());
+		players.addAll(Main.client.getBronzePlayers());
 		
-		setSize(Main.client.getGoldPlayers().size() + Main.client.getSilverPlayers().size()
-				+ Main.client.getBronzePlayers().size());
+		
+		
+		setSize(players.size());
 		inviteBtns = new Button[size];
 		fPane = new FlowPane[size];
 		usernames = new Label[size];
@@ -66,25 +69,26 @@ public class PlayersMenuController implements Initializable {
 		headerPane.setHgap(390 / 4);
 		headerPane.getChildren().addAll(new Label("Name"), new Label("Score"), new Label("Rank"));
 		lview.getItems().add(headerPane);
+		
+		
 		for (int i = 0; i < size; i++) {
 			inviteBtns[i] = new Button("Invite");
 			fPane[i] = new FlowPane();
 			fPane[i].setHgap(400 / 4);
 			try {
-				usernames[i] = new Label(bronze.get(i).get("username").toString());
-				score[i] = new Label(bronze.get(i).get("score").toString());
+				if (players.get(i).get("status").toString().equals("offline"))
+					inviteBtns[i].setDisable(true);
+				usernames[i] = new Label(players.get(i).get("username").toString());
+				score[i] = new Label(players.get(i).get("score").toString());
 				fPane[i].getChildren().add(usernames[i]);
 				fPane[i].getChildren().add(score[i]);
 				fPane[i].getChildren().addAll(new Label("Bronze"), inviteBtns[i]);
 				lview.getItems().add(fPane[i]);
-
-				if (bronze.get(i).get("status").toString().equals("offline"))
-					inviteBtns[i].setDisable(true);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		setActionHandler();
 	}
 
 	public ListView<FlowPane> getList() {
@@ -99,9 +103,8 @@ public class PlayersMenuController implements Initializable {
 		stage = primaryStage;
 	}
 
-	public void setActionHandler(Stage stage) {
+	public void setActionHandler() {
 		for (int i = 0; i < size; i++) {
-
 			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -150,9 +153,4 @@ public class PlayersMenuController implements Initializable {
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage);
 	}
-
-	@FXML
-	private void MenuAction(ActionEvent event) {
-	}
-
 }
