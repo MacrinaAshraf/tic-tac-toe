@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -19,29 +20,39 @@
 				<Image url="@../img/wooden-tic-tac-toe-o-game-concept-business-strategy-competition-ox-147675339.jpg" />
 			</image>
 		</ImageView>
-		<Pane layoutX="254.0" layoutY="26.0" opacity="0.61" prefHeight="422.0" prefWidth="344.0" style="-fx-background-color: black; -fx-border-color: eed555;">
+		<Pane layoutX="254.0" layoutY="26.0" opacity="0.61" prefHeight="450.0" prefWidth="344.0" style="-fx-background-color: black; -fx-border-color: eed555;">
          <children>
-      		<TextField layoutX="81.0" layoutY="192.0" prefHeight="27.0" prefWidth="210.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+      		<TextField layoutX="81.0" layoutY="181.0" prefHeight="27.0" prefWidth="210.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+            <Text fill="#d0cfcf" layoutX="60.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account ?">
+               <font>
+                  <Font name="Segoe UI Black" size="13.0" />
+               </font>
+            </Text>
+            <Hyperlink fx:id="logLink" layoutX="239.0" layoutY="337.0" text="Login" textFill="#f5e463">
+               <font>
+                  <Font name="Segoe UI Black" size="15.0" />
+               </font>
+            </Hyperlink>
          </children></Pane>
 		<Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-		<TextField fx:id="username" layoutX="334.0" layoutY="175.0" prefHeight="25.0" prefWidth="210.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
-		<Button fx:id="signUpBtn" layoutX="334.0" layoutY="377.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up" textAlignment="CENTER" textFill="#222121">
+		<TextField fx:id="username" layoutX="334.0" layoutY="158.0" prefHeight="25.0" prefWidth="210.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
+		<Button fx:id="signUpBtn" layoutX="332.0" layoutY="415.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up" textAlignment="CENTER" textFill="#222121">
 			<font>
 				<Font name="Segoe UI Black" size="15.0" />
 			</font>
 		</Button>
-		<PasswordField layoutX="334.0" layoutY="264.0" prefHeight="27.0" prefWidth="210.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+		<PasswordField layoutX="334.0" layoutY="257.0" prefHeight="27.0" prefWidth="210.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
 		<FontAwesomeIconView />
-		<Text fill="#f5e463" layoutX="381.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+		<Text fill="#f5e463" layoutX="381.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
 			<font>
 				<Font name="Segoe UI Black" size="22.0" />
 			</font>
 		</Text>
-		<FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE" layoutX="309.0" layoutY="245.0" size="15" text="" wrappingWidth="20.000003166496754" />
-		<FontAwesomeIconView fill="#eed555" fontSmoothingType="LCD" glyphName="USERS" layoutX="402.0" layoutY="101.0" size="40" />
-		<FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="310.0" layoutY="196.0" size="20" />
-		<FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="292.0" size="20" text="" />
-      <PasswordField layoutX="334.0" layoutY="315.0" prefHeight="27.0" prefWidth="210.0" promptText="Retype Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
-      <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="338.0" size="20" text="" />
+		<FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE" layoutX="309.0" layoutY="228.0" size="15" text="" wrappingWidth="20.000003166496754" />
+		<FontAwesomeIconView fill="#eed555" fontSmoothingType="LCD" glyphName="USERS" layoutX="402.0" layoutY="92.0" size="40" />
+		<FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="310.0" layoutY="182.0" size="20" />
+		<FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="279.0" size="20" text="" />
+      <PasswordField layoutX="334.0" layoutY="308.0" prefHeight="27.0" prefWidth="210.0" promptText="Retype Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+      <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="329.0" size="20" text="" />
 	</children>
 </AnchorPane>

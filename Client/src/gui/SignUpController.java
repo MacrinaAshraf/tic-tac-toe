@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,21 +35,29 @@ public class SignUpController implements Initializable {
 	@FXML
 	private Button signUpBtn;
 	
-
+        private Parent loginUI;
 	private Parent homePageUI;
 	private HomePageController homePageControl;
+        private LoginController loginControl;
+
     @FXML
     private TextField username;
+    @FXML
+    private Hyperlink logLink;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
-	public void setActionHandler(Stage stage) {
+	public void setActionHandler(Stage stage) throws IOException {
 		// TODO Auto-generated method stub
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
     	FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+       FXMLLoader loginLoader = new FXMLLoader (getClass().getResource("Login.fxml"));
+        loginUI = loginLoader.load();
+	loginControl = (LoginController) loginLoader.getController();
+        
 
     		try {
 				homePageUI = homePageLoader.load();
@@ -68,6 +77,14 @@ public class SignUpController implements Initializable {
 			}
     		
     	});
+        logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                        stage.setScene(new Scene(loginUI));
+                        loginControl.setActionHandler(stage);
+                    }
+            
+        });
 	}
     
 }
