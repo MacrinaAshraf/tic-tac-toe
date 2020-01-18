@@ -108,29 +108,32 @@ public class Client {
 			JSONArray silverList = recieveJson.getJSONArray("Silver");
 			JSONArray bronzeList = recieveJson.getJSONArray("bronze");
 			
+			Vector<JSONObject> gold = new Vector<JSONObject>();
+			Vector<JSONObject> silver = new Vector<JSONObject>();
+			Vector<JSONObject> bronze = new Vector<JSONObject>();
+			
 			for(int i = 0; i < goldList.length(); i++) {
 				//Added function checkForDuplication() to prevent adding the same record
 				//to the list
-				if(goldPlayers.isEmpty() || checkForDuplication(goldList.getJSONObject(i), goldList.length(), goldPlayers)) {
-					goldPlayers.add(goldList.getJSONObject(i));
-				}
-				
+				gold.add(goldList.getJSONObject(i));	
 			}
 			for(int i = 0; i < silverList.length(); i++) {
 				//Added function checkForDuplication() to prevent adding the same record
 				//to the list
-				if(silverPlayers.isEmpty() || checkForDuplication(silverList.getJSONObject(i), silverList.length(), silverPlayers)) {
-					silverPlayers.add(silverList.getJSONObject(i));
-				}
-				
+				silver.add(silverList.getJSONObject(i));
 			}
 			for(int i = 0; i < bronzeList.length(); i++) {
 				//Added function checkForDuplication() to prevent adding the same record
 				//to the list
-				if(bronzePlayers.isEmpty() || checkForDuplication(bronzeList.getJSONObject(i), bronzeList.length(), bronzePlayers)) {
-					bronzePlayers.add(bronzeList.getJSONObject(i));
-				}
+				bronze.add(bronzeList.getJSONObject(i));
 			}
+			
+			for (int i = 0; i < bronze.size(); i++) {
+				bronzePlayers.set(i, bronze.get(i));
+			}
+			
+			//System.out.println(bronzePlayers.get(1));
+			
 			System.out.println("values " + bronzePlayers.size());
 			
 		} catch (JSONException e) {
@@ -139,16 +142,16 @@ public class Client {
 		
 	}
 
-	private boolean checkForDuplication(JSONObject playerRecord, int size, Vector<JSONObject> players) throws JSONException {
+	/*private boolean checkForDuplication(JSONObject playerRecord, int size, Vector<JSONObject> players) throws JSONException {
 		if(players.isEmpty())
 			return true;
 		
 		for(int i = 0; i < size; i++) {
-			if(players.get(i).get("username") != playerRecord.get("username"))
+			if(players.get(i).get("username") == playerRecord.get("username"))
 				return false;
 		}
 		return true;
-	}
+	}*/
 
 	public void handleLogin() {
 		String result = null;
@@ -178,13 +181,6 @@ public class Client {
 		}
 
 	}
-
-	/*
-	 * public void sendStopSignalToServer() { try { sendJson.put("type", "stop");
-	 * System.out.print(sendJson); ps.print(sendJson); System.out.print("closed"); }
-	 * catch (JSONException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } }
-	 */
 
 	public void stopConnection() {
 		try {

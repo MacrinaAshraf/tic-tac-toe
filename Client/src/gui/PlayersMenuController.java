@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.net.URL;
@@ -26,105 +21,105 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import org.json.JSONException;
 
-
 public class PlayersMenuController implements Initializable {
 
-    @FXML
-    private MenuItem logOutBtn;
-    @FXML
-    private MenuItem helpBtn;
-    @FXML
-    private ListView<FlowPane> lview;
-    private Button[] inviteBtns;
-    private FlowPane[] fPane;
-    private Label[] usernames;
-    private Label[] score;
-    private FlowPane headerPane;
-    private Stage stage;
-    private int size;
+	@FXML
+	private MenuItem logOutBtn;
+	@FXML
+	private MenuItem helpBtn;
+	@FXML
+	private ListView<FlowPane> lview;
+	private Button[] inviteBtns;
+	private FlowPane[] fPane;
+	private Label[] usernames;
+	private Label[] score;
+	private FlowPane headerPane;
+	private Stage stage;
+	private int size;
 
-    @Override
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
-    	setSize(Main.client.getBronzePlayers().size());
+    	setSize(Main.client.getGoldPlayers().size() + Main.client.getSilverPlayers().size() + Main.client.getBronzePlayers().size());
         inviteBtns = new Button[size];
         fPane = new FlowPane[size];
         usernames = new Label[size];
         score = new Label[size];
         headerPane = new FlowPane();
-        //System.out.print();
         headerPane.setHgap(390 / 4);
         headerPane.getChildren().addAll(new Label("Name"),new Label("Score"),new Label("Rank"));
         lview.getItems().add(headerPane);
       
-        for (int i = 0; i < size; i++) {
-            inviteBtns[i] = new Button("Invite");
-            fPane[i] = new FlowPane ();
-            fPane[i].setHgap(400 / 4);
-            try {
-				usernames[i] = new Label(Main.client.getBronzePlayers().get(i).get("username").toString());
-				score[i] = new Label(Main.client.getBronzePlayers().get(i).get("score").toString());
-				fPane[i].getChildren().add(usernames[i]);
-	            fPane[i].getChildren().add(score[i]);
-	            fPane[i].getChildren().addAll(new Label("Bronze"),  inviteBtns[i]);
-	            lview.getItems().add(fPane[i]);
-            } catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
-           
-        }  
+        //while () {
+	        for (int i = 0; i < size; i++) {
+	            inviteBtns[i] = new Button("Invite");
+	            fPane[i] = new FlowPane ();
+	            fPane[i].setHgap(400 / 4);
+	            try {
+					usernames[i] = new Label(Main.client.getBronzePlayers().get(i).get("username").toString());
+					score[i] = new Label(Main.client.getBronzePlayers().get(i).get("score").toString());
+					fPane[i].getChildren().add(usernames[i]);
+		            fPane[i].getChildren().add(score[i]);
+		            fPane[i].getChildren().addAll(new Label("Bronze"),  inviteBtns[i]);
+		            lview.getItems().add(fPane[i]);
+	            } catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+	            }
+	        }  
+        //}
+        
     }
-    public void setSize (int s)
-    {
-        size = s;
-    }
-    
-     public void setStage(Stage primaryStage) {
-    	stage = primaryStage;
-    }
-    
-    public void setActionHandler(Stage stage) {
-    	for (int i = 0; i < size; i++) {
-            
-            inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                	Alert alert = new Alert(AlertType.CONFIRMATION);
-                	alert.setHeaderText("Do you want to accept the invitation?");
-                	alert.setContentText(null);
-                	Optional<ButtonType> btnType = alert.showAndWait();
-                	if(btnType.get() == ButtonType.OK) {
-                		Scene scene = new Scene(new Label("Hello"), 400, 500);
-                    	stage.setScene(scene);
-                    }
-                }
-            });
-        }
-          logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+	public void setSize(int s) {
+		size = s;
+	}
+
+	public void setStage(Stage primaryStage) {
+		stage = primaryStage;
+	}
+
+	public void setActionHandler(Stage stage) {
+		for (int i = 0; i < size; i++) {
+
+			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setHeaderText("Do you want to accept the invitation?");
+					alert.setContentText(null);
+					Optional<ButtonType> btnType = alert.showAndWait();
+					if (btnType.get() == ButtonType.OK) {
+						Scene scene = new Scene(new Label("Hello"), 400, 500);
+						stage.setScene(scene);
+					}
+				}
+			});
+		}
+		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-                            try {
-                                // TODO Auto-generated method stub
+				try {
+					// TODO Auto-generated method stub
 
-                                Main.client.logout();
-                            } catch (JSONException ex) {
-                                Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                                
+					Main.client.logout();
+				} catch (JSONException ex) {
+					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
 				stage.setScene(new Scene(HomePageController.loginUI));
 				HomePageController.loginControl.setActionHandler(stage);
 			}
-    		
-    	});
-    }
-    @FXML
-    private void ReturnHomeAction(ActionEvent event) {
-    }
 
-    @FXML
-    private void MenuAction(ActionEvent event) {
-    }
-    
+		});
+	}
+
+	@FXML
+	private void ReturnHomeAction(ActionEvent event) {
+	}
+
+	@FXML
+	private void MenuAction(ActionEvent event) {
+	}
+
 }

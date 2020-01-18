@@ -83,6 +83,7 @@ public class LoginController implements Initializable {
 					System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
 						System.out.println("you can't login.");
+						Main.client.getPlayer().setId(0);
 						break;
 					} else if (Main.client.getPlayer().getId() > 0) {
 						stage.setScene(new Scene(homePageUI));
@@ -92,9 +93,6 @@ public class LoginController implements Initializable {
 
 					}
 				}
-				
-				Main.client.getPlayer().setId(0);
-
 			}
 
 		});
