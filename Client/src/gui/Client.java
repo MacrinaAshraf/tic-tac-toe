@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +23,9 @@ public class Client {
 	JSONObject sendJson;
 	JSONObject recieveJson;
 	
-	Vector<JSONObject> goldPlayers = new Vector<JSONObject>();
-	Vector<JSONObject> silverPlayers = new Vector<JSONObject>();
-	Vector<JSONObject> bronzePlayers = new Vector<JSONObject>();
+	private Vector<JSONObject> goldPlayers = new Vector<JSONObject>();
+	private Vector<JSONObject> silverPlayers = new Vector<JSONObject>();
+	private Vector<JSONObject> bronzePlayers = new Vector<JSONObject>();
 	
 	public Client() {
 		player = new Player();
@@ -54,7 +53,7 @@ public class Client {
 								handleLogin();
 								break;
 							case "playerlist":
-								fillVectors();
+								fillPlayersVectors();
 								break;
 							case "invite":
 								break;
@@ -83,22 +82,43 @@ public class Client {
 		}
 
 	}
+	
+	
 
-	public void fillVectors() {
-		// TODO Auto-generated method stub
+	public Vector<JSONObject> getGoldPlayers() {
+		return goldPlayers;
+	}
+
+
+	public Vector<JSONObject> getSilverPlayers() {
+		return silverPlayers;
+	}
+
+
+
+	public Vector<JSONObject> getBronzePlayers() {
+		return bronzePlayers;
+	}
+
+
+
+	public void fillPlayersVectors() {
 		try {
 			JSONArray goldList = recieveJson.getJSONArray("Gold");
 			JSONArray silverList = recieveJson.getJSONArray("Silver");
 			JSONArray bronzeList = recieveJson.getJSONArray("bronze");
 			
-			//System.out.println("size of json array " + goldList.length());
 			for(int i = 0; i < goldList.length(); i++) {
+				//Added function checkForDuplication() to prevent adding the same record
+				//to the list
 				if(goldPlayers.isEmpty() || checkForDuplication(goldList.getJSONObject(i), goldList.length(), goldPlayers)) {
 					goldPlayers.add(goldList.getJSONObject(i));
 				}
 				
 			}
 			for(int i = 0; i < silverList.length(); i++) {
+				//Added function checkForDuplication() to prevent adding the same record
+				//to the list
 				if(silverPlayers.isEmpty() || checkForDuplication(silverList.getJSONObject(i), silverList.length(), silverPlayers)) {
 					silverPlayers.add(silverList.getJSONObject(i));
 				}
@@ -111,19 +131,15 @@ public class Client {
 					bronzePlayers.add(bronzeList.getJSONObject(i));
 				}
 			}
-			
-			
 			System.out.println("values " + bronzePlayers.size());
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 	private boolean checkForDuplication(JSONObject playerRecord, int size, Vector<JSONObject> players) throws JSONException {
-		// TODO Auto-generated method stub
 		if(players.isEmpty())
 			return true;
 		
@@ -153,12 +169,11 @@ public class Client {
 	}
 
 	public void setPlayer() {
-		// TODO Auto-generated method stub
 		try {
 			player.setName((String) recieveJson.get("name"));
+			player.setScore((int) recieveJson.get("score"));
 			player.setId(recieveJson.getInt("id"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -227,6 +242,7 @@ public class Client {
 	public void endOfGame(String userName, int score, String userName2, int score2) throws JSONException {
 		sendJson.put("type", "endofgame");
 		sendJson.put("score", score);
+		sendToServer();
 	}
 
 	public void sendToServer() {

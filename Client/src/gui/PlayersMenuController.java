@@ -34,18 +34,18 @@ public class PlayersMenuController implements Initializable {
     @FXML
     private MenuItem helpBtn;
     @FXML
-    ListView<FlowPane> lview;
-    Button[] inviteBtns;
-    FlowPane[] fPane;
-    Label[] usernames;
-    Label[] score;
-    FlowPane headerPane;
-    Stage stage;
-    int size;
+    private ListView<FlowPane> lview;
+    private Button[] inviteBtns;
+    private FlowPane[] fPane;
+    private Label[] usernames;
+    private Label[] score;
+    private FlowPane headerPane;
+    private Stage stage;
+    private int size;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	setSize(Main.client.bronzePlayers.size());
+    	setSize(Main.client.getBronzePlayers().size());
         inviteBtns = new Button[size];
         fPane = new FlowPane[size];
         usernames = new Label[size];
@@ -61,8 +61,8 @@ public class PlayersMenuController implements Initializable {
             fPane[i] = new FlowPane ();
             fPane[i].setHgap(400 / 4);
             try {
-				usernames[i] = new Label(Main.client.bronzePlayers.get(i).get("username").toString());
-				score[i] = new Label(Main.client.bronzePlayers.get(i).get("score").toString());
+				usernames[i] = new Label(Main.client.getBronzePlayers().get(i).get("username").toString());
+				score[i] = new Label(Main.client.getBronzePlayers().get(i).get("score").toString());
 				fPane[i].getChildren().add(usernames[i]);
 	            fPane[i].getChildren().add(score[i]);
 	            fPane[i].getChildren().addAll(new Label("Bronze"),  inviteBtns[i]);

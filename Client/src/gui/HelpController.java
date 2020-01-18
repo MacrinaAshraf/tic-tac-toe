@@ -5,7 +5,6 @@
  */
 package gui;
 
-import static gui.HomePageController.loginUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,63 +28,59 @@ import org.json.JSONException;
  */
 public class HelpController implements Initializable {
 
-    @FXML
-    private MenuItem logOutBtn;
-    @FXML
-    private MenuItem homeBtn;
+	@FXML
+	private MenuItem logOutBtn;
+	@FXML
+	private MenuItem homeBtn;
 
-    static Parent loginUI;
-    Parent HomePageUI;
-    HomePageController HomePageControl;
-    static LoginController loginControl;
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
- public void setActionHandler(Stage stage) {
-    	FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
-    	FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
-    	FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-        try {
+	static Parent loginUI;
+	Parent HomePageUI;
+	HomePageController HomePageControl;
+	static LoginController loginControl;
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
+
+	public void setActionHandler(Stage stage) {
+		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+		//FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+		try {
 			loginUI = loginLoader.load();
 			HomePageUI = homeLoader.load();
-			
+
 			HomePageControl = (HomePageController) homeLoader.getController();
 			loginControl = (LoginController) loginLoader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-        logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent lOut) {
-                            try {
-                                Main.client.logout();
-                            } catch (JSONException ex) {
-                                Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                                
+				try {
+					Main.client.logout();
+				} catch (JSONException ex) {
+					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
 				stage.setScene(new Scene(loginUI));
 				loginControl.setActionHandler(stage);
 			}
-    		
-    	});
-        homeBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-                @Override
-                public void handle(ActionEvent event) {
-                    stage.setScene(new Scene(HomePageUI));
-                    HomePageControl.setActionHandler(stage);
-				
+
+		});
+		homeBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				stage.setScene(new Scene(HomePageUI));
+				HomePageControl.setActionHandler(stage);
+
 			}
-            
-        });
+
+		});
+	}
 }
-}
-
-
-
