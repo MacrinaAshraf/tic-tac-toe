@@ -41,8 +41,8 @@ public class HomePageController implements Initializable {
 	Parent loginUI, playersMenuUI, gameScreenUI;
 	PlayersMenuController playersMenuControl;
 	LoginController loginControl;
-	private GameController gameControl;
-    public boolean playerChoose=true;
+	private GameController1 gameControl;
+    //public boolean playerChoose=true;
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,7 +62,7 @@ public class HomePageController implements Initializable {
 			
 			playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
 			loginControl = (LoginController) loginLoader.getController();
-			gameControl = (GameController) gameLoader.getController();
+			gameControl = (GameController1) gameLoader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,6 +87,7 @@ public class HomePageController implements Initializable {
 				// TODO Auto-generated method stub
 				//stage.setScene(new Scene(playersMenuUI));
 				//playersMenuControl.setActionHandler(stage);
+				vsComputer = false;
 				gameControl.setStage(stage);
 				stage.setScene(new Scene(gameScreenUI));
 				gameControl.assignNumber();
