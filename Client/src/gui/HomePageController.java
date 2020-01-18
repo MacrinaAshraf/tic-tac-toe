@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Ali&&ismail
+ * @author Noran
  */
 public class HomePageController implements Initializable {
 	@FXML

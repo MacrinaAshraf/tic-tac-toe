@@ -16,6 +16,7 @@ public class TestBoard {
     public static final String PLAYER_X = "X";
     public static final String PLAYER_O = "O";
     public  String value="" ;
+    public static  String checkWinner;
  
     public String[][] board = new String[3][3];
     public static String[][] board2 = new String[3][3];
@@ -45,6 +46,7 @@ public class TestBoard {
         //check for diagonal
         if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == player)
                 || ((board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == player))) {
+               checkWinner="X";
             return true;
         }
         //check for rows and column
@@ -52,10 +54,12 @@ public class TestBoard {
 
             if ((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == player)
                     || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == player)) {
+                checkWinner="O";
                 return true;
             }
 
         }
+        checkWinner="noWinner";
         return false;
     }
 
