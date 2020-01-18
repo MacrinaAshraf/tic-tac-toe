@@ -20,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -42,7 +41,6 @@ public class LoginController implements Initializable {
 	@FXML
 	private PasswordField password;
 
-	private boolean flag = false;
 	private Parent homePageUI;
 	private HomePageController homePageControl;
 	private Parent signUpUI;
@@ -85,6 +83,7 @@ public class LoginController implements Initializable {
 					System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
 						System.out.println("you can't login.");
+						Main.client.getPlayer().setId(0);
 						break;
 					} else if (Main.client.getPlayer().getId() > 0) {
 						stage.setScene(new Scene(homePageUI));
@@ -94,9 +93,6 @@ public class LoginController implements Initializable {
 
 					}
 				}
-				
-				Main.client.getPlayer().setId(0);
-
 			}
 
 		});

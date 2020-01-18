@@ -12,16 +12,13 @@ import javafx.event.EventHandler;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseDragEvent;
 import javafx.stage.Stage;
 import org.json.JSONException;
 
@@ -44,6 +41,7 @@ public class HomePageController implements Initializable {
 	PlayersMenuController playersMenuControl;
 	static LoginController loginControl;
 	private GameController gameControl;
+	static Boolean vsComputer = false;
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,8 +72,6 @@ public class HomePageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
                             try {
-                                // TODO Auto-generated method stub
-
                                 Main.client.logout();
                             } catch (JSONException ex) {
                                 Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +98,7 @@ public class HomePageController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				vsComputer = true;
 				gameControl.setStage(stage);
 				stage.setScene(new Scene(gameScreenUI));
 				gameControl.assignNumber();

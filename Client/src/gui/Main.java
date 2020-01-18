@@ -1,21 +1,17 @@
 package gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Application;
-import javafx.application.Platform;
+import org.json.JSONException;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.json.JSONException;
 
 public class Main extends Application {
 	LoginController loginControl;
 	static Client client = new Client();
 
-	// Controller cl;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
