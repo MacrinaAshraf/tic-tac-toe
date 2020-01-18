@@ -18,6 +18,7 @@ import javafx.application.Platform;
 public class Client {
 
 	static Player player;
+        String errorMessage;
 	Socket clientSocket;
 	BufferedReader dis;
 	PrintStream ps;
@@ -59,6 +60,9 @@ public class Client {
 								break;
 							case "invite":
 								getInviterInfo();
+								break;
+                                                        case "register":
+                                                                handleRegister();
 								break;
 							case "responsetoinvite":
 								break;
@@ -162,6 +166,20 @@ public class Client {
 			player.setId(-1);
 		}
 	}
+        public void handleRegister() {
+            String result = null;
+            try{
+                result = (String) recieveJson.get("res");
+            } catch (JSONException e) {
+		e.printStackTrace();
+            }
+            if (result.equals("Successfully")) {
+                setPlayer();
+            } else {
+                errorMessage = "Either username or email is duplicate";
+                player.setId(-1);
+            }
+	}
 
 	public Player getPlayer() {
 		return player;
@@ -240,4 +258,7 @@ public class Client {
 	public void sendToServer() {
 		ps.println(sendJson);
 	}
+        public String getErrorMessage(){
+            return errorMessage;
+        }
 }

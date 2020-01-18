@@ -27,10 +27,12 @@ public class SignUpManager {
             pst.setString(2,Password);
             pst.setString(3,Email);            
             pst.executeUpdate();
+            result.put("type","register");
             result.put("res", "Successfuly");
             System.out.println("Inserted");
         }catch(SQLException ex){
-            result.put("res", "Failed");
+            result.put("type","register");
+            result.put("res", "failed");
             System.err.println("Error in update: " + ex);
         }
        
