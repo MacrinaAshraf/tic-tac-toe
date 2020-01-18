@@ -16,19 +16,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController">
+<!-- AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController"-->
+
+<AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController1">
+
 	<children>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
 			<image>
 				<Image url="@../img/screen.gif" />
 			</image>
 		</ImageView>
-		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="413.0" pickOnBounds="true" preserveRatio="true">
+
+		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="414.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
 			<image>
 				<Image url="@../img/screen.gif" />
 			</image>
 		</ImageView>
-		<GridPane gridLinesVisible="true" layoutX="123.0" layoutY="112.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0" style="-fx-background-color: d7c682; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;">
+
+		<!-- GridPane gridLinesVisible="true" layoutX="123.0" layoutY="112.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0" style="-fx-background-color: d7c682; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;"-->
+		<GridPane gridLinesVisible="true" layoutX="123.0" layoutY="137.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,53 +46,64 @@
 				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
+
 				<Button fx:id="button1" mnemonicParsing="false" onAction="#btn1" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="0">
+
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button2" mnemonicParsing="false" onAction="#btn2" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+				<Button fx:id="button2" mnemonicParsing="false" onAction="#btn2" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button3" mnemonicParsing="false" onAction="#btn3" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="0">
+
+				<Button fx:id="button3" mnemonicParsing="false" onAction="#btn3" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="0">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button4" mnemonicParsing="false" onAction="#btn4" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="1">
+
+				<Button fx:id="button4" mnemonicParsing="false" onAction="#btn4" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button5" mnemonicParsing="false" onAction="#btn5" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+				<Button fx:id="button5" mnemonicParsing="false" onAction="#btn5" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button6" mnemonicParsing="false" onAction="#btn6" prefHeight="102.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="1">
+
+				<Button fx:id="button6" mnemonicParsing="false" onAction="#btn6" prefHeight="102.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="1">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button7" mnemonicParsing="false" onAction="#btn7" prefHeight="92.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="2">
+
+				<Button fx:id="button7" mnemonicParsing="false" onAction="#btn7" prefHeight="92.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button8" mnemonicParsing="false" onAction="#btn8" prefHeight="90.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="2">
+
+				<Button fx:id="button8" mnemonicParsing="false" onAction="#btn8" prefHeight="90.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
-				<Button fx:id="button9" mnemonicParsing="false" onAction="#btn9" prefHeight="80.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="2">
+
+				<Button fx:id="button9" mnemonicParsing="false" onAction="#btn9" prefHeight="108.0" prefWidth="177.0" style="-fx-background-color: #f2f2f2;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="2">
 					<font>
 						<Font name="Tahoma Bold" size="41.0" />
 					</font>
 				</Button>
 			</children>
 		</GridPane>
+
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="597.0" layoutY="74.0" size="40" text="" wrappingWidth="47.999995931982994" />
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="75.0" layoutY="430.0" size="40" wrappingWidth="36.0" />
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="552.0" layoutY="431.0" size="40" wrappingWidth="36.00001786430221" />
@@ -102,11 +119,21 @@
 			</font>
 		</Label>
 		<Label layoutX="591.0" layoutY="403.0" prefHeight="30.0" prefWidth="91.0" text="User 2" textFill="#d7c682">
+		<!-- FontAwesomeIconView fill="#e80a0a" glyphName="USER" layoutX="66.0" layoutY="496.0" size="40" wrappingWidth="48.0" />
+		<FontAwesomeIconView fill="#1042f5" glyphName="USER" layoutX="544.0" layoutY="496.0" size="40" wrappingWidth="48.0" />
+		<Label layoutX="50.0" layoutY="45.0" prefHeight="17.0" prefWidth="146.0" text="Tic Tac Toe" textFill="#dab419">
+			<font>
+				<Font name="Arial Italic" size="24.0" />
+			</font>
+		</Label>
+		<Label layoutX="123.0" layoutY="471.0" prefHeight="30.0" prefWidth="91.0" text="User 1" textFill="#f8f7f7"-->
 			<font>
 				<Font name="Segoe UI Black Italic" size="25.0" />
 			</font>
 		</Label>
-		<Label layoutX="211.0" layoutY="404.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#a09dd7">
+
+		<!-- Label layoutX="211.0" layoutY="404.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#a09dd7"-->
+		<Label layoutX="606.0" layoutY="470.0" prefHeight="30.0" prefWidth="91.0" text="User 2" textFill="#f8f7f7">
 			<font>
 				<Font name="Tahoma Bold" size="24.0" />
 			</font>
@@ -114,7 +141,9 @@
             <Bloom threshold="0.62" />
          </effect>
 		</Label>
-		<Label layoutX="679.0" layoutY="401.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#a09dd7">
+
+		<!-- Label layoutX="679.0" layoutY="401.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#a09dd7"-->
+		<Label layoutX="213.0" layoutY="470.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#f8f7f7">
 			<font>
 				<Font name="Tahoma Bold" size="27.0" />
 			</font>
@@ -122,12 +151,15 @@
             <Bloom threshold="0.63" />
          </effect>
 		</Label>
-		<Label layoutX="639.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" text="User 1" textFill="#d7c682">
+
+		<!-- Label layoutX="639.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" text="User 1" textFill="#d7c682"-->
+		<Label layoutX="697.0" layoutY="470.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#f8f7f7">
 			<font>
 				<Font name="Segoe UI Black Italic" size="25.0" />
 			</font>
 		</Label>
-		<Button layoutX="346.0" layoutY="434.0" mnemonicParsing="false" onAction="#Reset" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Reset" textFill="#dac285">
+
+		<Button layoutX="346.0" layoutY="434.0" mnemonicParsing="false" onAction="#reset" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Reset" textFill="#dac285">
          <font>
             <Font name="Segoe UI Black" size="16.0" />
          </font>
@@ -158,5 +190,22 @@
       </Text>
       <Pane layoutX="175.0" layoutY="438.0" prefHeight="30.0" prefWidth="67.0" />
       <Pane layoutX="649.0" layoutY="431.0" prefHeight="30.0" prefWidth="67.0" />
+		<!-- FontAwesomeIconView fill="#f2efef" glyphName="LIST" layoutX="725.0" layoutY="31.0" size="20" text="" textAlignment="CENTER" wrappingWidth="41.0" />
+      <FontAwesomeIconView fill="WHITE" glyphName="COGS" layoutX="700.0" layoutY="30.0" size="20" />
+      <Label layoutX="342.0" layoutY="464.0" text="Score " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreplayerX" layoutX="169.0" layoutY="536.0" text="0" textFill="#e80a0a">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreplayerO" layoutX="644.0" layoutY="530.0" text="0" textFill="#1042f5">
+         <font>
+            <Font size="29.0" />
+         </font-->
+      </Label>
 	</children>
 </AnchorPane>

@@ -35,6 +35,7 @@ public class HomePageController implements Initializable {
 	Button singlePlayer;
 	@FXML
 	Button multiPlayer;
+
         static Parent playersMenuUI, gameScreenUI,loginUI, helpUI;
 	static PlayersMenuController playersMenuControl;
 	static LoginController loginControl;
@@ -62,6 +63,7 @@ public class HomePageController implements Initializable {
 			
 			playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
 			loginControl = (LoginController) loginLoader.getController();
+
                         helpControl = (HelpController) helpLoader.getController();
 			gameControl = (GameController) gameLoader.getController();
 		} catch (IOException e) {
@@ -94,21 +96,31 @@ public class HomePageController implements Initializable {
     	});
     	
     	multiPlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
+                                             
+                      
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				playersMenuControl.setStage(stage);
+
+				/*playersMenuControl.setStage(stage);
 				stage.setScene(new Scene(playersMenuUI));
-				playersMenuControl.init();
+				playersMenuControl.init();*/
+				//stage.setScene(new Scene(playersMenuUI));
+				//playersMenuControl.setActionHandler(stage);
+				vsComputer = false;
+				gameControl.setStage(stage);
+				stage.setScene(new Scene(gameScreenUI));
+				gameControl.assignNumber();
+
 			}
+                        
     		
     	});
     	
     	singlePlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
+
 				vsComputer = true;
 				gameControl.setStage(stage);
 				stage.setScene(new Scene(gameScreenUI));
@@ -117,7 +129,5 @@ public class HomePageController implements Initializable {
     		
     	});
     }
-    
-
     
 }
