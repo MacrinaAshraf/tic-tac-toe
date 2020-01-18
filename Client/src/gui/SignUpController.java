@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,16 +23,13 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.json.JSONObject;
 import java.util.regex.*;
 import org.json.JSONException;
 
-/**
- *
- * @author Ismail_khadr
- */
 public class SignUpController implements Initializable {
 
     @FXML
@@ -47,6 +45,8 @@ public class SignUpController implements Initializable {
     @FXML
     private Label validationError;
     //private Parent homePageUI;
+    @FXML
+    private Hyperlink logLink;
     private Parent loginPageUI;
     private LoginController loginControl;
 
@@ -76,15 +76,14 @@ public class SignUpController implements Initializable {
                 if (validateUsername(username.getText())) {
                     if (validateEmail(email.getText())) {
                         if (validatePassword(password.getText())) {
-                            if(!pass.equals(rePass)){
+                            if (!pass.equals(rePass)) {
                                 System.out.println(password.getText());
                                 System.out.println(retypePassword.getText());
                                 System.out.println("YO");
                                 validation = false;
                                 validationError.setText("Your passwords doesn't match");
                             }
-                        }
-                        else{
+                        } else {
                             validation = false;
                             validationError.setText("Your password must be between 6 and 20 characters");
                         }
@@ -103,18 +102,26 @@ public class SignUpController implements Initializable {
                     } catch (JSONException e) {
                         System.out.println(e);
                     }
-                    if(Main.client.getErrorMessage().isEmpty()) {
+                    if (Main.client.getErrorMessage().isEmpty()) {
                         System.out.println(Main.client.getErrorMessage());
                         System.out.println("MWT NFSk");
                         validationError.setText("");
                         stage.setScene(new Scene(loginPageUI));
-                        loginControl.setActionHandler(stage);   
+                        loginControl.setActionHandler(stage);
                     } else {
                         System.out.println(Main.client.getErrorMessage());
                         validationError.setText(Main.client.getErrorMessage());
-                    }                   
+                    }
                 }
             }
+        });
+        logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.setScene(new Scene(loginPageUI));
+                loginControl.setActionHandler(stage);
+            }
+
         });
     }
 
@@ -147,5 +154,4 @@ public class SignUpController implements Initializable {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
 }

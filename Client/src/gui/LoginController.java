@@ -8,6 +8,8 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 
@@ -80,10 +82,10 @@ public class LoginController implements Initializable {
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
 
 				while (Main.client.getPlayer().getId() == 0) {
-					//System.out.println(Main.client.getPlayer().getId());
+					System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
                                             Label errormsg = new Label("Invalid username or Password!");
 						aPane.getChildren().addAll(errormsg);
@@ -94,8 +96,6 @@ public class LoginController implements Initializable {
 						stage.setScene(new Scene(homePageUI));
 						homePageControl.setActionHandler(stage);
 						break;
-					} else {
-
 					}
 				}
 			}
@@ -108,10 +108,11 @@ public class LoginController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(signUpUI));
-				signUpControl.setActionHandler(stage);
+                                signUpControl.setActionHandler(stage);
 			}
 
 		});
+                
 
 	}
 

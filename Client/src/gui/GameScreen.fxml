@@ -136,8 +136,8 @@
          </effect></Button>
       <MenuButton layoutX="655.0" layoutY="1.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#d0b95b" textOverrun="CLIP">
          <items>
-            <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
-            <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
+            <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="logOutBtn" />
+            <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="helpBtn" />
          </items>
          <font>
             <Font name="Segoe UI Black Italic" size="17.0" />

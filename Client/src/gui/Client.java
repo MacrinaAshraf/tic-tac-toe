@@ -18,18 +18,18 @@ import javafx.application.Platform;
 public class Client {
 
 	static Player player;
-        String errorMessage;
+	String errorMessage;
 	Socket clientSocket;
 	BufferedReader dis;
 	PrintStream ps;
 	Boolean keepRunning;
 	JSONObject sendJson;
 	JSONObject recieveJson;
-	
+
 	private Vector<JSONObject> goldPlayers = new Vector<JSONObject>();
 	private Vector<JSONObject> silverPlayers = new Vector<JSONObject>();
 	private Vector<JSONObject> bronzePlayers = new Vector<JSONObject>();
-	
+
 	public Client() {
 		player = new Player();
 		sendJson = new JSONObject();
@@ -61,8 +61,8 @@ public class Client {
 							case "invite":
 								getInviterInfo();
 								break;
-                                                        case "register":
-                                                                handleRegister();
+							case "register":
+								handleRegister();
 								break;
 							case "responsetoinvite":
 								break;
@@ -89,68 +89,60 @@ public class Client {
 		}
 
 	}
-	
-	
 
 	protected void getInviterInfo() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	public Vector<JSONObject> getGoldPlayers() {
 		return goldPlayers;
 	}
 
-
 	public Vector<JSONObject> getSilverPlayers() {
 		return silverPlayers;
 	}
 
-
-
 	public Vector<JSONObject> getBronzePlayers() {
 		return bronzePlayers;
 	}
-
-
 
 	public void fillPlayersVectors() {
 		try {
 			JSONArray goldList = recieveJson.getJSONArray("Gold");
 			JSONArray silverList = recieveJson.getJSONArray("Silver");
 			JSONArray bronzeList = recieveJson.getJSONArray("bronze");
-			
+
 			Vector<JSONObject> gold = new Vector<JSONObject>();
 			Vector<JSONObject> silver = new Vector<JSONObject>();
 			Vector<JSONObject> bronze = new Vector<JSONObject>();
-			
-			for(int i = 0; i < goldList.length(); i++) {
-				gold.add(goldList.getJSONObject(i));	
+
+			for (int i = 0; i < goldList.length(); i++) {
+				gold.add(goldList.getJSONObject(i));
 			}
-			for(int i = 0; i < silverList.length(); i++) {
+			for (int i = 0; i < silverList.length(); i++) {
 				silver.add(silverList.getJSONObject(i));
 			}
-			for(int i = 0; i < bronzeList.length(); i++) {
+			for (int i = 0; i < bronzeList.length(); i++) {
 				bronze.add(bronzeList.getJSONObject(i));
 			}
-			
+
 			goldPlayers = gold;
 			silverPlayers = silver;
 			bronzePlayers = bronze;
-			
+
 			System.out.println("values " + bronzePlayers.size());
-			
+
 			System.out.println(HomePageController.playersMenuControl == null);
-			
-			if(HomePageController.playersMenuControl != null && HomePageController.playersMenuControl.getList() != null)
+
+			if (HomePageController.playersMenuControl != null
+					&& HomePageController.playersMenuControl.getList() != null)
 				HomePageController.playersMenuControl.getList().refresh();
-			
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void handleLogin() {
@@ -166,6 +158,7 @@ public class Client {
 			player.setId(-1);
 		}
 	}
+
         public void handleRegister() {
             String result = null;
             try{
@@ -192,6 +185,7 @@ public class Client {
 			player.setId(recieveJson.getInt("id"));
 		} catch (JSONException e) {
 			e.printStackTrace();
+			// System.out.println("");
 		}
 
 	}
@@ -258,6 +252,7 @@ public class Client {
 	public void sendToServer() {
 		ps.println(sendJson);
 	}
+
         public void setErrorMessage(String error){
             errorMessage = error;
         }

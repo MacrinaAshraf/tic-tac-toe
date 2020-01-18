@@ -43,7 +43,7 @@
             <Font name="Segoe UI Black Italic" size="15.0" />
          </font>
       </TitledPane>
-      <MenuButton layoutX="666.0" layoutY="-1.0" mnemonicParsing="false" onAction="#MenuAction" opacity="0.85" prefHeight="17.0" prefWidth="118.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#eed555" textOverrun="CLIP">
+      <MenuButton layoutX="666.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="17.0" prefWidth="118.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#eed555" textOverrun="CLIP">
          <items>
             <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
             <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
