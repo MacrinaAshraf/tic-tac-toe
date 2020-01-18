@@ -23,136 +23,138 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.json.JSONObject;
 import java.util.regex.*;
 import org.json.JSONException;
 
-
 public class SignUpController implements Initializable {
-    
+
+	@FXML
+	private AnchorPane anchorPane;
 	@FXML
 	private Button signUpBtn;
-        @FXML
-        private TextField email;
-        @FXML
-        private PasswordField password;
-        @FXML
-        private PasswordField retypePassword;
-        private Label validationError;
-        private Parent homePageUI;
-        private HomePageController homePageControl;
-        private Parent loginUI;
-        private LoginController loginControl;
+	@FXML
+	private TextField email;
+	@FXML
+	private PasswordField password;
+	@FXML
+	private PasswordField retypePassword;
+	private Label validationError;
+	private Parent homePageUI;
+	private HomePageController homePageControl;
+	private Parent loginUI;
+	private LoginController loginControl;
 
-    @FXML
-    private TextField username;
-    @FXML
-    private Hyperlink logLink;
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+	@FXML
+	private TextField username;
+	@FXML
+	private Hyperlink logLink;
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
 
 	public void setActionHandler(Stage stage) throws IOException {
 		// TODO Auto-generated method stub
+		
+		validationError = new Label();
+		
+		AnchorPane.setBottomAnchor(validationError, 400.0);
+		
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-    	FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
-       FXMLLoader loginLoader = new FXMLLoader (getClass().getResource("Login.fxml"));
-        loginUI = loginLoader.load();
-	loginControl = (LoginController) loginLoader.getController();
-        
+		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+		loginUI = loginLoader.load();
+		loginControl = (LoginController) loginLoader.getController();
 
-    		try {
-				homePageUI = homePageLoader.load();
-				homePageControl = (HomePageController)homePageLoader.getController();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			homePageUI = homePageLoader.load();
+			homePageControl = (HomePageController) homePageLoader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				stage.setScene(new Scene(loginUI));
+				loginControl.setActionHandler(stage);
 			}
-    	
-        logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-                    @Override
-                    public void handle(ActionEvent event) {
-                        stage.setScene(new Scene(loginUI));
-                        loginControl.setActionHandler(stage);
-                    }
-            
-        });        
-                
-    	signUpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-		public void handle(ActionEvent arg0) {
-                // TODO Auto-generated method stub
-                Boolean validation = true;
-                if (validateUsername(username.getText())) {
-                    if (validateEmail(email.getText())) {
-                        if (!validatePassword(password.getText())) {
-                            validation = false;
-                            validationError.setText("Your password must be between 6 and 20 characters");
-                        }
-                    } else {
-                        validation = false;
-                        validationError.setText("Your email must be valid ex. example@example.topleveldomain");
-                    }
+		});
 
-                } else {
-                    validation = false;
-                    validationError.setText("Username must be between 6 and 20 characters");
-                }
-                if (validation) {
-                    try {
-                        sendPlayerData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+		signUpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-                    if (Main.client.getPlayer().getId() == -1) {
-                        validationError.setText(Main.client.getErrorMessage());
-                        Main.client.getPlayer().setId(0);
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Boolean validation = true;
+				if (validateUsername(username.getText())) {
+					if (validateEmail(email.getText())) {
+						if (!validatePassword(password.getText())) {
+							validation = false;
+							validationError.setText("Your password must be between 6 and 20 characters");
+						}
+					} else {
+						validation = false;
+						validationError.setText("Your email must be valid ex. example@example.topleveldomain");
+					}
 
-                    } else if (Main.client.getPlayer().getId() > 0) {
-                        stage.setScene(new Scene(homePageUI));
-                        homePageControl.setActionHandler(stage);
+				} else {
+					validation = false;
+					validationError.setText("Username must be between 6 and 20 characters");
+				}
+				if (validation) {
+					try {
+						sendPlayerData();
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 
-                    } else {
+					if (Main.client.getPlayer().getId() == -1) {
+						validationError.setText(Main.client.getErrorMessage());
+						Main.client.getPlayer().setId(0);
 
-                    }
+					} else {
+						stage.setScene(new Scene(homePageUI));
+						homePageControl.setActionHandler(stage);
+					} 
+				}
+			}
+		});
+	}
 
-                }
-            }
-        });
-    }
+	public void sendPlayerData() throws JSONException {
+		Main.client.register(username.getText(), password.getText(), email.getText());
+	}
 
-    public void sendPlayerData() throws JSONException {
-        Main.client.register(username.getText(), password.getText(), email.getText());
-    }
+	public boolean validateUsername(String username) {
+		boolean validate = true;
+		String regex = "^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(username);
+		if (username.length() < 6 || username.length() > 20) {
+			validate = false;
+		}
+		return validate && matcher.matches();
+	}
 
-    public boolean validateUsername(String username) {
-        boolean validate = true;
-        String regex = "^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(username);
-        if (username.length() < 6 || username.length() > 20) {
-            validate = false;
-        }
-        return validate && matcher.matches();
-    }
+	public boolean validatePassword(String password) {
+		boolean validate = true;
+		if (password.length() < 6 || password.length() > 20) {
+			validate = false;
+		}
+		return validate;
+	}
 
-    public boolean validatePassword(String password) {
-        boolean validate = true;
-        if (password.length() < 6 || password.length() > 20) {
-            validate = false;
-        }
-        return validate;
-    }
-
-    public boolean validateEmail(String email) {
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
+	public boolean validateEmail(String email) {
+		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
 }

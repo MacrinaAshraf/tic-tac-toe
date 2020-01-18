@@ -57,9 +57,7 @@ public class PlayersMenuController implements Initializable {
 		players = FXCollections.observableArrayList(Main.client.getGoldPlayers());
 		players.addAll(Main.client.getSilverPlayers());
 		players.addAll(Main.client.getBronzePlayers());
-		
-		
-		
+
 		setSize(players.size());
 		inviteBtns = new Button[size];
 		fPane = new FlowPane[size];
