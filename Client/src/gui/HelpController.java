@@ -33,8 +33,7 @@ public class HelpController implements Initializable {
 	@FXML
 	private MenuItem homeBtn;
 
-	static Parent loginUI;
-	Parent HomePageUI;
+	static Parent loginUI,HomePageUI;
 	HomePageController HomePageControl;
 	static LoginController loginControl;
 
@@ -45,7 +44,6 @@ public class HelpController implements Initializable {
 
 	public void setActionHandler(Stage stage) {
 		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		//FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
 		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
 		try {
 			loginUI = loginLoader.load();

@@ -43,14 +43,16 @@ public class PlayersMenuController implements Initializable {
 	private FlowPane headerPane;
 	private Stage stage;
 	private int size;
-	
+	static Parent helpUI;
+	static HelpController helpControl;
+
 	ObservableList<JSONObject> players;
 	ObservableList<JSONObject> silver;
 	ObservableList<JSONObject> bronze;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		
+
 	}
 
 	public void init() {
@@ -67,8 +69,7 @@ public class PlayersMenuController implements Initializable {
 		headerPane.setHgap(390 / 4);
 		headerPane.getChildren().addAll(new Label("Name"), new Label("Score"), new Label("Rank"));
 		lview.getItems().add(headerPane);
-		
-		
+
 		for (int i = 0; i < size; i++) {
 			inviteBtns[i] = new Button("Invite");
 			fPane[i] = new FlowPane();
@@ -102,6 +103,8 @@ public class PlayersMenuController implements Initializable {
 	}
 
 	public void setActionHandler() {
+		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+
 		for (int i = 0; i < size; i++) {
 			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
@@ -134,6 +137,23 @@ public class PlayersMenuController implements Initializable {
 			}
 
 		});
+
+		helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					helpUI = helpLoader.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				helpControl = (HelpController) helpLoader.getController();
+				stage.setScene(new Scene(helpUI));
+				helpControl.setActionHandler(stage);
+			}
+
+		});
+
 	}
 
 	@FXML
