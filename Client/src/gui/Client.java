@@ -51,6 +51,7 @@ public class Client {
 							System.out.println(msg);
 							recieveJson = new JSONObject(msg);
 							String type = (String) recieveJson.get("type");
+                                                        System.out.println(type);
 							switch (type) {
 							case "login":
 								handleLogin();
@@ -210,9 +211,12 @@ public class Client {
 	}
 
 	public void invite(String userName1, String userName2) throws JSONException {
+              System.out.println("================inviteeeeee");
+
 		sendJson.put("type", "invite");
 		sendJson.put("askingplayername", userName1);
 		sendJson.put("toPlayWith", userName2);
+                sendToServer();
 	}
 
 	public void responsetoinvite(String userName1, String userName2, boolean inviteStatus) throws JSONException {

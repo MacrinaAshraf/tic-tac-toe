@@ -43,6 +43,7 @@ public class PlayersMenuController implements Initializable {
 	private FlowPane headerPane;
 	private Stage stage;
 	private int size;
+        private int i,place;
 	static Parent helpUI;
 	static HelpController helpControl;
 
@@ -72,9 +73,11 @@ public class PlayersMenuController implements Initializable {
 
 		for (int i = 0; i < size; i++) {
 			inviteBtns[i] = new Button("Invite");
+                        
 			fPane[i] = new FlowPane();
 			fPane[i].setHgap(400 / 4);
 			try {
+                                inviteBtns[i].setId(players.get(i).get("username").toString());
 				if (players.get(i).get("status").toString().equals("offline"))
 					inviteBtns[i].setDisable(true);
 				usernames[i] = new Label(players.get(i).get("username").toString());
@@ -105,18 +108,23 @@ public class PlayersMenuController implements Initializable {
 	public void setActionHandler() {
 		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
 
-		for (int i = 0; i < size; i++) {
+		for (i = 0; i < size; i++) {
 			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Do you want to accept the invitation?");
-					alert.setContentText(null);
-					Optional<ButtonType> btnType = alert.showAndWait();
-					if (btnType.get() == ButtonType.OK) {
-						Scene scene = new Scene(new Label("Hello"), 400, 500);
-						stage.setScene(scene);
-					}
+                                    
+                                        //					Alert alert = new Alert(AlertType.CONFIRMATION);
+//					alert.setHeaderText("Do you want to accept the invitation?");
+//					alert.setContentText(null);
+//					Optional<ButtonType> btnType = alert.showAndWait();
+//					if (btnType.get() == ButtonType.OK) {
+//						Scene scene = new Scene(new Label("Hello"), 400, 500);
+//						stage.setScene(scene);
+//					
+                                   
+                                handleInvite((Button) event.getSource());
+                                      //  Main.client.invite(Main.client.getPlayer().getName(), usernames[i].getText());
+                                  
 				}
 			});
 		}
@@ -171,4 +179,11 @@ public class PlayersMenuController implements Initializable {
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage);
 	}
+     private void handleInvite(Button c){
+            try {
+                Main.client.invite(Main.client.getPlayer().getName(), c.getId());
+            } catch (JSONException ex) {
+                Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     }
 }

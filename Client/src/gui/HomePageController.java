@@ -100,16 +100,17 @@ public class HomePageController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 
-				/*
-				 * playersMenuControl.setStage(stage); stage.setScene(new Scene(playersMenuUI));
-				 * playersMenuControl.init();
-				 */
-				// stage.setScene(new Scene(playersMenuUI));
+				
+				 playersMenuControl.setStage(stage);
+                                 stage.setScene(new Scene(playersMenuUI));
+				 playersMenuControl.init();
+				
+				 stage.setScene(new Scene(playersMenuUI));
 				// playersMenuControl.setActionHandler(stage);
-				vsComputer = false;
-				gameControl.setStage(stage);
-				stage.setScene(new Scene(gameScreenUI));
-				gameControl.assignNumber();
+//				vsComputer = false;
+//				gameControl.setStage(stage);
+//				stage.setScene(new Scene(gameScreenUI));
+//				gameControl.assignNumber();
 
 			}
 
