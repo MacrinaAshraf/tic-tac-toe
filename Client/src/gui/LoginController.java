@@ -8,6 +8,8 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 
@@ -108,7 +110,11 @@ public class LoginController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(signUpUI));
-				signUpControl.setActionHandler(stage);
+                            try {
+                                signUpControl.setActionHandler(stage);
+                            } catch (IOException ex) {
+                                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 
 		});
