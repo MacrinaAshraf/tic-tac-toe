@@ -12,53 +12,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0"
-	minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0"
-	style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
+<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
 	<children>
-		<ImageView fitHeight="528.0" fitWidth="719.0" layoutX="33.0"
-			pickOnBounds="true" preserveRatio="true">
+		<ImageView fitHeight="528.0" fitWidth="719.0" layoutX="33.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image
-					url="@../img/wooden-tic-tac-toe-o-game-concept-business-strategy-competition-ox-147675339.jpg" />
+				<Image url="@../img/wooden-tic-tac-toe-o-game-concept-business-strategy-competition-ox-147675339.jpg" />
 			</image>
 		</ImageView>
-		<Pane layoutX="254.0" layoutY="26.0" opacity="0.61" prefHeight="422.0"
-			prefWidth="344.0" style="-fx-background-color: black; -fx-border-color: eed555;" />
+		<Pane layoutX="254.0" layoutY="26.0" opacity="0.61" prefHeight="422.0" prefWidth="344.0" style="-fx-background-color: black; -fx-border-color: eed555;">
+         <children>
+      		<TextField layoutX="81.0" layoutY="192.0" prefHeight="27.0" prefWidth="210.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+         </children></Pane>
 		<Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-		<TextField fx:id="username" layoutX="334.0" layoutY="175.0"
-			prefHeight="25.0" prefWidth="210.0" promptText="Username"
-			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
-		<Button fx:id="signUpBtn" layoutX="334.0" layoutY="365.0"
-			mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0"
-			style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up"
-			textAlignment="CENTER" textFill="#222121">
+		<TextField fx:id="username" layoutX="334.0" layoutY="175.0" prefHeight="25.0" prefWidth="210.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
+		<Button fx:id="signUpBtn" layoutX="334.0" layoutY="377.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up" textAlignment="CENTER" textFill="#222121">
 			<font>
 				<Font name="Segoe UI Black" size="15.0" />
 			</font>
 		</Button>
-		<TextField layoutX="334.0" layoutY="304.0" prefHeight="27.0"
-			prefWidth="210.0" promptText="Email"
-			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
-		<PasswordField layoutX="334.0" layoutY="239.0"
-			prefHeight="27.0" prefWidth="210.0" promptText="Password"
-			style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+		<PasswordField layoutX="334.0" layoutY="264.0" prefHeight="27.0" prefWidth="210.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
 		<FontAwesomeIconView />
-		<Text fill="#f5e463" layoutX="381.0" layoutY="142.0" strokeType="OUTSIDE"
-			strokeWidth="0.0" text="Sign Up">
+		<Text fill="#f5e463" layoutX="381.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
 			<font>
 				<Font name="Segoe UI Black" size="22.0" />
 			</font>
 		</Text>
-		<FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE"
-			layoutX="310.0" layoutY="327.0" size="15" text="" wrappingWidth="20.000003166496754" />
-		<FontAwesomeIconView fill="#eed555"
-			fontSmoothingType="LCD" glyphName="USERS" layoutX="402.0" layoutY="101.0"
-			size="40" />
-		<FontAwesomeIconView fill="#eed555" glyphName="USER"
-			layoutX="310.0" layoutY="196.0" size="20" />
-		<FontAwesomeIconView fill="#eed555" glyphName="KEY"
-			layoutX="308.0" layoutY="262.0" size="20" text="" />
+		<FontAwesomeIconView fill="#eed555" glyphName="BRIEFCASE" layoutX="309.0" layoutY="245.0" size="15" text="" wrappingWidth="20.000003166496754" />
+		<FontAwesomeIconView fill="#eed555" fontSmoothingType="LCD" glyphName="USERS" layoutX="402.0" layoutY="101.0" size="40" />
+		<FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="310.0" layoutY="196.0" size="20" />
+		<FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="292.0" size="20" text="" />
+      <PasswordField layoutX="334.0" layoutY="315.0" prefHeight="27.0" prefWidth="210.0" promptText="Retype Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+      <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="308.0" layoutY="338.0" size="20" text="" />
 	</children>
 </AnchorPane>

@@ -16,6 +16,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.json.JSONObject;
@@ -32,6 +37,8 @@ public class SignUpController implements Initializable {
 
 	private Parent homePageUI;
 	private HomePageController homePageControl;
+    @FXML
+    private TextField username;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
