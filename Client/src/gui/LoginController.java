@@ -20,8 +20,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -45,6 +48,8 @@ public class LoginController implements Initializable {
 	private HomePageController homePageControl;
 	private Parent signUpUI;
 	private SignUpController signUpControl;
+    @FXML
+    private AnchorPane aPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -70,8 +75,6 @@ public class LoginController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
 				try {
 					sendPlayerData();
 				} catch (JSONException e) {
@@ -80,9 +83,11 @@ public class LoginController implements Initializable {
 				}
 
 				while (Main.client.getPlayer().getId() == 0) {
-					System.out.println(Main.client.getPlayer().getId());
+					//System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
-						System.out.println("you can't login.");
+                                            Label errormsg = new Label("Invalid username or Password!");
+						aPane.getChildren().addAll(errormsg);
+                                                errormsg.setTextFill(Color.web("#bb1414"));
 						Main.client.getPlayer().setId(0);
 						break;
 					} else if (Main.client.getPlayer().getId() > 0) {

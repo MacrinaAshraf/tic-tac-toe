@@ -20,12 +20,15 @@
             <Image url="@../img/wooden-tic-tac-toe-o-game-concept-business-strategy-competition-ox-147675339.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="253.0" layoutY="22.0" opacity="0.61" prefHeight="439.0" prefWidth="341.0" style="-fx-background-color: black; -fx-border-color: eed555;" />
+      <Pane layoutX="253.0" layoutY="22.0" opacity="0.61" prefHeight="439.0" prefWidth="341.0" style="-fx-background-color: black; -fx-border-color: eed555;">
+         <children>
+            <AnchorPane fx:id="aPane" layoutX="28.0" layoutY="282.0" prefHeight="27.0" prefWidth="200.0" />
+         </children></Pane>
       <TextField fx:id="username" layoutX="315.0" layoutY="167.0" prefHeight="27.0" prefWidth="217.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-text-fill: white; -fx-prompt-text-fill: #eed555;" />
       <PasswordField fx:id="password" layoutX="319.0" layoutY="219.0" prefHeight="27.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
       <FontAwesomeIconView fill="#eed555" glyphName="USER" layoutX="290.0" layoutY="191.0" size="20" />
       <FontAwesomeIconView fill="#eed555" glyphName="KEY" layoutX="291.0" layoutY="239.0" size="20" text="" />
-      <Button fx:id="loginBtn" layoutX="298.0" layoutY="374.0" mnemonicParsing="false" opacity="0.7" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #eed555;" text="Login" textFill="#141414">
+      <Button fx:id="loginBtn" layoutX="298.0" layoutY="381.0" mnemonicParsing="false" opacity="0.7" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: #eed555;" text="Login" textFill="#141414">
          <font>
             <Font name="Segoe UI Black" size="16.0" />
          </font>
@@ -38,11 +41,11 @@
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></CheckBox>
-      <Hyperlink fx:id="signUpLink" layoutX="423.0" layoutY="319.0" text="Sign Up" textFill="#eed555">
+      <Hyperlink fx:id="signUpLink" layoutX="415.0" layoutY="336.0" text="Sign Up" textFill="#eed555">
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></Hyperlink>
-      <Text fill="#cdcbcb" layoutX="308.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?">
+      <Text fill="#cdcbcb" layoutX="296.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?">
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></Text>
