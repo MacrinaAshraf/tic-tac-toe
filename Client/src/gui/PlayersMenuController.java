@@ -43,6 +43,11 @@ public class PlayersMenuController implements Initializable {
 	private FlowPane headerPane;
 	private Stage stage;
 	private int size;
+        static Parent helpUI;
+        static HelpController helpControl;
+        
+
+        
 	
 	ObservableList<JSONObject> gold;
 	ObservableList<JSONObject> silver;
@@ -99,7 +104,11 @@ public class PlayersMenuController implements Initializable {
 		stage = primaryStage;
 	}
 
-	public void setActionHandler(Stage stage) {
+	public void setActionHandler(Stage stage) throws IOException {
+                FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+                helpUI = helpLoader.load();
+                helpControl = (HelpController) helpLoader.getController();
+
 		for (int i = 0; i < size; i++) {
 
 			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -133,6 +142,16 @@ public class PlayersMenuController implements Initializable {
 			}
 
 		});
+                
+                helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent event) {
+                    stage.setScene(new Scene(helpUI));
+                    helpControl.setActionHandler(stage);
+                }
+            
+        });
+                
 	}
 
 	@FXML
