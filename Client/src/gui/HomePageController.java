@@ -37,8 +37,8 @@ public class HomePageController implements Initializable {
 	Button multiPlayer;
 	
 	static Parent loginUI;
-    Parent playersMenuUI, gameScreenUI;
-	PlayersMenuController playersMenuControl;
+    static Parent playersMenuUI, gameScreenUI;
+	static PlayersMenuController playersMenuControl;
 	static LoginController loginControl;
 	private GameController gameControl;
 	static Boolean vsComputer = false;
@@ -88,8 +88,9 @@ public class HomePageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				playersMenuControl.setStage(stage);
 				stage.setScene(new Scene(playersMenuUI));
-				playersMenuControl.setActionHandler(stage);
+				playersMenuControl.init();
 			}
     		
     	});

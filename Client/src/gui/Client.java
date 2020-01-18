@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javafx.application.Platform;
+
 public class Client {
 
 	static Player player;
@@ -113,45 +115,31 @@ public class Client {
 			Vector<JSONObject> bronze = new Vector<JSONObject>();
 			
 			for(int i = 0; i < goldList.length(); i++) {
-				//Added function checkForDuplication() to prevent adding the same record
-				//to the list
 				gold.add(goldList.getJSONObject(i));	
 			}
 			for(int i = 0; i < silverList.length(); i++) {
-				//Added function checkForDuplication() to prevent adding the same record
-				//to the list
 				silver.add(silverList.getJSONObject(i));
 			}
 			for(int i = 0; i < bronzeList.length(); i++) {
-				//Added function checkForDuplication() to prevent adding the same record
-				//to the list
 				bronze.add(bronzeList.getJSONObject(i));
 			}
 			
-			for (int i = 0; i < bronze.size(); i++) {
-				bronzePlayers.set(i, bronze.get(i));
-			}
-			
-			//System.out.println(bronzePlayers.get(1));
+			goldPlayers = gold;
+			silverPlayers = silver;
+			bronzePlayers = bronze;
 			
 			System.out.println("values " + bronzePlayers.size());
+			
+			System.out.println(HomePageController.playersMenuControl == null);
+			
+			if(HomePageController.playersMenuControl.getList() != null)
+				HomePageController.playersMenuControl.getList().refresh();
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
 	}
-
-	/*private boolean checkForDuplication(JSONObject playerRecord, int size, Vector<JSONObject> players) throws JSONException {
-		if(players.isEmpty())
-			return true;
-		
-		for(int i = 0; i < size; i++) {
-			if(players.get(i).get("username") == playerRecord.get("username"))
-				return false;
-		}
-		return true;
-	}*/
 
 	public void handleLogin() {
 		String result = null;
