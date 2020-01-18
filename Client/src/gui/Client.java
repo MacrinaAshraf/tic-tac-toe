@@ -38,7 +38,7 @@ public class Client {
 			clientSocket = new Socket("127.0.0.1", 5008);
 			dis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			ps = new PrintStream(clientSocket.getOutputStream());
-
+                        setErrorMessage("");
 			Thread th = new Thread(new Runnable() {
 
 				@Override
@@ -174,10 +174,10 @@ public class Client {
 		e.printStackTrace();
             }
             if (result.equals("Successfully")) {
-                setPlayer();
+                setErrorMessage("");
             } else {
-                errorMessage = "Either username or email is duplicate";
-                player.setId(-1);
+                System.out.println(result);
+                setErrorMessage("Either username or email is duplicate");
             }
 	}
 
@@ -258,6 +258,9 @@ public class Client {
 	public void sendToServer() {
 		ps.println(sendJson);
 	}
+        public void setErrorMessage(String error){
+            errorMessage = error;
+        }
         public String getErrorMessage(){
             return errorMessage;
         }

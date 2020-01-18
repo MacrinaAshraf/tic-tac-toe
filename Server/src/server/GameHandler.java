@@ -189,13 +189,8 @@ class GameHandler extends Thread {
         if (signup.getResult().get("res").equals("Successfuly")) {
             Client temp = new Client();
             temp.setUserName((String) data.get("username"));
-            temp.setPrintStream(ps);
-            temp.setDataInputStream(dis);
-            temp.setStatus("online");
+            temp.setStatus("offline");
             GameServer.clientsVector.add(temp);
-            placeInVector = GameServer.clientsVector.indexOf(temp);
-            placesInVector.add(placeInVector);
-            streams.put(temp.getUserName(), temp.getPrintStream());
             playersJSON();
         }
         ps.println(signup.getResult());

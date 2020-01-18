@@ -19,9 +19,7 @@ public class SignUpManager {
     public void update(String FullName, String Password, String Email) throws IOException, JSONException{
         result=new JSONObject();
     	String query = "INSERT INTO Player (name,Password,email) VALUES (?,?,?);";
-        
     	try{
-            
     	    PreparedStatement pst = con.getCon().prepareStatement(query);
             pst.setString(1,FullName);
             pst.setString(2,Password);
@@ -30,12 +28,12 @@ public class SignUpManager {
             result.put("type","register");
             result.put("res", "Successfuly");
             System.out.println("Inserted");
+            
         }catch(SQLException ex){
             result.put("type","register");
             result.put("res", "failed");
             System.err.println("Error in update: " + ex);
         }
-       
     }
     public JSONObject getResult(){
         return result;
