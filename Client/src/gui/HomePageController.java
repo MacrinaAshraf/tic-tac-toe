@@ -44,6 +44,7 @@ public class HomePageController implements Initializable {
 	PlayersMenuController playersMenuControl;
 	static LoginController loginControl;
 	private GameController gameControl;
+	static Boolean vsComputer = false;
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,8 +75,6 @@ public class HomePageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
                             try {
-                                // TODO Auto-generated method stub
-
                                 Main.client.logout();
                             } catch (JSONException ex) {
                                 Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +101,7 @@ public class HomePageController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				vsComputer = true;
 				gameControl.setStage(stage);
 				stage.setScene(new Scene(gameScreenUI));
 				gameControl.assignNumber();
