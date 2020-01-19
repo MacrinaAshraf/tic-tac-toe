@@ -8,3 +8,4 @@
 /Server/build/
 /Client/dist/
 /.recommenders/
+/Server/nbproject/private/

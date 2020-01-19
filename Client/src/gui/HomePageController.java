@@ -27,105 +27,114 @@ import org.json.JSONException;
  * @author Noran
  */
 public class HomePageController implements Initializable {
-	@FXML
-	MenuItem logOutBtn;
-	@FXML
-	MenuItem helpBtn;
-	@FXML
-	Button singlePlayer;
-	@FXML
-	Button multiPlayer;
+	
+    @FXML
+    MenuItem logOutBtn;
+    @FXML
+    MenuItem helpBtn;
+    @FXML
+    Button singlePlayer;
+    @FXML
+    Button multiPlayer;
 
-	static Parent playersMenuUI, gameScreenUI, loginUI, helpUI;
-	static PlayersMenuController playersMenuControl;
-	static LoginController loginControl;
-	private GameController1 gameControl;
-	static HelpController helpControl;
-	static Boolean vsComputer = false;
+    static Parent playersMenuUI, gameScreenUI, loginUI, helpUI;
+    static PlayersMenuController playersMenuControl;
+    static LoginController loginControl;
+    static private GameController1 gameControl;
+    static HelpController helpControl;
+    static Boolean vsComputer = false;
+    static Stage stg;
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
 
-	}
+    }
 
-	public void setActionHandler(Stage stage) {
-		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
-		FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
-		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
-		try {
-			loginUI = loginLoader.load();
-			playersMenuUI = playersMenuLoader.load();
-			gameScreenUI = gameLoader.load();
-			helpUI = helpLoader.load();
+    public void setActionHandler(Stage stage) {
+        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
+        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
+        FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+        stg = stage;
+        try {
+            loginUI = loginLoader.load();
+            playersMenuUI = playersMenuLoader.load();
+            gameScreenUI = gameLoader.load();
+            helpUI = helpLoader.load();
 
-			playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
-			loginControl = (LoginController) loginLoader.getController();
+            playersMenuControl = (PlayersMenuController) playersMenuLoader.getController();
+            loginControl = (LoginController) loginLoader.getController();
 
-			helpControl = (HelpController) helpLoader.getController();
-			gameControl = (GameController1) gameLoader.getController();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				stage.setScene(new Scene(helpUI));
-				helpControl.setActionHandler(stage);
-			}
+            helpControl = (HelpController) helpLoader.getController();
+            gameControl = (GameController1) gameLoader.getController();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.setScene(new Scene(helpUI));
+                helpControl.setActionHandler(stage);
+            }
 
-		});
+        });
 
-		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				try {
-					Main.client.logout();
-				} catch (JSONException ex) {
-					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
-				}
-				Main.client.setPlayerToZero();
-				stage.setScene(new Scene(loginUI));
-				loginControl.setActionHandler(stage);
-			}
+            @Override
+            public void handle(ActionEvent arg0) {
+                try {
+                    Main.client.logout();
+                } catch (JSONException ex) {
+                    Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Main.client.setPlayerToZero();
+                stage.setScene(new Scene(loginUI));
+                loginControl.setActionHandler(stage);
+            }
 
-		});
+        });
 
-		multiPlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        multiPlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+            @Override
+            public void handle(ActionEvent arg0) {
+                // TODO Auto-generated method stub
 
-				/*
-				 * playersMenuControl.setStage(stage); stage.setScene(new Scene(playersMenuUI));
-				 * playersMenuControl.init();
-				 */
-				// stage.setScene(new Scene(playersMenuUI));
-				// playersMenuControl.setActionHandler(stage);
-				vsComputer = false;
-				gameControl.setStage(stage);
-				stage.setScene(new Scene(gameScreenUI));
-				gameControl.assignNumber();
+                playersMenuControl.setStage(stage);
+                stage.setScene(new Scene(playersMenuUI));
+                playersMenuControl.init();
 
-			}
+                // stage.setScene(new Scene(playersMenuUI));
+                // playersMenuControl.setActionHandler(stage);
+                vsComputer = false;
+//				gameControl.setStage(stage);
+//				stage.setScene(new Scene(gameScreenUI));
+//				gameControl.assignNumber();
 
-		});
+            }
 
-		singlePlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
+        });
 
-				vsComputer = true;
-				gameControl.setStage(stage);
-				stage.setScene(new Scene(gameScreenUI));
-				gameControl.assignNumber();
-			}
+        singlePlayer.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
 
-		});
-	}
+                vsComputer = true;
+                gameControl.setStage(stage);
+                stage.setScene(new Scene(gameScreenUI));
+                gameControl.assignNumber();
+            }
+
+        });
+    }
+
+    static public void loadGame() {
+        gameControl.setStage(stg);
+        stg.setScene(new Scene(gameScreenUI));
+        gameControl.assignNumber();
+    }
 
 }
