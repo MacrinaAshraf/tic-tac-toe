@@ -30,7 +30,7 @@ import javafx.stage.StageStyle;
 
 public class GameController1 implements Initializable {
 
-    Alert alert, alert2, alert3, alert4, alert5, alert6;
+    Alert  alert4, alert5, alert6;
     public ArrayList<Integer> intarr = new ArrayList<>(9);
     public boolean flag = false;
     public static final Random RANDOM = new Random();
@@ -66,78 +66,98 @@ public class GameController1 implements Initializable {
     private Label scoreplayerX;
     @FXML
     private Label scoreplayerO;
-    private  Alert gameOverAlert ;
-     ButtonType yesbtn=new ButtonType("Yes");
-        ButtonType nobtn=new ButtonType("No");
+    private Alert gameOverAlert;
+    ButtonType yesbtn = new ButtonType("Yes");
+    ButtonType nobtn = new ButtonType("No");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         System.out.println(GridPane.getRowIndex(button1));
     }
+    
+     public GameController1() {
 
-    public void setStage(Stage primaryStage) {
-        stage = primaryStage;
-    }
-//EventHandler<ActionEvent> reset = new EventHandler<ActionEvent>(){
-//    
-//};
-    public void reset() {
-        Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
-        for (int i = 0; i < arr2.length ; i++) {
-            arr2[i].setText("");
-            
-        }
-        
-
-    }
-    public GameController1() {
-        //vsComputerFlag = HomePageController.vsComputer;
-//        alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert2 = new Alert(Alert.AlertType.INFORMATION);
-//        alert3 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
         alert4 = new Alert(Alert.AlertType.INFORMATION);
         alert5 = new Alert(Alert.AlertType.INFORMATION);
-        alert6 = new Alert(Alert.AlertType.INFORMATION, "DRAW!", ButtonType.OK);
+        alert6 = new Alert(Alert.AlertType.INFORMATION);
         for (int i = 0; i < 9; i++) {
             intarr.add(1);
         }
 
     }
+
+    public void setStage(Stage primaryStage) {
+        stage = primaryStage;
+    }
+
+
+    public void reset() {
+        Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        for (int i = 0; i < arr2.length; i++) {
+            arr2[i].setText(null);
+        }
+        //intarr.clear();
+        for (int i = 0; i < 9; i++) {
+            intarr.add(1);
+        }
+        flag=false;
+        EnableButton();
+    }
+
+    public void EnableButton() {
+        Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        System.out.println(arr2.length);
+        for (int i = 0; i < arr2.length; i++) {
+            arr2[i].setDisable(false);
+
+        }
+
+    }
+
+    /*public void DisableButton() {
+        Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        for (int i = 0; i < arr2.length; i++) {
+            arr2[i].setDisable(true);
+
+        }
+
+    }*/
+   
     ////////////// multiplayerfunctions//////////////////////////////////////////
 
     public void choosePlayer() {
         if (theFirstPlayer.equalsIgnoreCase("X")) {
             theFirstPlayer = "O";
-
         } else {
             theFirstPlayer = "X";
         }
     }
-    public void score(){
+
+    public void score() {
         scoreplayerX.setText(String.valueOf(xCount));
         scoreplayerO.setText(String.valueOf(oCount));
     }
+
     public void draw() {
 
         alert6.setTitle("TicTacToe");
         alert6.setHeaderText(null);
         alert6.setContentText("No one wins");
-       if(alert6.showAndWait().get() == ButtonType.OK){
-             reset(); 
-       choosePlayer();}
-        //alert6.show();
-   
-     //alert6.show();
-      //reset(); 
-      
+        if (alert6.showAndWait().get() == ButtonType.OK) {
+            reset();
+            choosePlayer();
 
+        }
     }
 
     public void setValues(int index) {
         intarr.set(index - 1, 0);
         if (!(intarr.contains(1)) && flag == false) {
             draw();
-
+//            for (int i = 0; i < 9; i++) {
+//                intarr.add(1);
+//            }
         }
     }
 
@@ -157,14 +177,15 @@ public class GameController1 implements Initializable {
             alert4.setTitle("TicTacToe");
             alert4.setHeaderText(null);
             alert4.setContentText("player X wins");
-           if(alert4.showAndWait().get() == ButtonType.OK){
-             reset(); 
-           choosePlayer();}
+            if (alert4.showAndWait().get() == ButtonType.OK) {
+                reset();
+                choosePlayer();
+            }
+
             flag = true;
-            
+
             //alert4.show();
             //reset();
-            
         } else if (arr[0].equals("O") && arr[1].equals("O") && arr[2].equals("O")
                 || arr[3].equals("O") && arr[4].equals("O") && arr[5].equals("O")
                 || arr[6].equals("O") && arr[7].equals("O") && arr[8].equals("O")
@@ -178,19 +199,14 @@ public class GameController1 implements Initializable {
             alert5.setTitle("TicTacToe");
             alert5.setHeaderText(null);
             alert5.setContentText("player O wins");
-           
-//             Optional<ButtonType> result = alert.showAndWait();
-//        if(!result.isPresent())
-    // alert is exited, no button has been pressed.
-         if(alert5.showAndWait().get() == ButtonType.OK){
-             reset(); 
-         choosePlayer();}
+
+            if (alert5.showAndWait().get() == ButtonType.OK) {
+                reset();
+                choosePlayer();
+            }
+
             flag = true;
-            
-           // alert5.show();
-            //reset();
-            
-            
+
         }
 
     }
@@ -212,124 +228,127 @@ public class GameController1 implements Initializable {
             turnFlag = true;
         }
         if (testBoard.isGameOver()) {
-            
+
             gameOverAlert();
-            
+
         }
     }
 
     public void placeComputerMove(int row, int column) {
         if (GridPane.getRowIndex(button1) == row && GridPane.getColumnIndex(button1) == column) {
             button1.setText("X");
-            button1.setOnAction(null);
+            button1.setDisable(true);
         } else if (GridPane.getRowIndex(button2) == row && GridPane.getColumnIndex(button2) == column) {
             button2.setText("X");
-            button2.setOnAction(null);
+            button2.setDisable(true);
         } else if (GridPane.getRowIndex(button3) == row && GridPane.getColumnIndex(button3) == column) {
             button3.setText("X");
-            button3.setOnAction(null);
+            button3.setDisable(true);
         } else if (GridPane.getRowIndex(button4) == row && GridPane.getColumnIndex(button4) == column) {
             button4.setText("X");
-            button4.setOnAction(null);
+            button4.setDisable(true);
         } else if (GridPane.getRowIndex(button5) == row && GridPane.getColumnIndex(button5) == column) {
             button5.setText("X");
-            button5.setOnAction(null);
+            button5.setDisable(true);
         } else if (GridPane.getRowIndex(button6) == row && GridPane.getColumnIndex(button6) == column) {
             button6.setText("X");
-            button6.setOnAction(null);
+            button6.setDisable(true);
         } else if (GridPane.getRowIndex(button7) == row && GridPane.getColumnIndex(button7) == column) {
             button7.setText("X");
-            button7.setOnAction(null);
+            button7.setDisable(true);
         } else if (GridPane.getRowIndex(button8) == row && GridPane.getColumnIndex(button8) == column) {
             button8.setText("X");
-            button8.setOnAction(null);
+            button8.setDisable(true);
         } else if (GridPane.getRowIndex(button9) == row && GridPane.getColumnIndex(button9) == column) {
             button9.setText("X");
-            button9.setOnAction(null);
+            button9.setDisable(true);
         }
 
     }
 
     private void gameOverAlert() {
-       
-        
-        
-        
-        if(TestBoard.checkWinner.equals("X")){
-         gameOverAlert=  new Alert(AlertType.CONFIRMATION);
-         gameOverAlert.setTitle("player x won");
-         gameOverAlert.setContentText("Do you Want Play Agian ?");
-         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
-         Optional<ButtonType>result=gameOverAlert.showAndWait();
-         if(result.get()==yesbtn)
-         {
-           playerXwin();
-             
-           testBoard.resetBoard();
-            
-            
-         }
-        else if(result.get()==nobtn){
-           gotoHomePage();
+
+        if (TestBoard.checkWinner.equals("X")) {
+            gameOverAlert = new Alert(AlertType.CONFIRMATION);
+            gameOverAlert.setTitle("player x won");
+            gameOverAlert.setContentText("Do you Want Play Agian ?");
+            gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
+            Optional<ButtonType> result = gameOverAlert.showAndWait();
+
+            if (result.get() == yesbtn) {
+                playerXwin();
+                xCount++;
+                score();
+                testBoard.resetBoard();
+
+            } else if (result.get() == nobtn) {
+                gotoHomePage();
             }
-        
-        }
-        else if(TestBoard.checkWinner.equals("O")){
-            gameOverAlert=  new Alert(AlertType.CONFIRMATION);
+
+        } else if (TestBoard.checkWinner.equals("O")) {
+            gameOverAlert = new Alert(AlertType.CONFIRMATION);
             gameOverAlert.setTitle("player o won");
             gameOverAlert.setContentText("Do you Want Play Agian ?");
-         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
-         Optional<ButtonType>result=gameOverAlert.showAndWait();
-        
-       if(result.get()==yesbtn){
-           playerOwin();
-           testBoard.resetBoard();
-          
-           
-       //reset();
-       }
-        else if(result.get()==nobtn){
-           gotoHomePage();
+            gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
+            Optional<ButtonType> result = gameOverAlert.showAndWait();
+
+            if (result.get() == yesbtn) {
+                playerOwin();
+                testBoard.resetBoard();
+                xCount++;
+                score();
+
+                //reset();
+            } else if (result.get() == nobtn) {
+                gotoHomePage();
+            }
+        } else if (TestBoard.checkWinner.equals("noWinner")) {
+            gameOverAlert = new Alert(AlertType.CONFIRMATION);
+            gameOverAlert.setTitle("Draw!");
+            gameOverAlert.setContentText("Do you Want Play Agian ?");
+            gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
+            Optional<ButtonType> result = gameOverAlert.showAndWait();
+            if (result.get() == yesbtn) {
+                DrawXWithO();
+                testBoard.resetBoard();
+
+                //reset();
+            } else if (result.get() == nobtn) {
+                gotoHomePage();
+            }
         }
-        }
-        else if(TestBoard.checkWinner.equals("noWinner")){
-           gameOverAlert=  new Alert(AlertType.CONFIRMATION);
-           gameOverAlert.setTitle("Draw!");
-           gameOverAlert.setContentText("Do you Want Play Agian ?");
-         gameOverAlert.getButtonTypes().setAll(yesbtn,nobtn);
-         Optional<ButtonType>result=gameOverAlert.showAndWait();
-        if(result.get()==yesbtn){
-           DrawXWithO();
-           testBoard.resetBoard();
-            
-          
-           //reset();
-        }
-        else if(result.get()==nobtn){
-           gotoHomePage();}
-        }
+        EnableButton();
         // if()
-        
+
     }
-    public void playerXwin(){gameOverAlert.setHeaderText("The Player X has won!");
-        
-            gameOverAlert.setContentText(null);
-        
+
+    public void playerXwin() {
+        gameOverAlert.setHeaderText("The Player X has won!");
+
+        gameOverAlert.setContentText(null);
+
         //gameOverAlert.showAndWait();
         //gameOverAlert.show();
-        reset();}
-     public void playerOwin(){gameOverAlert.setHeaderText("The Player O has won!");
+        reset();
+    }
+
+    public void playerOwin() {
+        gameOverAlert.setHeaderText("The Player O has won!");
         gameOverAlert.setContentText(null);
-         //gameOverAlert.show();       
-         reset();}
-      public void DrawXWithO(){gameOverAlert.setHeaderText("Draw!");
+        //gameOverAlert.show();       
+        reset();
+    }
+
+    public void DrawXWithO() {
+        gameOverAlert.setHeaderText("Draw!");
         gameOverAlert.setContentText(null);
         //gameOverAlert.show();        
-        reset();}
-    
-    public void gotoHomePage(){
-         Parent homePageUI = null;
-    FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        reset();
+    }
+
+    public void gotoHomePage() {
+        Parent homePageUI = null;
+        FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         try {
             homePageUI = homePageLoader.load();
         } catch (IOException e) {
@@ -339,7 +358,8 @@ public class GameController1 implements Initializable {
 
         HomePageController homePageControl = (HomePageController) homePageLoader.getController();
         stage.setScene(new Scene(homePageUI));
-        homePageControl.setActionHandler(stage, client);}
+        homePageControl.setActionHandler(stage, client);
+    }
     //////////////////////////////// buttonAction intwo
     //////////////////////////////// cases///////////////////////////////////////
 
@@ -355,14 +375,19 @@ public class GameController1 implements Initializable {
             position.x = 0;
             position.y = 0;
             turnFlag = false;
+            button1.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
+                
             }
+                        
+
         } else if (HomePageController.vsComputer == false) {
 
             button1.setText(theFirstPlayer);
+            button1.setDisable(true);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
                 button1.setStyle("-fx-text-fill: red;");
             } else {
@@ -372,7 +397,7 @@ public class GameController1 implements Initializable {
             winning();
             setValues(1);
         }
-        //button1.setOnAction(null);
+        
     }
 
     @FXML
@@ -387,11 +412,13 @@ public class GameController1 implements Initializable {
             position.x = 0;
             position.y = 1;
             turnFlag = false;
+            button2.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+             
             //button2.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
             button2.setText(theFirstPlayer);
@@ -400,12 +427,13 @@ public class GameController1 implements Initializable {
             } else {
                 button2.setStyle("-fx-text-fill: blue;");
             }
+            
+            button2.setDisable(true);
             choosePlayer();
             winning();
             setValues(2);
             //button2.setOnAction(null);
         }
-         ////button2.setOnAction(null);
     }
 
     @FXML
@@ -420,11 +448,13 @@ public class GameController1 implements Initializable {
             position.x = 0;
             position.y = 2;
             turnFlag = false;
+            button3.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+            
             //button3.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
 
@@ -434,11 +464,12 @@ public class GameController1 implements Initializable {
             } else {
                 button3.setStyle("-fx-text-fill: blue;");
             }
+            
+            button3.setDisable(true);
             choosePlayer();
             winning();
             setValues(3);
         }
-        //button3.setOnAction(null);
     }
 
     @FXML
@@ -453,11 +484,14 @@ public class GameController1 implements Initializable {
             position.x = 1;
             position.y = 0;
             turnFlag = false;
+            button4.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+                        
+
             //button4.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
             button4.setText(theFirstPlayer);
@@ -466,11 +500,12 @@ public class GameController1 implements Initializable {
             } else {
                 button4.setStyle("-fx-text-fill: blue;");
             }
+            button4.setDisable(true);
             choosePlayer();
             winning();
             setValues(4);
         }
-         //button4.setOnAction(null);
+        
     }
 
     @FXML
@@ -485,12 +520,15 @@ public class GameController1 implements Initializable {
             position.x = 1;
             position.y = 1;
             turnFlag = false;
+            button5.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
             //button5.setOnAction(null);
+                        
+
         } else if (HomePageController.vsComputer == false) {
             button5.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
@@ -498,11 +536,12 @@ public class GameController1 implements Initializable {
             } else {
                 button5.setStyle("-fx-text-fill: blue;");
             }
+            button5.setDisable(true);
             choosePlayer();
             winning();
             setValues(5);
         }
-         //button5.setOnAction(null);
+        
     }
 
     @FXML
@@ -517,11 +556,14 @@ public class GameController1 implements Initializable {
             position.x = 1;
             position.y = 2;
             turnFlag = false;
+            button6.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+                        
+
             //button6.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
             button6.setText(theFirstPlayer);
@@ -530,11 +572,12 @@ public class GameController1 implements Initializable {
             } else {
                 button6.setStyle("-fx-text-fill: blue;");
             }
+            button6.setDisable(true);
             choosePlayer();
             winning();
             setValues(6);
         }
-         //button6.setOnAction(null);
+        
     }
 
     @FXML
@@ -549,12 +592,15 @@ public class GameController1 implements Initializable {
             position.x = 2;
             position.y = 0;
             turnFlag = false;
+            button7.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
             //button7.setOnAction(null);
+                        
+
         } else if (HomePageController.vsComputer == false) {
 
             button7.setText(theFirstPlayer);
@@ -563,12 +609,13 @@ public class GameController1 implements Initializable {
             } else {
                 button7.setStyle("-fx-text-fill: blue;");
             }
+            button7.setDisable(true);
             choosePlayer();
             winning();
             setValues(7);
 
         }
-        //button7.setOnAction(null);
+        
     }
 
     @FXML
@@ -583,11 +630,14 @@ public class GameController1 implements Initializable {
             position.x = 2;
             position.y = 1;
             turnFlag = false;
+            button8.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+              
+
             //button8.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
 
@@ -597,12 +647,12 @@ public class GameController1 implements Initializable {
             } else {
                 button8.setStyle("-fx-text-fill: blue;");
             }
+            button8.setDisable(true);
             choosePlayer();
             winning();
-
             setValues(8);
         }
-        //button8.setOnAction(null);
+        
     }
 
     @FXML
@@ -617,11 +667,14 @@ public class GameController1 implements Initializable {
             position.x = 2;
             position.y = 1;
             turnFlag = false;
+            button9.setDisable(true);
             if (testBoard.isGameOver()) {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
             }
+              
+
             //button9.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
 
@@ -631,11 +684,12 @@ public class GameController1 implements Initializable {
             } else {
                 button9.setStyle("-fx-text-fill: blue;");
             }
+            button9.setDisable(true);
             choosePlayer();
             winning();
             setValues(9);
         }
-        //button9.setOnAction(null);
+        
     }
 
 }
