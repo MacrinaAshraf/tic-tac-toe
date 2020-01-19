@@ -87,7 +87,7 @@ public class HomePageController implements Initializable {
 				} catch (JSONException ex) {
 					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
 				}
-
+				Main.client.setPlayerToZero();
 				stage.setScene(new Scene(loginUI));
 				loginControl.setActionHandler(stage);
 			}

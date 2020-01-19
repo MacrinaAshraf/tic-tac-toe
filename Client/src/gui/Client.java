@@ -38,7 +38,7 @@ public class Client {
 			clientSocket = new Socket("127.0.0.1", 5008);
 			dis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			ps = new PrintStream(clientSocket.getOutputStream());
-                        setErrorMessage("");
+			setErrorMessage("");
 			Thread th = new Thread(new Runnable() {
 
 				@Override
@@ -159,19 +159,20 @@ public class Client {
 		}
 	}
 
-        public void handleRegister() {
-            String result = null;
-            try{
-                result = (String) recieveJson.get("res");
-            } catch (JSONException e) {
-		e.printStackTrace();
-            }
-            if (result.equals("Successfully")) {
-                setErrorMessage("");
-            } else {
-                System.out.println(result);
-                setErrorMessage("Either username or email is duplicate");
-            }
+	public void handleRegister() {
+		String result = null;
+		setErrorMessage("");
+		try {
+			result = (String) recieveJson.get("res");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		if (result.equals("Successfully")) {
+			setErrorMessage("");
+		} else if (result.equals("failed")){
+			System.out.println(result);
+			setErrorMessage("Either username or email is duplicate");
+		}
 	}
 
 	public Player getPlayer() {
@@ -188,6 +189,13 @@ public class Client {
 			// System.out.println("");
 		}
 
+	}
+	
+	public void setPlayerToZero() {
+			player.setName("");
+			player.setScore(0);
+			player.setId(0);
+			player.setPlayingWith("");
 	}
 
 	public void stopConnection() {
@@ -253,10 +261,11 @@ public class Client {
 		ps.println(sendJson);
 	}
 
-        public void setErrorMessage(String error){
-            errorMessage = error;
-        }
-        public String getErrorMessage(){
-            return errorMessage;
-        }
+	public void setErrorMessage(String error) {
+		errorMessage = error;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 }

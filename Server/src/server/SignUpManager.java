@@ -32,7 +32,7 @@ public class SignUpManager {
         }catch(SQLException ex){
             result.put("type","register");
             result.put("res", "failed");
-            System.err.println("Error in update: " + ex);
+            System.err.println("Error in update: " + ex.getMessage());
         }
     }
     public JSONObject getResult(){

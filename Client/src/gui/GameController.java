@@ -306,7 +306,7 @@ public class GameController implements Initializable {
 		} catch (JSONException ex) {
 			Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
+		Main.client.setPlayerToZero();
 		stage.setScene(new Scene(HomePageController.loginUI));
 		HomePageController.loginControl.setActionHandler(stage);
 	}

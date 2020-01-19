@@ -186,8 +186,9 @@
 			style="-fx-background-color: black;" text="Menu" textAlignment="CENTER"
 			textFill="#d0b95b" textOverrun="CLIP">
 			<items>
-				<MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="logOutBtn" />
-				<MenuItem fx:id="helpBtn" mnemonicParsing="false" text="helpBtn" />
+				<MenuItem onAction="#backToHome" mnemonicParsing="false" text="Back to Home" />
+				<MenuItem onAction="#logOutAction" mnemonicParsing="false" text="Log out" />
+				<MenuItem onAction="#helpButtonAction" mnemonicParsing="false" text="Help" />
 			</items>
 			<font>
 				<Font name="Segoe UI Black Italic" size="17.0" />

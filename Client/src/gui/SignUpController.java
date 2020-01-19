@@ -102,19 +102,20 @@ public class SignUpController implements Initializable {
                     } catch (JSONException e) {
                         System.out.println(e);
                     }
-                    if (Main.client.getErrorMessage().isEmpty()) {
+                    if (Main.client.getErrorMessage().equals("")) {
                         System.out.println(Main.client.getErrorMessage());
                         System.out.println("MWT NFSk");
                         validationError.setText("");
                         stage.setScene(new Scene(loginPageUI));
                         loginControl.setActionHandler(stage);
-                    } else {
+                    } else if (!Main.client.getErrorMessage().equals("")){
                         System.out.println(Main.client.getErrorMessage());
                         validationError.setText(Main.client.getErrorMessage());
                     }
                 }
             }
         });
+        
         logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

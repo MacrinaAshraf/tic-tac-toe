@@ -125,13 +125,11 @@ public class PlayersMenuController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				try {
-					// TODO Auto-generated method stub
-
 					Main.client.logout();
 				} catch (JSONException ex) {
 					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
 				}
-
+				Main.client.setPlayerToZero();
 				stage.setScene(new Scene(HomePageController.loginUI));
 				HomePageController.loginControl.setActionHandler(stage);
 			}
