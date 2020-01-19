@@ -387,4 +387,14 @@ public class Client {
         }
 
     }
+    public void inGame(int row,int col){
+        try {
+            sendJson.put("type", "ingame");
+            sendJson.put("row", row);
+            sendJson.put("column",col);
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendToServer();
+    }
 }

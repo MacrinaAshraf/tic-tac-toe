@@ -74,9 +74,14 @@ class GameHandler extends Thread {
                         case "register":
                             register(message);
                             break;
+                            
                         case "chat":
                             sendMessage(message.toString());
                             break;
+                        case "ingame":
+                            sendMessage(message.toString());
+                            break;
+                                    
                         case "endofgame":
                             endOfGame(message);
                             break;

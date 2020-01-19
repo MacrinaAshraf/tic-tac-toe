@@ -35,7 +35,7 @@ import javafx.stage.StageStyle;
 
 public class GameController1 implements Initializable {
 
-    Alert  alert4, alert5, alert6;
+    Alert alert4, alert5, alert6;
     public ArrayList<Integer> intarr = new ArrayList<>(9);
     public boolean flag = false;
     public static final Random RANDOM = new Random();
@@ -80,8 +80,8 @@ public class GameController1 implements Initializable {
         // TODO
         System.out.println(GridPane.getRowIndex(button1));
     }
-    
-     public GameController1() {
+
+    public GameController1() {
 
         alert4 = new Alert(Alert.AlertType.INFORMATION);
         alert5 = new Alert(Alert.AlertType.INFORMATION);
@@ -96,7 +96,6 @@ public class GameController1 implements Initializable {
         stage = primaryStage;
     }
 
-
     public void reset() {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
         for (int i = 0; i < arr2.length; i++) {
@@ -106,7 +105,7 @@ public class GameController1 implements Initializable {
         for (int i = 0; i < 9; i++) {
             intarr.add(1);
         }
-        flag=false;
+        flag = false;
         EnableButton();
     }
 
@@ -128,9 +127,7 @@ public class GameController1 implements Initializable {
         }
 
     }*/
-   
     ////////////// multiplayerfunctions//////////////////////////////////////////
-
     public void choosePlayer() {
         if (theFirstPlayer.equalsIgnoreCase("X")) {
             theFirstPlayer = "O";
@@ -363,7 +360,7 @@ public class GameController1 implements Initializable {
 
         HomePageController homePageControl = (HomePageController) homePageLoader.getController();
         stage.setScene(new Scene(homePageUI));
-        homePageControl.setActionHandler(stage, client);
+        homePageControl.setActionHandler(stage);
     }
     //////////////////////////////// buttonAction intwo
     //////////////////////////////// cases///////////////////////////////////////
@@ -385,9 +382,8 @@ public class GameController1 implements Initializable {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
-                
+
             }
-                        
 
         } else if (HomePageController.vsComputer == false) {
 
@@ -398,11 +394,14 @@ public class GameController1 implements Initializable {
             } else {
                 button1.setStyle("-fx-text-fill: blue;");
             }
+            int row=GridPane.getRowIndex(button1);
+            int col=GridPane.getColumnIndex(button1);
+            Main.client.inGame(row, col);
             choosePlayer();
             winning();
             setValues(1);
         }
-        
+
     }
 
     @FXML
@@ -423,7 +422,7 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-             
+
             //button2.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
             button2.setText(theFirstPlayer);
@@ -432,7 +431,7 @@ public class GameController1 implements Initializable {
             } else {
                 button2.setStyle("-fx-text-fill: blue;");
             }
-            
+
             button2.setDisable(true);
             choosePlayer();
             winning();
@@ -459,7 +458,7 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-            
+
             //button3.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
 
@@ -469,7 +468,7 @@ public class GameController1 implements Initializable {
             } else {
                 button3.setStyle("-fx-text-fill: blue;");
             }
-            
+
             button3.setDisable(true);
             choosePlayer();
             winning();
@@ -495,7 +494,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-                        
 
             //button4.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
@@ -510,7 +508,7 @@ public class GameController1 implements Initializable {
             winning();
             setValues(4);
         }
-        
+
     }
 
     @FXML
@@ -532,7 +530,6 @@ public class GameController1 implements Initializable {
                 playAgainstComputer();
             }
             //button5.setOnAction(null);
-                        
 
         } else if (HomePageController.vsComputer == false) {
             button5.setText(theFirstPlayer);
@@ -546,7 +543,7 @@ public class GameController1 implements Initializable {
             winning();
             setValues(5);
         }
-        
+
     }
 
     @FXML
@@ -567,7 +564,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-                        
 
             //button6.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
@@ -582,7 +578,7 @@ public class GameController1 implements Initializable {
             winning();
             setValues(6);
         }
-        
+
     }
 
     @FXML
@@ -604,7 +600,6 @@ public class GameController1 implements Initializable {
                 playAgainstComputer();
             }
             //button7.setOnAction(null);
-                        
 
         } else if (HomePageController.vsComputer == false) {
 
@@ -620,7 +615,7 @@ public class GameController1 implements Initializable {
             setValues(7);
 
         }
-        
+
     }
 
     @FXML
@@ -641,7 +636,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-              
 
             //button8.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
@@ -657,7 +651,7 @@ public class GameController1 implements Initializable {
             winning();
             setValues(8);
         }
-        
+
     }
 
     @FXML
@@ -678,7 +672,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-              
 
             //button9.setOnAction(null);
         } else if (HomePageController.vsComputer == false) {
@@ -694,6 +687,6 @@ public class GameController1 implements Initializable {
             winning();
             setValues(9);
         }
-        
+
     }
 }
