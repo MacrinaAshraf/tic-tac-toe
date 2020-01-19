@@ -90,7 +90,6 @@
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="597.0" layoutY="74.0" size="40" text="" wrappingWidth="47.999995931982994" />
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="75.0" layoutY="430.0" size="40" wrappingWidth="36.0" />
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER" layoutX="552.0" layoutY="431.0" size="40" wrappingWidth="36.00001786430221" />
-		<FontAwesomeIconView fill="#d7c682" glyphName="PAUSE" layoutX="375.0" layoutY="76.0" size="40" textAlignment="CENTER" wrappingWidth="48.0" />
 		<Label layoutX="24.0" layoutY="33.0" prefHeight="55.0" prefWidth="250.0" text="Tic Tac Toe" textFill="#d7c682">
 			<font>
 				<Font name="Segoe UI Black Italic" size="36.0" />
@@ -137,7 +136,6 @@
       <MenuButton layoutX="655.0" layoutY="1.0" mnemonicParsing="false" opacity="0.87" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#d0b95b" textOverrun="CLIP">
          <items>
             <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="logOutBtn" />
-            <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="helpBtn" />
          </items>
          <font>
             <Font name="Segoe UI Black Italic" size="17.0" />
