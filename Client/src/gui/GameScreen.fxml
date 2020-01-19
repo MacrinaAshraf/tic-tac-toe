@@ -118,6 +118,7 @@
 				</Button>
 			</children>
 		</GridPane>
+
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER"
 			layoutX="597.0" layoutY="74.0" size="40" text="" wrappingWidth="47.999995931982994" />
 		<FontAwesomeIconView fill="#d7c682" glyphName="USER"
@@ -129,6 +130,7 @@
 			wrappingWidth="48.0" />
 		<Label layoutX="24.0" layoutY="33.0" prefHeight="55.0"
 			prefWidth="250.0" text="Tic Tac Toe" textFill="#d7c682">
+
 			<font>
 				<Font name="Segoe UI Black Italic" size="36.0" />
 			</font>
