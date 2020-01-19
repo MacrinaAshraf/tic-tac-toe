@@ -34,7 +34,7 @@ public class Main extends Application {
 		
 		loginControl = (LoginController) loginLoader.getController();
 		loginControl.setActionHandler(primaryStage);
-                primaryStage.initStyle(StageStyle.TRANSPARENT);
+                primaryStage.setResizable(false);
                 primaryStage.show();
 	}
 

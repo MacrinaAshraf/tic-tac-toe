@@ -55,11 +55,5 @@
             <Font name="Segoe UI Black" size="22.0" />
          </font>
       </Text>
-      <Button fx:id="closeBtn" layoutX="759.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="24.0" style="-fx-background-color: #eed555;" text="X" />
-      <Button fx:id="minBtn" layoutX="731.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="24.0" style="-fx-background-color: #eed555;" text="_" textFill="#252424">
-         <font>
-            <Font name="Segoe UI Black Italic" size="11.0" />
-         </font>
-      </Button>
     </children>
 </AnchorPane>
