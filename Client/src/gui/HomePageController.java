@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.io.IOException;
@@ -40,7 +35,15 @@ public class HomePageController implements Initializable {
     static Parent playersMenuUI, gameScreenUI, loginUI, helpUI;
     static PlayersMenuController playersMenuControl;
     static LoginController loginControl;
-    static private GameController1 gameControl;
+    static private GameController gameControl;
+
+    public static GameController getGameControl() {
+        return gameControl;
+    }
+
+    public static void setGameControl(GameController gameControl) {
+        HomePageController.gameControl = gameControl;
+    }
     static HelpController helpControl;
     static Boolean vsComputer = false;
     static Stage stg;
@@ -67,7 +70,7 @@ public class HomePageController implements Initializable {
             loginControl = (LoginController) loginLoader.getController();
 
             helpControl = (HelpController) helpLoader.getController();
-            gameControl = (GameController1) gameLoader.getController();
+            gameControl = (GameController) gameLoader.getController();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
