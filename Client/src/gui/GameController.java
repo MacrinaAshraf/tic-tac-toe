@@ -65,7 +65,6 @@ public class GameController implements Initializable {
         GameController.turn = turn;
     }
 
-
     public  Label getUsernameOne() {
         return usernameOne;
     }
@@ -335,8 +334,7 @@ public class GameController implements Initializable {
             button9.setDisable(true);
         }
 
-    }
-
+     }
 
     private void gameOverAlert() {
 
