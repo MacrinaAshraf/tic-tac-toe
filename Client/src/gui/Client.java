@@ -33,7 +33,6 @@ public class Client {
     JSONObject sendJson;
     JSONObject recieveJson;
     String playerName;
-    int r, c;
     private Vector<JSONObject> goldPlayers = new Vector<JSONObject>();
     private Vector<JSONObject> silverPlayers = new Vector<JSONObject>();
     private Vector<JSONObject> bronzePlayers = new Vector<JSONObject>();
@@ -60,7 +59,7 @@ public class Client {
                             recieveJson = new JSONObject(msg);
                             String type = (String) recieveJson.get("type");
                             System.out.println(type);
-
+                           
                             switch (type) {
                                 case "login":
                                     handleLogin();
@@ -78,8 +77,8 @@ public class Client {
                                     getInviteResponse();
                                     break;
                                 case "ingame":
-                                    handleInGame();
-                                    break;
+                                     handleInGame();
+                                     break;
                             }
                         } catch (IOException ex) {
 
@@ -95,12 +94,12 @@ public class Client {
                                     alert.setHeaderText("Server has stopped, please restart");
                                     alert.setContentText(null);
                                     Optional<ButtonType> btnType = alert.showAndWait();
-                                    Main.stg.close();
+                                                        Main.stg.close();
 
                                     if (btnType.get() == ButtonType.OK) {
                                         System.exit(0);
                                     } else {
-                                        System.exit(0);
+                                           System.exit(0);
                                     }
                                 }
                             });
@@ -115,36 +114,37 @@ public class Client {
             });
             th.start();
         } catch (IOException e) {
-            // System.out.print("hi");
-            // e.printStackTrace();
+           // System.out.print("hi");
+           // e.printStackTrace();
             keepRunning = false;
-
-            stopConnection();
+            
+            stopConnection();            
             Platform.runLater(new Runnable() {
 
                 @Override
 
                 public void run() {
-
+                   
                     //Update UI here    
+                 
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setHeaderText("Server is not running please restart");
                     alert.setContentText(null);
                     Optional<ButtonType> btnType = alert.showAndWait();
                     Main.stg.close();
                     if (btnType.get() == ButtonType.OK) {
-
+                        
                         System.exit(0);
-
+                        
                     } else {
-                        System.exit(0);
+                          System.exit(0);
                     }
                     Platform.exit();
-
+                    
                 }
-
+               
             });
-            // System.exit(0);
+             // System.exit(0);
         }
 
     }
@@ -311,11 +311,10 @@ public class Client {
 
     public void invite(String userName1, String userName2) throws JSONException {
         System.out.println("================inviteeeeee");
-        JSONObject send = new JSONObject();
-        send.put("type", "invite");
-        send.put("askingplayername", userName1);
-        send.put("toPlayWith", userName2);
-        sendJson = send;
+
+        sendJson.put("type", "invite");
+        sendJson.put("askingplayername", userName1);
+        sendJson.put("toPlayWith", userName2);
         sendToServer();
     }
 
@@ -325,12 +324,8 @@ public class Client {
         sendJson.put("username", userName1);
         if (inviteStatus) {
             sendJson.put("response", "accept");
-            GameController.setTurn(false);
-            player.setPlayingWith(userName1);
-
-            GameController.setThePlayer("O");
-            HomePageController.getGameControl().setUsernameOne(userName2);
-            HomePageController.getGameControl().setUsernameTwo(userName1);
+            GameController1.setTurn(false);
+            GameController1.setThePlayer("O");
             HomePageController.loadGame();
         } else {
             sendJson.put("response", "rejected");
@@ -388,15 +383,8 @@ public class Client {
 
                     public void run() {
                         HomePageController.loadGame();
-                        GameController.setTurn(true);
-                        HomePageController.getGameControl().setUsernameOne(player.getName());
-                        try {
-                            HomePageController.getGameControl().setUsernameTwo((String)recieveJson.get("username"));
-                        } catch (JSONException ex) {
-                            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        GameController.setThePlayer("X");
-//                    /  GameController.setUsernameOne(player.getName());
+                        GameController1.setTurn(true);
+                        GameController1.setThePlayer("X");
                         System.out.println("------------------getInvite");
                     }
 
@@ -408,39 +396,19 @@ public class Client {
         }
 
     }
-
-    public void inGame(int row, int col) {
-        JSONObject send = new JSONObject();
+    public void inGame(int row,int col){
+        JSONObject send=new JSONObject();
         try {
             send.put("type", "ingame");
             send.put("row", row);
-            send.put("column", col);
-            sendJson = send;
+            send.put("column",col);
+            sendJson=send;
         } catch (JSONException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         sendToServer();
     }
-
-    public void handleInGame() {
-        GameController.setTurn(true);
-
-        try {
-            r = (Integer) recieveJson.get("row");
-            c = (Integer) recieveJson.get("column");
-
-        } catch (JSONException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Platform.runLater(new Runnable() {
-
-            @Override
-
-            public void run() {
-                //Update UI here    
-                HomePageController.getGameControl().placeMoveOnGrid(r, c);
-            }
-        });
-
+    public void handleInGame(){
+        GameController1.setTurn(true);
     }
 }
