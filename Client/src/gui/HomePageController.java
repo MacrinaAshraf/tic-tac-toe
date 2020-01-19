@@ -42,7 +42,7 @@ public class HomePageController implements Initializable {
 	private GameController1 gameControl;
 	static HelpController helpControl;
 	static Boolean vsComputer = false;
-
+        static Stage stg;
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
@@ -54,6 +54,7 @@ public class HomePageController implements Initializable {
 		FXMLLoader playersMenuLoader = new FXMLLoader(getClass().getResource("PlayersMenu.fxml"));
 		FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("GameScreen.fxml"));
 		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+                stg=stage;
 		try {
 			loginUI = loginLoader.load();
 			playersMenuUI = playersMenuLoader.load();
@@ -105,9 +106,9 @@ public class HomePageController implements Initializable {
                                  stage.setScene(new Scene(playersMenuUI));
 				 playersMenuControl.init();
 				
-				 stage.setScene(new Scene(playersMenuUI));
+				// stage.setScene(new Scene(playersMenuUI));
 				// playersMenuControl.setActionHandler(stage);
-//				vsComputer = false;
+				vsComputer = false;
 //				gameControl.setStage(stage);
 //				stage.setScene(new Scene(gameScreenUI));
 //				gameControl.assignNumber();

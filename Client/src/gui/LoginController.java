@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private TextField username;
-
+        static public Stage stage;
 	@FXML
 	private PasswordField password;
 
@@ -58,9 +58,10 @@ public class LoginController implements Initializable {
 		// TODO
 	}
 
-	public void setActionHandler(Stage stage) {
+	public void setActionHandler(Stage stg) {
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
 		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+                stage=stg;
 		try {
 			homePageUI = homePageLoader.load();
 			homePageControl = (HomePageController) homePageLoader.getController();
