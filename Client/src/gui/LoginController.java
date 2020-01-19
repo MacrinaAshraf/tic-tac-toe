@@ -50,8 +50,9 @@ public class LoginController implements Initializable {
 	private HomePageController homePageControl;
 	private Parent signUpUI;
 	private SignUpController signUpControl;
-    @FXML
     private AnchorPane aPane;
+    @FXML
+    private Label errorLabel;
  
 
 	@Override
@@ -89,9 +90,7 @@ public class LoginController implements Initializable {
 				while (Main.client.getPlayer().getId() == 0) {
 					System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
-                                            Label errormsg = new Label("Invalid username or Password!");
-						aPane.getChildren().addAll(errormsg);
-                                                errormsg.setTextFill(Color.web("#bb1414"));
+                                                errorLabel = new Label("Invalid username or Password!");
 						Main.client.getPlayer().setId(0);
 						break;
 					} else if (Main.client.getPlayer().getId() > 0) {
