@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -79,6 +81,12 @@ public class Client {
                                     break;
                                 case "ingame":
                                     handleInGame();
+                                    break;
+                                case "win":
+                                    handleLosing();
+                                    break;
+                                case "endofbattle":
+                                    endOfBattleHandle();
                                     break;
                             }
                         } catch (IOException ex) {
@@ -359,9 +367,12 @@ public class Client {
 
     }
 
-    public void endOfGame(String userName, int score, String userName2, int score2) throws JSONException {
+    public void endOfGame() throws JSONException {
         sendJson.put("type", "endofgame");
-        sendJson.put("score", score);
+        sendJson.put("score", player.getScore());
+        System.out.println("==============" + player.getScore() + "=====================");
+
+        System.out.print(sendJson);
         sendToServer();
     }
 
@@ -391,7 +402,7 @@ public class Client {
                         GameController.setTurn(true);
                         HomePageController.getGameControl().setUsernameOne(player.getName());
                         try {
-                            HomePageController.getGameControl().setUsernameTwo((String)recieveJson.get("username"));
+                            HomePageController.getGameControl().setUsernameTwo((String) recieveJson.get("username"));
                         } catch (JSONException ex) {
                             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -442,5 +453,89 @@ public class Client {
             }
         });
 
+    }
+
+    public void win() {
+        JSONObject win = new JSONObject();
+        try {
+            win.put("type", "win");
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendJson = win;
+        sendToServer();
+    }
+
+    public void handleLosing() {
+        System.out.println("------lost--------");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                //Update UI here    
+                System.out.println("------lost--------");
+                HomePageController.getGameControl().reset();
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setHeaderText("You Lost");
+                alert.setContentText(null);
+                Optional<ButtonType> btnType = alert.showAndWait();
+                if (btnType.get() == ButtonType.OK) {
+
+                }
+            }
+        });
+    }
+
+    public void endOfBattle() {
+        try {
+            endOfGame();
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JSONObject end = new JSONObject();
+        try {
+            end.put("type", "endofbattle");
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendJson = end;
+        sendToServer();
+    }
+
+    public void endOfBattleHandle() {
+        Platform.runLater(new Runnable() {
+
+            @Override
+
+            public void run() {
+
+                //Update UI here    
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setHeaderText("Other player exits the game");
+                alert.setContentText(null);
+                Optional<ButtonType> btnType = alert.showAndWait();
+               // Main.stg.close();
+                if (btnType.get() == ButtonType.OK) {
+                    FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+                    Parent homePageUI = null;
+                    HomePageController homePageControl = null;
+                   Main.client.endOfBattle();
+                    try {
+                        homePageUI = homePageLoader.load();
+                        homePageControl = (HomePageController) homePageLoader.getController();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    HomePageController.stg.setScene(new Scene(homePageUI));
+                    homePageControl.setActionHandler(HomePageController.stg);
+
+                } else {
+
+                }
+           
+
+            }
+
+        });
     }
 }

@@ -75,20 +75,24 @@ class GameHandler extends Thread {
                         case "register":
                             register(message);
                             break;
-                            
+                        case "win":    
                         case "chat":
                             sendMessage(message.toString());
                             break;
                         case "ingame":
                             sendMessage(message.toString());
                             break;                                    
-                        case "endofgame":
-                            
+                        case "endofgame":                            
                             endOfGame(message);
                             break;
                         case "stop":
                             System.out.println("stop");
                             stopClient();
+                            break;
+                        case "endofbattle":
+                             sendMessage(message.toString());   
+                            endOfBattle();
+                                                    
                             break;
                     }
                 } catch (IOException | JSONException ex) {
@@ -256,22 +260,33 @@ class GameHandler extends Thread {
         String s;
         ScoreController scoreCtrl=new ScoreController();
         try {
-            s = (String) data.get("score");
-            score = Integer.parseInt(s);
+            score = (int) data.get("score");
+            s=String.valueOf(score);
             scoreCtrl.setScore(client.getUserName(), s);
         } catch (JSONException ex) {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
-        GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
+      //  GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
+       // GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
         GameServer.clientsVector.elementAt(placeInVector).setScore(score);
         try {
             playersJSON();
         } catch (JSONException ex) {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(ServerGUI.table!=null)
+        ServerGUI.table.refresh();
     }
     public void logout(){
+        
+        JSONObject end=new JSONObject();
+        try {
+            end.put("type","endofbattle");
+        } catch (JSONException ex) {
+            Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendMessage(end.toString());
+        endOfBattle();
         GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
         GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
         GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
@@ -306,5 +321,10 @@ class GameHandler extends Thread {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void endOfBattle(){
+        GameServer.clientsVector.elementAt(placeInVector).setPlayingWith(null);
+        GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
+        if(ServerGUI.table!=null)
+        ServerGUI.table.refresh();
+    }
 }

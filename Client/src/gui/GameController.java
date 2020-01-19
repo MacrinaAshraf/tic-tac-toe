@@ -5,6 +5,7 @@
  */
 package gui;
 
+import static gui.HomePageController.loginControl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,44 +43,13 @@ public class GameController implements Initializable {
     private Boolean turnFlag = true;
     Client client;
     static public String thePlayer = "X";
-     @FXML
-     private Label usernameTwo;
-      @FXML
-     private Label usernameOne;
-    public static String getThePlayer() {
-        return thePlayer;
-    }
-
-    public static void setThePlayer(String thePlayer) {
-        GameController.thePlayer = thePlayer;
-    }
-    public int xCount = 0;
-    public int oCount = 0;
-    static private Boolean turn;
-
-    public static Boolean getTurn() {
-        return turn;
-    }
-
-    public static void setTurn(Boolean turn) {
-        GameController.turn = turn;
-    }
-
-    public  Label getUsernameOne() {
-        return usernameOne;
-    }
-
-    public  void setUsernameOne(String usernameOne1) {
-        usernameOne.setText(usernameOne1); 
-    }
-
-    public  Label getUsernameTwo() {
-        return usernameTwo;
-    }
-
-    public  void setUsernameTwo(String username) {
-       usernameTwo.setText(username);
-    }
+    @FXML
+    private Label usernameTwo;
+    @FXML
+    private Label usernameOne;
+    public int xCount = Main.client.getPlayer().getScore();
+    public int oCount = Main.client.getPlayer().getScore();
+    static private Boolean turn;   
 
     @FXML
     private Button button1;
@@ -101,6 +71,7 @@ public class GameController implements Initializable {
     private Button button9;
     @FXML
     private Label scoreplayerX;
+
     @FXML
     private Label scoreplayerO;
     private Alert gameOverAlert;
@@ -111,6 +82,37 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+    public static String getThePlayer() {
+        return thePlayer;
+    }
+
+    public static void setThePlayer(String thePlayer) {
+        GameController.thePlayer = thePlayer;
+    }
+
+    public static Boolean getTurn() {
+        return turn;
+    }
+
+    public static void setTurn(Boolean turn) {
+        GameController.turn = turn;
+    }
+
+    public Label getUsernameOne() {
+        return usernameOne;
+    }
+
+    public void setUsernameOne(String usernameOne1) {
+        usernameOne.setText(usernameOne1);
+    }
+
+    public Label getUsernameTwo() {
+        return usernameTwo;
+    }
+
+    public void setUsernameTwo(String username) {
+        usernameTwo.setText(username);
+    }
 
     public GameController() {
 
@@ -120,7 +122,26 @@ public class GameController implements Initializable {
         for (int i = 0; i < 9; i++) {
             checkBoardArr.add(i, 1);
         }
+        System.out.println("----------"+Main.client.getPlayer().getScore());
+       
 
+    }
+    
+
+    public Label getScoreplayerX() {
+        return scoreplayerX;
+    }
+
+    public void setScoreplayerX(String scoreplayerX) {
+        this.scoreplayerX.setText(scoreplayerX);
+    }
+
+    public Label getScoreplayerO() {
+        return scoreplayerO;
+    }
+
+    public void setScoreplayerO(String scoreplayerO) {
+        this.scoreplayerO.setText(scoreplayerO);
     }
 
     public void setStage(Stage primaryStage) {
@@ -146,26 +167,31 @@ public class GameController implements Initializable {
     }
 
     ////////////// multiplayerfunctions//////////////////////////////////////////
-    public void choosePlayer() {
-        if (thePlayer.equalsIgnoreCase("X")) {
-            thePlayer = "O";
+    public void score(String player) {
+        if ("X".equals(player)) {
+            xCount += 20;
+            Main.client.getPlayer().setScore(xCount);
         } else {
-            thePlayer = "X";
+            oCount += 20;
+            Main.client.getPlayer().setScore(oCount);
         }
-    }
 
-    public void score() {
         scoreplayerX.setText(String.valueOf(xCount));
         scoreplayerO.setText(String.valueOf(oCount));
+        System.out.println("-------"+xCount);
+         System.out.println("-------"+oCount);
     }
 
     public boolean draw() {
+        System.out.println("-------====="+String.valueOf(Main.client.getPlayer().getScore()));
+         scoreplayerX.setText(String.valueOf(Main.client.getPlayer().getScore()));
+        scoreplayerO.setText(String.valueOf(Main.client.getPlayer().getScore()));
+            
         for (int i = 0; i < checkBoardArr.size(); i++) {
             System.out.println(checkBoardArr.get(i));
         }
         System.out.println("in draw check and the board contains 1 = " + (checkBoardArr.contains(1)));
-        if (!(checkBoardArr.contains(1)))
-        {
+        if (!(checkBoardArr.contains(1))) {
             return true;
         }
         return false;
@@ -190,15 +216,21 @@ public class GameController implements Initializable {
                 || arr[2].equals("X") && arr[4].equals("X") && arr[6].equals("X")) {
 
             System.out.println("in x wins");
-            xCount++;
-            score();
+            Main.client.win();
+           
+            score("X");
+             try {
+                Main.client.endOfGame();
+            } catch (JSONException ex) {
+                Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             alert4.setTitle("TicTacToe");
             alert4.setHeaderText(null);
             alert4.setContentText("player X wins");
             if (alert4.showAndWait().get() == ButtonType.OK) {
 
                 reset();
-                choosePlayer();
+
             }
             System.out.println("x win");
         } else if (arr[0].equals("O") && arr[1].equals("O") && arr[2].equals("O")
@@ -209,16 +241,21 @@ public class GameController implements Initializable {
                 || arr[2].equals("O") && arr[5].equals("O") && arr[8].equals("O")
                 || arr[0].equals("O") && arr[4].equals("O") && arr[8].equals("O")
                 || arr[2].equals("O") && arr[4].equals("O") && arr[6].equals("O")) {
+            Main.client.win();
+          
             System.out.println("in o wins");
-            oCount++;
-            score();
+            score("O");
+              try {
+                Main.client.endOfGame();
+            } catch (JSONException ex) {
+                Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             alert5.setTitle("TicTacToe");
             alert5.setHeaderText(null);
             alert5.setContentText("player O wins");
 
             if (alert5.showAndWait().get() == ButtonType.OK) {
                 reset();
-                choosePlayer();
             }
             System.out.println("o win");
 
@@ -229,7 +266,6 @@ public class GameController implements Initializable {
             alert6.setContentText("No one wins");
             if (alert6.showAndWait().get() == ButtonType.OK) {
                 reset();
-                choosePlayer();
             }
 
         }
@@ -257,90 +293,117 @@ public class GameController implements Initializable {
         }
     }
 
-     public void placeMoveOnGrid(int row, int column) {
+    public void placeMoveOnGrid(int row, int column) {
 
         if (GridPane.getRowIndex(button1) == row && GridPane.getColumnIndex(button1) == column) {
-            if(HomePageController.vsComputer)
-                 button1.setText("X");
-            else {
-                if(thePlayer=="X") button1.setText("O");
-                else button1.setText("X");
+            if (HomePageController.vsComputer) {
+                button1.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button1.setText("O");
+                } else {
+                    button1.setText("X");
+                }
             }
             button1.setDisable(true);
         } else if (GridPane.getRowIndex(button2) == row && GridPane.getColumnIndex(button2) == column) {
-             if(HomePageController.vsComputer)
-                 button2.setText("X");
-            else {
-                if(thePlayer=="X") button2.setText("O");
-                else button2.setText("X");
+            if (HomePageController.vsComputer) {
+                button2.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button2.setText("O");
+                } else {
+                    button2.setText("X");
+                }
             }
             button2.setDisable(true);
         } else if (GridPane.getRowIndex(button3) == row && GridPane.getColumnIndex(button3) == column) {
-             if(HomePageController.vsComputer)
-                 button3.setText("X");
-            else {
-                if(thePlayer=="X") button3.setText("O");
-                else button3.setText("X");
+            if (HomePageController.vsComputer) {
+                button3.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button3.setText("O");
+                } else {
+                    button3.setText("X");
+                }
             }
             button3.setDisable(true);
         } else if (GridPane.getRowIndex(button4) == row && GridPane.getColumnIndex(button4) == column) {
-             if(HomePageController.vsComputer)
-                 button4.setText("X");
-            else {
-                if(thePlayer=="X") button4.setText("O");
-                else button4.setText("X");
+            if (HomePageController.vsComputer) {
+                button4.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button4.setText("O");
+                } else {
+                    button4.setText("X");
+                }
             }
             button4.setDisable(true);
         } else if (GridPane.getRowIndex(button5) == row && GridPane.getColumnIndex(button5) == column) {
-             if(HomePageController.vsComputer)
-                 button5.setText("X");
-            else {
-                if(thePlayer=="X") button5.setText("O");
-                else button5.setText("X");
+            if (HomePageController.vsComputer) {
+                button5.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button5.setText("O");
+                } else {
+                    button5.setText("X");
+                }
             }
 
             button5.setDisable(true);
         } else if (GridPane.getRowIndex(button6) == row && GridPane.getColumnIndex(button6) == column) {
-             if(HomePageController.vsComputer)
-                 button6.setText("X");
-            else {
-                if(thePlayer=="X") button6.setText("O");
-                else button6.setText("X");
+            if (HomePageController.vsComputer) {
+                button6.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button6.setText("O");
+                } else {
+                    button6.setText("X");
+                }
             }
             button6.setDisable(true);
         } else if (GridPane.getRowIndex(button7) == row && GridPane.getColumnIndex(button7) == column) {
-             if(HomePageController.vsComputer)
-                 button7.setText("X");
-            else {
-                if(thePlayer=="X") button7.setText("O");
-                else button7.setText("X");
+            if (HomePageController.vsComputer) {
+                button7.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button7.setText("O");
+                } else {
+                    button7.setText("X");
+                }
             }
             button7.setDisable(true);
         } else if (GridPane.getRowIndex(button8) == row && GridPane.getColumnIndex(button8) == column) {
-             if(HomePageController.vsComputer)
-                 button8.setText("X");
-            else {
-                if(thePlayer=="X") button8.setText("O");
-                else button8.setText("X");
+            if (HomePageController.vsComputer) {
+                button8.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button8.setText("O");
+                } else {
+                    button8.setText("X");
+                }
             }
             button8.setDisable(true);
         } else if (GridPane.getRowIndex(button9) == row && GridPane.getColumnIndex(button9) == column) {
-             if(HomePageController.vsComputer)
-                 button9.setText("X");
-            else {
-                if(thePlayer=="X") button9.setText("O");
-                else button9.setText("X");
+            if (HomePageController.vsComputer) {
+                button9.setText("X");
+            } else {
+                if (thePlayer == "X") {
+                    button9.setText("O");
+                } else {
+                    button9.setText("X");
+                }
             }
             button9.setDisable(true);
         }
 
-     }
+    }
 
     private void gameOverAlert() {
 
         if (TestBoard.checkWinner.equals("X")) {
             gameOverAlert = new Alert(AlertType.CONFIRMATION);
-           gameOverAlert.setTitle("null");
+            gameOverAlert.setTitle("null");
             gameOverAlert.setHeaderText("player x won");
             gameOverAlert.setContentText("Do You Want Play Agian ?");
             gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
@@ -348,8 +411,8 @@ public class GameController implements Initializable {
 
             if (result.get() == yesbtn) {
                 playerXwin();
-                xCount++;
-                score();
+
+                score("X");
                 testBoard.resetBoard();
 
             } else if (result.get() == nobtn) {
@@ -369,13 +432,13 @@ public class GameController implements Initializable {
                 playerOwin();
                 testBoard.resetBoard();
                 xCount++;
-                score();
+                score("O");
             } else if (result.get() == nobtn) {
                 gotoHomePage();
             }
         } else if (TestBoard.checkWinner.equals("noWinner")) {
             gameOverAlert = new Alert(AlertType.CONFIRMATION);
-           gameOverAlert.setTitle("null");
+            gameOverAlert.setTitle("null");
             gameOverAlert.setHeaderText("Draw!");
             gameOverAlert.setContentText("Do You Want Play Agian ?");
             gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
@@ -445,7 +508,7 @@ public class GameController implements Initializable {
                 playAgainstComputer();
             }
 
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button1.setText(thePlayer);
             button1.setDisable(true);
@@ -483,7 +546,7 @@ public class GameController implements Initializable {
             } else {
                 playAgainstComputer();
             }
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
             button2.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
                 button2.setStyle("-fx-text-fill: red;");
@@ -520,8 +583,7 @@ public class GameController implements Initializable {
             } else {
                 playAgainstComputer();
             }
-        } else if (HomePageController.vsComputer == false&&turn==true) {
-
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button3.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -562,7 +624,7 @@ public class GameController implements Initializable {
                 playAgainstComputer();
             }
 
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button4.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -601,7 +663,7 @@ public class GameController implements Initializable {
             } else {
                 playAgainstComputer();
             }
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
             button5.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
                 button5.setStyle("-fx-text-fill: red;");
@@ -639,7 +701,7 @@ public class GameController implements Initializable {
             } else {
                 playAgainstComputer();
             }
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button6.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -678,7 +740,7 @@ public class GameController implements Initializable {
                 playAgainstComputer();
             }
 
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button7.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -720,7 +782,7 @@ public class GameController implements Initializable {
             }
 
             //button8.setOnAction(null);
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button8.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -759,7 +821,7 @@ public class GameController implements Initializable {
                 playAgainstComputer();
             }
             //button9.setOnAction(null);
-        } else if (HomePageController.vsComputer == false&&turn==true) {
+        } else if (HomePageController.vsComputer == false && turn == true) {
 
             button9.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -783,10 +845,32 @@ public class GameController implements Initializable {
 
     @FXML
     private void backToHome(ActionEvent event) {
+        FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        Parent homePageUI = null;
+        HomePageController homePageControl = null;
+        Main.client.endOfBattle();
+        try {
+            homePageUI = homePageLoader.load();
+            homePageControl = (HomePageController) homePageLoader.getController();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(homePageUI));
+        homePageControl.setActionHandler(stage);
     }
 
     @FXML
     private void logOutAction(ActionEvent event) {
+        try {
+            Main.client.logout();
+        } catch (JSONException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        Main.client.setPlayerToZero();
+        loginControl.setActionHandler(stage);
+
     }
 
     @FXML
