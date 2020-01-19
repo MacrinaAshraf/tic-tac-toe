@@ -129,6 +129,7 @@ public class GameController1 implements Initializable {
 		helpControl.setActionHandler(stage);
 	}
 
+        @FXML
 	public void reset() {
 		Button arr2[] = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
 		for (int i = 0; i < arr2.length; i++) {
