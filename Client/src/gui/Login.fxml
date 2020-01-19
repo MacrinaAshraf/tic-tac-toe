@@ -23,7 +23,10 @@
       </ImageView>
       <Pane layoutX="253.0" layoutY="22.0" opacity="0.61" prefHeight="439.0" prefWidth="341.0" style="-fx-background-color: black; -fx-border-color: eed555;">
          <children>
-            <Label fx:id="errorLabel" layoutX="164.0" layoutY="258.0" prefHeight="17.0" prefWidth="126.0" />
+            <Label fx:id="errorLabel" layoutX="53.0" layoutY="290.0" prefHeight="17.0" prefWidth="251.0" textFill="#f20909">
+               <font>
+                  <Font name="Segoe UI Black" size="13.0" />
+               </font></Label>
          </children></Pane>
       <TextField fx:id="username" layoutX="315.0" layoutY="167.0" prefHeight="27.0" prefWidth="217.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-text-fill: white; -fx-prompt-text-fill: #eed555;" />
       <PasswordField fx:id="password" layoutX="319.0" layoutY="219.0" prefHeight="27.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
@@ -38,11 +41,11 @@
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></CheckBox>
-      <Hyperlink fx:id="signUpLink" layoutX="415.0" layoutY="322.0" text="Sign Up" textFill="#eed555">
+      <Hyperlink fx:id="signUpLink" layoutX="420.0" layoutY="338.0" text="Sign Up" textFill="#eed555">
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></Hyperlink>
-      <Text fill="#cdcbcb" layoutX="296.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?">
+      <Text fill="#cdcbcb" layoutX="304.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are You New?">
          <font>
             <Font name="Segoe UI Black" size="13.0" />
          </font></Text>
