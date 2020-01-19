@@ -52,6 +52,10 @@ public class LoginController implements Initializable {
 	private SignUpController signUpControl;
     @FXML
     private AnchorPane aPane;
+    @FXML
+    private Button closeBtn;
+    @FXML
+    private Button minBtn;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -103,6 +107,7 @@ public class LoginController implements Initializable {
 			}
 
 		});
+                
 
 		signUpLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
@@ -118,8 +123,20 @@ public class LoginController implements Initializable {
 			}
 
 		});
+                closeBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                         stage.close();
+                         
+                    }
+                    
+                });
                 
-
+                minBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                    stage.setIconified(true);                    }
+                });
 	}
 
 	public void sendPlayerData() throws JSONException {
