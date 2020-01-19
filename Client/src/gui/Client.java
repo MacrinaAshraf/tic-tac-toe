@@ -325,6 +325,7 @@ public class Client {
         if (inviteStatus) {
             sendJson.put("response", "accept");
             GameController1.setTurn(false);
+            GameController1.setThePlayer("O");
             HomePageController.loadGame();
         } else {
             sendJson.put("response", "rejected");
@@ -383,6 +384,7 @@ public class Client {
                     public void run() {
                         HomePageController.loadGame();
                         GameController1.setTurn(true);
+                        GameController1.setThePlayer("X");
                         System.out.println("------------------getInvite");
                     }
 

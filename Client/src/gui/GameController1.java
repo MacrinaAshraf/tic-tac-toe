@@ -45,7 +45,15 @@ public class GameController1 implements Initializable {
     private Point position = new Point();
     private Boolean turnFlag = true;
     Client client;
-    public String theFirstPlayer = "X";
+    static public String thePlayer = "X";
+
+    public static String getThePlayer() {
+        return thePlayer;
+    }
+
+    public static void setThePlayer(String thePlayer) {
+        GameController1.thePlayer = thePlayer;
+    }
     public int xCount = 0;
     public int oCount = 0;
     static private Boolean turn;
@@ -138,10 +146,10 @@ public class GameController1 implements Initializable {
     }*/
     ////////////// multiplayerfunctions//////////////////////////////////////////
     public void choosePlayer() {
-        if (theFirstPlayer.equalsIgnoreCase("X")) {
-            theFirstPlayer = "O";
+        if (thePlayer.equalsIgnoreCase("X")) {
+            thePlayer = "O";
         } else {
-            theFirstPlayer = "X";
+            thePlayer = "X";
         }
     }
 
@@ -396,9 +404,9 @@ public class GameController1 implements Initializable {
 
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
-            button1.setText(theFirstPlayer);
+            button1.setText(thePlayer);
             button1.setDisable(true);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button1.setStyle("-fx-text-fill: red;");
             } else {
                 button1.setStyle("-fx-text-fill: blue;");
@@ -435,8 +443,8 @@ public class GameController1 implements Initializable {
 
             //button2.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
-            button2.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button2.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button2.setStyle("-fx-text-fill: red;");
             } else {
                 button2.setStyle("-fx-text-fill: blue;");
@@ -476,8 +484,8 @@ public class GameController1 implements Initializable {
             //button3.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
-            button3.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button3.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button3.setStyle("-fx-text-fill: red;");
             } else {
                 button3.setStyle("-fx-text-fill: blue;");
@@ -514,8 +522,8 @@ public class GameController1 implements Initializable {
 
             //button4.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
-            button4.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button4.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button4.setStyle("-fx-text-fill: red;");
             } else {
                 button4.setStyle("-fx-text-fill: blue;");
@@ -553,8 +561,8 @@ public class GameController1 implements Initializable {
             //button5.setOnAction(null);
 
         } else if (HomePageController.vsComputer == false&&turn==true) {
-            button5.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button5.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button5.setStyle("-fx-text-fill: red;");
             } else {
                 button5.setStyle("-fx-text-fill: blue;");
@@ -593,8 +601,8 @@ public class GameController1 implements Initializable {
 
             //button6.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
-            button6.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button6.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button6.setStyle("-fx-text-fill: red;");
             } else {
                 button6.setStyle("-fx-text-fill: blue;");
@@ -633,8 +641,8 @@ public class GameController1 implements Initializable {
 
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
-            button7.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button7.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button7.setStyle("-fx-text-fill: red;");
             } else {
                 button7.setStyle("-fx-text-fill: blue;");
@@ -674,8 +682,8 @@ public class GameController1 implements Initializable {
             //button8.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
-            button8.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button8.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button8.setStyle("-fx-text-fill: red;");
             } else {
                 button8.setStyle("-fx-text-fill: blue;");
@@ -714,8 +722,8 @@ public class GameController1 implements Initializable {
             //button9.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
-            button9.setText(theFirstPlayer);
-            if (theFirstPlayer.equalsIgnoreCase("X")) {
+            button9.setText(thePlayer);
+            if (thePlayer.equalsIgnoreCase("X")) {
                 button9.setStyle("-fx-text-fill: red;");
             } else {
                 button9.setStyle("-fx-text-fill: blue;");
