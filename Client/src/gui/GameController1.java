@@ -96,6 +96,7 @@ public class GameController1 implements Initializable {
         stage = primaryStage;
     }
 
+    @FXML
     public void reset() {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
         for (int i = 0; i < arr2.length; i++) {
@@ -688,5 +689,17 @@ public class GameController1 implements Initializable {
             setValues(9);
         }
 
+    }
+
+    @FXML
+    private void backToHome(ActionEvent event) {
+    }
+
+    @FXML
+    private void logOutAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void helpButtonAction(ActionEvent event) {
     }
 }
