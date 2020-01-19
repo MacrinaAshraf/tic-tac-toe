@@ -226,9 +226,9 @@ public class Client {
 
             System.out.println(HomePageController.playersMenuControl == null);
 
-            if (HomePageController.playersMenuControl != null
-                    && HomePageController.playersMenuControl.getList() != null) {
-                HomePageController.playersMenuControl.getList().refresh();
+          if (HomePageController.playersMenuControl != null
+                    && HomePageController.playersMenuControl.getTable()!= null) {
+                HomePageController.playersMenuControl.getTable().refresh();
             }
 
         } catch (JSONException e) {
