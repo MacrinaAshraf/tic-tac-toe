@@ -73,6 +73,7 @@ public class Client {
                                     handleRegister();
                                     break;
                                 case "responsetoinvite":
+                                    getInviteResponse();
                                     break;
                             }
                         } catch (IOException ex) {
@@ -124,12 +125,12 @@ public class Client {
                     } catch (JSONException ex) {
                         Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-                else 
-                     try {
-                         respondeToInvite(player.getName(), playerName, false);
-                } catch (JSONException ex) {
-                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    try {
+                        respondeToInvite(player.getName(), playerName, false);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -263,9 +264,12 @@ public class Client {
         sendJson.put("type", "responsetoinvite");
         sendJson.put("toPlayWith", userName2);
         sendJson.put("username", userName1);
-        if(inviteStatus)
-          sendJson.put("response", "accept");
-        else sendJson.put("response","rejected" );
+        if (inviteStatus) {
+            sendJson.put("response", "accept");
+            HomePageController.loadGame();
+        } else {
+            sendJson.put("response", "rejected");
+        }
         sendToServer();
     }
 
@@ -306,5 +310,27 @@ public class Client {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void getInviteResponse() {
+        try {
+
+            if (recieveJson.get("response").toString().equals("accept")) {
+                Platform.runLater(new Runnable() {
+
+                    @Override
+
+                    public void run() {
+                        HomePageController.loadGame();
+                        System.out.println("------------------getInvite");
+                    }
+
+                });
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
     }
 }
