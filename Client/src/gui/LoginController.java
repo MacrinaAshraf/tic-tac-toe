@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private TextField username;
-
+        static public Stage stage;
 	@FXML
 	private PasswordField password;
 
@@ -62,9 +62,10 @@ public class LoginController implements Initializable {
 		// TODO
 	}
 
-	public void setActionHandler(Stage stage) {
+	public void setActionHandler(Stage stg) {
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
 		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+                stage=stg;
 		try {
 			homePageUI = homePageLoader.load();
 			homePageControl = (HomePageController) homePageLoader.getController();
@@ -86,10 +87,10 @@ public class LoginController implements Initializable {
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
 
 				while (Main.client.getPlayer().getId() == 0) {
-					//System.out.println(Main.client.getPlayer().getId());
+					System.out.println(Main.client.getPlayer().getId());
 					if (Main.client.getPlayer().getId() == -1) {
                                             Label errormsg = new Label("Invalid username or Password!");
 						aPane.getChildren().addAll(errormsg);
@@ -100,8 +101,6 @@ public class LoginController implements Initializable {
 						stage.setScene(new Scene(homePageUI));
 						homePageControl.setActionHandler(stage);
 						break;
-					} else {
-
 					}
 				}
 			}
@@ -115,11 +114,7 @@ public class LoginController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(signUpUI));
-                            try {
                                 signUpControl.setActionHandler(stage);
-                            } catch (IOException ex) {
-                                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
 			}
 
 		});

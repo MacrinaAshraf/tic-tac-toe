@@ -23,73 +23,67 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.json.JSONObject;
 import java.util.regex.*;
 import org.json.JSONException;
 
-
 public class SignUpController implements Initializable {
-    
-	@FXML
-	private Button signUpBtn;
-        @FXML
-        private TextField email;
-        @FXML
-        private PasswordField password;
-        @FXML
-        private PasswordField retypePassword;
-        private Label validationError;
-        private Parent homePageUI;
-        private HomePageController homePageControl;
-        private Parent loginUI;
-        private LoginController loginControl;
 
+    @FXML
+    private Button signUpBtn;
     @FXML
     private TextField username;
     @FXML
+    private TextField email;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private PasswordField retypePassword;
+    @FXML
+    private Label validationError;
+    //private Parent homePageUI;
+    @FXML
     private Hyperlink logLink;
-    
+    private Parent loginPageUI;
+    private LoginController loginControl;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
-	public void setActionHandler(Stage stage) throws IOException {
-		// TODO Auto-generated method stub
-		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-    	FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
-       FXMLLoader loginLoader = new FXMLLoader (getClass().getResource("Login.fxml"));
-        loginUI = loginLoader.load();
-	loginControl = (LoginController) loginLoader.getController();
-        
+    public void setActionHandler(Stage stage) {
+        //FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
 
-    		try {
-				homePageUI = homePageLoader.load();
-				homePageControl = (HomePageController)homePageLoader.getController();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	
-        logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-                    @Override
-                    public void handle(ActionEvent event) {
-                        stage.setScene(new Scene(loginUI));
-                        loginControl.setActionHandler(stage);
-                    }
-            
-        });        
-                
-    	signUpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+        try {
+            loginPageUI = loginLoader.load();
+            loginControl = (LoginController) loginLoader.getController();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		public void handle(ActionEvent arg0) {
-                // TODO Auto-generated method stub
+        signUpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
                 Boolean validation = true;
+                String pass = password.getText();
+                String rePass = retypePassword.getText();
                 if (validateUsername(username.getText())) {
                     if (validateEmail(email.getText())) {
-                        if (!validatePassword(password.getText())) {
+                        if (validatePassword(password.getText())) {
+                            if (!pass.equals(rePass)) {
+                                System.out.println(password.getText());
+                                System.out.println(retypePassword.getText());
+                                System.out.println("YO");
+                                validation = false;
+                                validationError.setText("Your passwords doesn't match");
+                            }
+                        } else {
                             validation = false;
                             validationError.setText("Your password must be between 6 and 20 characters");
                         }
@@ -97,32 +91,38 @@ public class SignUpController implements Initializable {
                         validation = false;
                         validationError.setText("Your email must be valid ex. example@example.topleveldomain");
                     }
-
                 } else {
                     validation = false;
                     validationError.setText("Username must be between 6 and 20 characters");
                 }
                 if (validation) {
                     try {
+                        System.out.println("YO YO");
                         sendPlayerData();
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        System.out.println(e);
                     }
-
-                    if (Main.client.getPlayer().getId() == -1) {
+                    if (Main.client.getErrorMessage().equals("")) {
+                        System.out.println(Main.client.getErrorMessage());
+                        System.out.println("MWT NFSk");
+                        validationError.setText("");
+                        stage.setScene(new Scene(loginPageUI));
+                        loginControl.setActionHandler(stage);
+                    } else if (!Main.client.getErrorMessage().equals("")){
+                        System.out.println(Main.client.getErrorMessage());
                         validationError.setText(Main.client.getErrorMessage());
-                        Main.client.getPlayer().setId(0);
-
-                    } else if (Main.client.getPlayer().getId() > 0) {
-                        stage.setScene(new Scene(homePageUI));
-                        homePageControl.setActionHandler(stage);
-
-                    } else {
-
                     }
-
                 }
             }
+        });
+        
+        logLink.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.setScene(new Scene(loginPageUI));
+                loginControl.setActionHandler(stage);
+            }
+
         });
     }
 

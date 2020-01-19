@@ -37,8 +37,11 @@ public class GameController implements Initializable {
 	private TestBoard testBoard = new TestBoard();
 	private String player = "";
 	private Point position = new Point();
-	private Boolean turnFlag = true; // true if its user player, false if its computer player
+	private Boolean turnFlag = true;
 	Client client;
+
+	int x = 1;
+
 	@FXML
 	private Button button1;
 	@FXML
@@ -57,34 +60,30 @@ public class GameController implements Initializable {
 	private Button button8;
 	@FXML
 	private Button button9;
-        static Parent helpUI;
-        static HelpController helpControl;
-        @FXML
-        private MenuItem logOutBtn;
-        @FXML
-        private MenuItem helpBtn;
-
-	/**
-	 * Initializes the controller class.
-	 */
-        
+	static Parent helpUI;
+	static HelpController helpControl;
+	@FXML
+	private MenuItem logOutBtn;
+	@FXML
+	private MenuItem helpBtn;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 		System.out.println(GridPane.getRowIndex(button1));
-                
+
 	}
 
 	public void setStage(Stage primaryStage) {
 		stage = primaryStage;
 	}
-        public void setActionHandler(Stage stage) throws IOException {
-                FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
-                helpUI = helpLoader.load();
-                helpControl = (HelpController) helpLoader.getController();
-                
-                logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+
+	public void setActionHandler(Stage stage) throws IOException {
+		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+		helpUI = helpLoader.load();
+		helpControl = (HelpController) helpLoader.getController();
+
+		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -99,18 +98,17 @@ public class GameController implements Initializable {
 				stage.setScene(new Scene(HomePageController.loginUI));
 				HomePageController.loginControl.setActionHandler(stage);
 			}
-        });
-                    helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-                            @Override
-                            public void handle(ActionEvent event) {
-                            stage.setScene(new Scene(helpUI));
-                            helpControl.setActionHandler(stage);
-                }
-            
-        });
-                
-                
-                        }
+		});
+		helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				stage.setScene(new Scene(helpUI));
+				helpControl.setActionHandler(stage);
+			}
+
+		});
+
+	}
 
 	@FXML
 	private void btn1(ActionEvent event) {
@@ -124,6 +122,7 @@ public class GameController implements Initializable {
 		position.y = 0;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -144,6 +143,7 @@ public class GameController implements Initializable {
 		position.y = 1;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -164,6 +164,7 @@ public class GameController implements Initializable {
 		position.y = 2;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -184,6 +185,7 @@ public class GameController implements Initializable {
 		position.y = 0;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -204,6 +206,7 @@ public class GameController implements Initializable {
 		position.y = 1;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -224,6 +227,7 @@ public class GameController implements Initializable {
 		position.y = 2;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -244,6 +248,7 @@ public class GameController implements Initializable {
 		position.y = 0;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -264,6 +269,7 @@ public class GameController implements Initializable {
 		position.y = 1;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -284,6 +290,7 @@ public class GameController implements Initializable {
 		position.y = 1;
 		turnFlag = false;
 		if (HomePageController.vsComputer) {
+
 			if (testBoard.isGameOver())
 				gameOverAlert();
 			else
@@ -294,24 +301,22 @@ public class GameController implements Initializable {
 	}
 
 	private void LogOutAction(ActionEvent event) {
-             try {
-				Main.client.logout();
-				} catch (JSONException ex) {
-					Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
-				}
-
-				stage.setScene(new Scene(HomePageController.loginUI));
-				HomePageController.loginControl.setActionHandler(stage);
+		try {
+			Main.client.logout();
+		} catch (JSONException ex) {
+			Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		Main.client.setPlayerToZero();
+		stage.setScene(new Scene(HomePageController.loginUI));
+		HomePageController.loginControl.setActionHandler(stage);
 	}
 
 	private void HelpButtonAction(ActionEvent event) {
-           stage.setScene(new Scene(helpUI));
-           helpControl.setActionHandler(stage);
-			}
+		stage.setScene(new Scene(helpUI));
+		helpControl.setActionHandler(stage);
+	}
 
-
-	@FXML
-	private void Reset(ActionEvent event) {
+	private void reset(ActionEvent event) {
 		testBoard.resetBoard();
 		button1.setText(null);
 		button2.setText(null);
@@ -326,6 +331,7 @@ public class GameController implements Initializable {
 
 	public void assignNumber() {
 		testBoard.printBoard();
+
 		player = TestBoard.PLAYER_O;
 	}
 
@@ -393,5 +399,4 @@ public class GameController implements Initializable {
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage);
 	}
-
 }

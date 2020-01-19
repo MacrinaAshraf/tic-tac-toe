@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
+<AnchorPane fx:id="anchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
 
-	<children>
+    <children>
         <ImageView fitHeight="528.0" fitWidth="719.0" layoutX="33.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../img/wooden-tic-tac-toe-o-game-concept-business-strategy-competition-ox-147675339.jpg" />
@@ -22,22 +23,24 @@
         </ImageView>
         <Pane layoutX="254.0" layoutY="26.0" opacity="0.61" prefHeight="461.0" prefWidth="344.0" style="-fx-background-color: black; -fx-border-color: eed555;">
             <children>
-            <Hyperlink fx:id="logLink" layoutX="241.0" layoutY="350.0" text="Login" textFill="#f5e463">
-               <font>
-                  <Font name="Segoe UI Black" size="15.0" />
-               </font>
-            </Hyperlink>
-            <Text fill="#f2f0f0" layoutX="48.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?" wrappingWidth="210.00000116229057">
-               <font>
-                  <Font name="Segoe UI Black" size="15.0" />
-               </font>
-            </Text>
+                <Hyperlink fx:id="logLink" layoutX="241.0" layoutY="350.0" text="Login" textFill="#f5e463">
+                    <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                    </font>
+                </Hyperlink>
+                <Text fill="#f2f0f0" layoutX="48.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?" wrappingWidth="210.00000116229057">
+                    <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                    </font>
+                </Text>
                 <TextField fx:id="email" layoutX="81.0" layoutY="194.0" prefHeight="27.0" prefWidth="210.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
             </children>
         </Pane>
         <TextField fx:id="username" layoutX="334.0" layoutY="175.0" prefHeight="25.0" prefWidth="210.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-prompt-text-fill: #eed555; -fx-border-width: 0px 0px  2px 0px; -fx-text-fill: white;" />
         <PasswordField fx:id="password" layoutX="334.0" layoutY="264.0" prefHeight="27.0" prefWidth="210.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
         <PasswordField fx:id="retypePassword" layoutX="334.0" layoutY="315.0" prefHeight="27.0" prefWidth="210.0" promptText="Retype Password" style="-fx-background-color: transparent; -fx-border-color: #eed555; -fx-border-width: 0px 0px 2px 0px; -fx-prompt-text-fill: #eed555; -fx-text-fill: white;" />
+        <Label fx:id="validationError" layoutX="300.0" layoutY="352.0" minHeight="16" minWidth="69" />
+
         <Button fx:id="signUpBtn" layoutX="334.0" layoutY="428.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 10px; -fx-background-color: #eed555;" text="Sign Up" textAlignment="CENTER" textFill="#222121">
             <font>
                 <Font name="Segoe UI Black" size="15.0" />
