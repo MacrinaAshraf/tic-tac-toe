@@ -59,6 +59,7 @@ public class Client {
                             recieveJson = new JSONObject(msg);
                             String type = (String) recieveJson.get("type");
                             System.out.println(type);
+                           
                             switch (type) {
                                 case "login":
                                     handleLogin();
@@ -75,6 +76,9 @@ public class Client {
                                 case "responsetoinvite":
                                     getInviteResponse();
                                     break;
+                                case "ingame":
+                                     handleInGame();
+                                     break;
                             }
                         } catch (IOException ex) {
 
@@ -320,6 +324,7 @@ public class Client {
         sendJson.put("username", userName1);
         if (inviteStatus) {
             sendJson.put("response", "accept");
+            GameController1.setTurn(false);
             HomePageController.loadGame();
         } else {
             sendJson.put("response", "rejected");
@@ -355,6 +360,7 @@ public class Client {
     }
 
     public void sendToServer() {
+        System.out.println(sendJson);
         ps.println(sendJson);
     }
 
@@ -376,6 +382,7 @@ public class Client {
 
                     public void run() {
                         HomePageController.loadGame();
+                        GameController1.setTurn(true);
                         System.out.println("------------------getInvite");
                     }
 
@@ -388,13 +395,18 @@ public class Client {
 
     }
     public void inGame(int row,int col){
+        JSONObject send=new JSONObject();
         try {
-            sendJson.put("type", "ingame");
-            sendJson.put("row", row);
-            sendJson.put("column",col);
+            send.put("type", "ingame");
+            send.put("row", row);
+            send.put("column",col);
+            sendJson=send;
         } catch (JSONException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         sendToServer();
+    }
+    public void handleInGame(){
+        GameController1.setTurn(true);
     }
 }

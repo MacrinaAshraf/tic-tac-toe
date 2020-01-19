@@ -48,7 +48,15 @@ public class GameController1 implements Initializable {
     public String theFirstPlayer = "X";
     public int xCount = 0;
     public int oCount = 0;
+    static private Boolean turn;
 
+    public static Boolean getTurn() {
+        return turn;
+    }
+
+    public static void setTurn(Boolean turn) {
+        GameController1.turn = turn;
+    }
     @FXML
     private Button button1;
     @FXML
@@ -386,7 +394,7 @@ public class GameController1 implements Initializable {
 
             }
 
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
 
             button1.setText(theFirstPlayer);
             button1.setDisable(true);
@@ -395,10 +403,11 @@ public class GameController1 implements Initializable {
             } else {
                 button1.setStyle("-fx-text-fill: blue;");
             }
-            int row=GridPane.getRowIndex(button1);
-            int col=GridPane.getColumnIndex(button1);
+            int row = GridPane.getRowIndex(button1);
+            int col = GridPane.getColumnIndex(button1);
             Main.client.inGame(row, col);
-            choosePlayer();
+            //choosePlayer();
+            turn = false;
             winning();
             setValues(1);
         }
@@ -425,7 +434,7 @@ public class GameController1 implements Initializable {
             }
 
             //button2.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
             button2.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
                 button2.setStyle("-fx-text-fill: red;");
@@ -434,7 +443,11 @@ public class GameController1 implements Initializable {
             }
 
             button2.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button2);
+            int col = GridPane.getColumnIndex(button2);
+            Main.client.inGame(row, col);
+            //     choosePlayer();
+            turn = false;
             winning();
             setValues(2);
             //button2.setOnAction(null);
@@ -461,7 +474,7 @@ public class GameController1 implements Initializable {
             }
 
             //button3.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
 
             button3.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
@@ -469,10 +482,13 @@ public class GameController1 implements Initializable {
             } else {
                 button3.setStyle("-fx-text-fill: blue;");
             }
-
+            int row = GridPane.getRowIndex(button3);
+            int col = GridPane.getColumnIndex(button3);
+            Main.client.inGame(row, col);
             button3.setDisable(true);
-            choosePlayer();
+            //choosePlayer();
             winning();
+            turn = false;
             setValues(3);
         }
     }
@@ -497,7 +513,7 @@ public class GameController1 implements Initializable {
             }
 
             //button4.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
             button4.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
                 button4.setStyle("-fx-text-fill: red;");
@@ -505,7 +521,11 @@ public class GameController1 implements Initializable {
                 button4.setStyle("-fx-text-fill: blue;");
             }
             button4.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button4);
+            int col = GridPane.getColumnIndex(button4);
+            Main.client.inGame(row, col);
+            // choosePlayer();
+            turn = false;
             winning();
             setValues(4);
         }
@@ -532,7 +552,7 @@ public class GameController1 implements Initializable {
             }
             //button5.setOnAction(null);
 
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
             button5.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
                 button5.setStyle("-fx-text-fill: red;");
@@ -540,7 +560,12 @@ public class GameController1 implements Initializable {
                 button5.setStyle("-fx-text-fill: blue;");
             }
             button5.setDisable(true);
-            choosePlayer();
+
+            int row = GridPane.getRowIndex(button5);
+            int col = GridPane.getColumnIndex(button5);
+            Main.client.inGame(row, col);
+            //    choosePlayer();
+            turn = false;
             winning();
             setValues(5);
         }
@@ -567,7 +592,7 @@ public class GameController1 implements Initializable {
             }
 
             //button6.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
             button6.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
                 button6.setStyle("-fx-text-fill: red;");
@@ -575,7 +600,11 @@ public class GameController1 implements Initializable {
                 button6.setStyle("-fx-text-fill: blue;");
             }
             button6.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button6);
+            int col = GridPane.getColumnIndex(button6);
+            Main.client.inGame(row, col);
+            //  choosePlayer();
+            turn = false;
             winning();
             setValues(6);
         }
@@ -602,7 +631,7 @@ public class GameController1 implements Initializable {
             }
             //button7.setOnAction(null);
 
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
 
             button7.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
@@ -611,7 +640,11 @@ public class GameController1 implements Initializable {
                 button7.setStyle("-fx-text-fill: blue;");
             }
             button7.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button7);
+            int col = GridPane.getColumnIndex(button7);
+            Main.client.inGame(row, col);
+            // choosePlayer();
+            turn = false;
             winning();
             setValues(7);
 
@@ -639,7 +672,7 @@ public class GameController1 implements Initializable {
             }
 
             //button8.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
 
             button8.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
@@ -648,7 +681,11 @@ public class GameController1 implements Initializable {
                 button8.setStyle("-fx-text-fill: blue;");
             }
             button8.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button8);
+            int col = GridPane.getColumnIndex(button8);
+            Main.client.inGame(row, col);
+            //  choosePlayer();
+            turn = false;
             winning();
             setValues(8);
         }
@@ -675,7 +712,7 @@ public class GameController1 implements Initializable {
             }
 
             //button9.setOnAction(null);
-        } else if (HomePageController.vsComputer == false) {
+        } else if (HomePageController.vsComputer == false&&turn==true) {
 
             button9.setText(theFirstPlayer);
             if (theFirstPlayer.equalsIgnoreCase("X")) {
@@ -684,7 +721,11 @@ public class GameController1 implements Initializable {
                 button9.setStyle("-fx-text-fill: blue;");
             }
             button9.setDisable(true);
-            choosePlayer();
+            int row = GridPane.getRowIndex(button9);
+            int col = GridPane.getColumnIndex(button9);
+            Main.client.inGame(row, col);
+//           / choosePlayer();
+            turn = false;
             winning();
             setValues(9);
         }

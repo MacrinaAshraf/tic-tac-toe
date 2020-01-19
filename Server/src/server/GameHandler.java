@@ -57,6 +57,7 @@ class GameHandler extends Thread {
                 try {
                     message = new JSONObject(inputLine);
                     String type = (String) message.get("type");
+                    System.out.println(message);
                     System.out.println(type);
                     switch (type) {
                         case "invite":
@@ -80,9 +81,9 @@ class GameHandler extends Thread {
                             break;
                         case "ingame":
                             sendMessage(message.toString());
-                            break;
-                                    
+                            break;                                    
                         case "endofgame":
+                            
                             endOfGame(message);
                             break;
                         case "stop":
@@ -113,10 +114,11 @@ class GameHandler extends Thread {
 
     public void sendMessage(String msg) {
         //get the stream of the player's opponent from the dictionary with getPLayingWith
-        PrintStream opponentPS = (PrintStream) streams.get(client.getPlayingWith());
+       
+        PrintStream opponentPS = (PrintStream) streams.get(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith());
+        System.out.println(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith());
         //write in the player's stream and his/her opponent's stream
         opponentPS.println(msg);
-        client.getPrintStream().println(msg);
     }
 
     public void invite(JSONObject msg) throws JSONException {
@@ -145,9 +147,11 @@ class GameHandler extends Thread {
             String toPlayWith = (String) msg.get("toPlayWith");
             for (int n : placesInVector) {
                 if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("toPlayWith"))) {
+                    System.out.println("--------------here------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(username);
                     GameServer.clientsVector.elementAt(n).setIsPlaying(true);
                 } else if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("username"))) {
+                   System.out.println("--------------here2------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(toPlayWith);
                     GameServer.clientsVector.elementAt(n).setIsPlaying(true);
                 }
