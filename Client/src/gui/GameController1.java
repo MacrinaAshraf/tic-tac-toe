@@ -8,7 +8,6 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 import org.json.JSONException;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,13 +29,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class GameController1 implements Initializable {
 
     Alert alert4, alert5, alert6;
-    public ArrayList<Integer> intarr = new ArrayList<>(9);
-    public boolean flag = false;
+    public ArrayList<Integer> checkBoardArr = new ArrayList<>(9);
     public static final Random RANDOM = new Random();
     private Stage stage;
     private TestBoard testBoard = new TestBoard();
@@ -94,7 +90,6 @@ public class GameController1 implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println(GridPane.getRowIndex(button1));
     }
 
     public GameController1() {
@@ -103,7 +98,7 @@ public class GameController1 implements Initializable {
         alert5 = new Alert(Alert.AlertType.INFORMATION);
         alert6 = new Alert(Alert.AlertType.INFORMATION);
         for (int i = 0; i < 9; i++) {
-            intarr.add(1);
+            checkBoardArr.add(i, 1);
         }
 
     }
@@ -112,23 +107,17 @@ public class GameController1 implements Initializable {
         stage = primaryStage;
     }
 
-    @FXML
     public void reset() {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
         for (int i = 0; i < arr2.length; i++) {
-            arr2[i].setText(null);
+            arr2[i].setText("");
         }
-        //intarr.clear();
-        for (int i = 0; i < 9; i++) {
-            intarr.add(1);
-        }
-        flag = false;
+        
         EnableButton();
     }
 
     public void EnableButton() {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
-        System.out.println(arr2.length);
         for (int i = 0; i < arr2.length; i++) {
             arr2[i].setDisable(false);
 
@@ -136,14 +125,6 @@ public class GameController1 implements Initializable {
 
     }
 
-    /*public void DisableButton() {
-        Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
-        for (int i = 0; i < arr2.length; i++) {
-            arr2[i].setDisable(true);
-
-        }
-
-    }*/
     ////////////// multiplayerfunctions//////////////////////////////////////////
     public void choosePlayer() {
         if (thePlayer.equalsIgnoreCase("X")) {
@@ -158,31 +139,27 @@ public class GameController1 implements Initializable {
         scoreplayerO.setText(String.valueOf(oCount));
     }
 
-    public void draw() {
-
-        alert6.setTitle("TicTacToe");
-        alert6.setHeaderText(null);
-        alert6.setContentText("No one wins");
-        if (alert6.showAndWait().get() == ButtonType.OK) {
-            reset();
-            choosePlayer();
-
+    public boolean draw() {
+        for (int i = 0; i < checkBoardArr.size(); i++) {
+            System.out.println(checkBoardArr.get(i));
         }
+        System.out.println("in draw check and the board contains 1 = " + (checkBoardArr.contains(1)));
+        if (!(checkBoardArr.contains(1)))
+        {
+            return true;
+        }
+        return false;
     }
 
     public void setValues(int index) {
-        intarr.set(index - 1, 0);
-        if (!(intarr.contains(1)) && flag == false) {
-            draw();
-//            for (int i = 0; i < 9; i++) {
-//                intarr.add(1);
-//            }
-        }
+        checkBoardArr.set(index - 1, 0);
     }
 
     public void winning() {
+
         String arr[] = {button1.getText(), button2.getText(), button3.getText(), button4.getText(), button5.getText(),
             button6.getText(), button7.getText(), button8.getText(), button9.getText()};
+
         if (arr[0].equals("X") && arr[1].equals("X") && arr[2].equals("X")
                 || arr[3].equals("X") && arr[4].equals("X") && arr[5].equals("X")
                 || arr[6].equals("X") && arr[7].equals("X") && arr[8].equals("X")
@@ -191,20 +168,19 @@ public class GameController1 implements Initializable {
                 || arr[2].equals("X") && arr[5].equals("X") && arr[8].equals("X")
                 || arr[0].equals("X") && arr[4].equals("X") && arr[8].equals("X")
                 || arr[2].equals("X") && arr[4].equals("X") && arr[6].equals("X")) {
+
+            System.out.println("in x wins");
             xCount++;
             score();
             alert4.setTitle("TicTacToe");
             alert4.setHeaderText(null);
             alert4.setContentText("player X wins");
             if (alert4.showAndWait().get() == ButtonType.OK) {
+
                 reset();
                 choosePlayer();
             }
-
-            flag = true;
-
-            //alert4.show();
-            //reset();
+            System.out.println("x win");
         } else if (arr[0].equals("O") && arr[1].equals("O") && arr[2].equals("O")
                 || arr[3].equals("O") && arr[4].equals("O") && arr[5].equals("O")
                 || arr[6].equals("O") && arr[7].equals("O") && arr[8].equals("O")
@@ -213,6 +189,7 @@ public class GameController1 implements Initializable {
                 || arr[2].equals("O") && arr[5].equals("O") && arr[8].equals("O")
                 || arr[0].equals("O") && arr[4].equals("O") && arr[8].equals("O")
                 || arr[2].equals("O") && arr[4].equals("O") && arr[6].equals("O")) {
+            System.out.println("in o wins");
             oCount++;
             score();
             alert5.setTitle("TicTacToe");
@@ -223,14 +200,21 @@ public class GameController1 implements Initializable {
                 reset();
                 choosePlayer();
             }
+            System.out.println("o win");
 
-            flag = true;
+        } else if (draw()) {
+            System.out.println("in draw");
+            alert6.setTitle("TicTacToe");
+            alert6.setHeaderText(null);
+            alert6.setContentText("No one wins");
+            if (alert6.showAndWait().get() == ButtonType.OK) {
+                reset();
+                choosePlayer();
+            }
 
         }
-
     }
-    ////////////////////////////////////////// Ai Player
-    ////////////////////////////////////////// ///////////////////////////////////////////////
+    ////////////////////////////////////////// Ai Player/////////////////////////////////
 
     public void assignNumber() {
         testBoard.printBoard();
@@ -289,8 +273,9 @@ public class GameController1 implements Initializable {
 
         if (TestBoard.checkWinner.equals("X")) {
             gameOverAlert = new Alert(AlertType.CONFIRMATION);
-            gameOverAlert.setTitle("player x won");
-            gameOverAlert.setContentText("Do you Want Play Agian ?");
+           gameOverAlert.setTitle("null");
+            gameOverAlert.setHeaderText("player x won");
+            gameOverAlert.setContentText("Do You Want Play Agian ?");
             gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
             Optional<ButtonType> result = gameOverAlert.showAndWait();
 
@@ -306,8 +291,10 @@ public class GameController1 implements Initializable {
 
         } else if (TestBoard.checkWinner.equals("O")) {
             gameOverAlert = new Alert(AlertType.CONFIRMATION);
-            gameOverAlert.setTitle("player o won");
-            gameOverAlert.setContentText("Do you Want Play Agian ?");
+            gameOverAlert.setTitle("null");
+            gameOverAlert.setHeaderText("player o won");
+            gameOverAlert.setContentText("Do You Want Play Agian ?");
+            
             gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
             Optional<ButtonType> result = gameOverAlert.showAndWait();
 
@@ -316,28 +303,24 @@ public class GameController1 implements Initializable {
                 testBoard.resetBoard();
                 xCount++;
                 score();
-
-                //reset();
             } else if (result.get() == nobtn) {
                 gotoHomePage();
             }
         } else if (TestBoard.checkWinner.equals("noWinner")) {
             gameOverAlert = new Alert(AlertType.CONFIRMATION);
-            gameOverAlert.setTitle("Draw!");
-            gameOverAlert.setContentText("Do you Want Play Agian ?");
+           gameOverAlert.setTitle("null");
+            gameOverAlert.setHeaderText("Draw!");
+            gameOverAlert.setContentText("Do You Want Play Agian ?");
             gameOverAlert.getButtonTypes().setAll(yesbtn, nobtn);
             Optional<ButtonType> result = gameOverAlert.showAndWait();
             if (result.get() == yesbtn) {
                 DrawXWithO();
                 testBoard.resetBoard();
-
-                //reset();
             } else if (result.get() == nobtn) {
                 gotoHomePage();
             }
         }
         EnableButton();
-        // if()
 
     }
 
@@ -345,23 +328,18 @@ public class GameController1 implements Initializable {
         gameOverAlert.setHeaderText("The Player X has won!");
 
         gameOverAlert.setContentText(null);
-
-        //gameOverAlert.showAndWait();
-        //gameOverAlert.show();
         reset();
     }
 
     public void playerOwin() {
         gameOverAlert.setHeaderText("The Player O has won!");
         gameOverAlert.setContentText(null);
-        //gameOverAlert.show();       
         reset();
     }
 
     public void DrawXWithO() {
         gameOverAlert.setHeaderText("Draw!");
         gameOverAlert.setContentText(null);
-        //gameOverAlert.show();        
         reset();
     }
 
@@ -371,7 +349,6 @@ public class GameController1 implements Initializable {
         try {
             homePageUI = homePageLoader.load();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -399,7 +376,6 @@ public class GameController1 implements Initializable {
                 gameOverAlert();
             } else {
                 playAgainstComputer();
-
             }
 
         } else if (HomePageController.vsComputer == false&&turn==true) {
@@ -416,8 +392,8 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             //choosePlayer();
             turn = false;
-            winning();
             setValues(1);
+            winning();
         }
 
     }
@@ -440,8 +416,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-
-            //button2.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
             button2.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -456,9 +430,8 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             //     choosePlayer();
             turn = false;
-            winning();
             setValues(2);
-            //button2.setOnAction(null);
+            winning();
         }
     }
 
@@ -480,12 +453,12 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-
-            //button3.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
+
 
             button3.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
+
                 button3.setStyle("-fx-text-fill: red;");
             } else {
                 button3.setStyle("-fx-text-fill: blue;");
@@ -497,7 +470,9 @@ public class GameController1 implements Initializable {
             //choosePlayer();
             winning();
             turn = false;
+            button3.setDisable(true);
             setValues(3);
+            winning();
         }
     }
 
@@ -520,10 +495,11 @@ public class GameController1 implements Initializable {
                 playAgainstComputer();
             }
 
-            //button4.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
+
             button4.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
+
                 button4.setStyle("-fx-text-fill: red;");
             } else {
                 button4.setStyle("-fx-text-fill: blue;");
@@ -534,8 +510,8 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             // choosePlayer();
             turn = false;
-            winning();
             setValues(4);
+            winning();
         }
 
     }
@@ -558,8 +534,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-            //button5.setOnAction(null);
-
         } else if (HomePageController.vsComputer == false&&turn==true) {
             button5.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
@@ -574,8 +548,8 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             //    choosePlayer();
             turn = false;
-            winning();
             setValues(5);
+            winning();
         }
 
     }
@@ -598,11 +572,11 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-
-            //button6.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
+
             button6.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
+
                 button6.setStyle("-fx-text-fill: red;");
             } else {
                 button6.setStyle("-fx-text-fill: blue;");
@@ -613,10 +587,9 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             //  choosePlayer();
             turn = false;
-            winning();
             setValues(6);
+            winning();
         }
-
     }
 
     @FXML
@@ -637,7 +610,6 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-            //button7.setOnAction(null);
 
         } else if (HomePageController.vsComputer == false&&turn==true) {
 
@@ -648,14 +620,15 @@ public class GameController1 implements Initializable {
                 button7.setStyle("-fx-text-fill: blue;");
             }
             button7.setDisable(true);
+
             int row = GridPane.getRowIndex(button7);
             int col = GridPane.getColumnIndex(button7);
             Main.client.inGame(row, col);
             // choosePlayer();
             turn = false;
-            winning();
-            setValues(7);
 
+            setValues(7);
+            winning();
         }
 
     }
@@ -694,8 +667,8 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
             //  choosePlayer();
             turn = false;
-            winning();
             setValues(8);
+            winning();
         }
 
     }
@@ -718,12 +691,12 @@ public class GameController1 implements Initializable {
             } else {
                 playAgainstComputer();
             }
-
             //button9.setOnAction(null);
         } else if (HomePageController.vsComputer == false&&turn==true) {
-
+            
             button9.setText(thePlayer);
             if (thePlayer.equalsIgnoreCase("X")) {
+
                 button9.setStyle("-fx-text-fill: red;");
             } else {
                 button9.setStyle("-fx-text-fill: blue;");
@@ -734,8 +707,9 @@ public class GameController1 implements Initializable {
             Main.client.inGame(row, col);
 //           / choosePlayer();
             turn = false;
-            winning();
+
             setValues(9);
+            winning();
         }
 
     }
