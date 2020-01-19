@@ -51,6 +51,9 @@ public class ServerGUI extends Application {
         Button stop = new Button();
         box = new HBox();
         boxPane = new FlowPane();
+        primaryStage.setOnCloseRequest(e -> {
+            System.exit(0);
+        });
         Button displayPlayers = new Button();
         start.setText("run Server");
         stop.setText("stop Server");
