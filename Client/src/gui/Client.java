@@ -80,6 +80,25 @@ public class Client {
 
                             keepRunning = false;
                             System.out.print("server has closed");
+                            Platform.runLater(new Runnable() {
+
+                                @Override
+
+                                public void run() {
+                                    //Update UI here    
+                                    Alert alert = new Alert(AlertType.ERROR);
+                                    alert.setHeaderText("Server has stopped, please restart");
+                                    alert.setContentText(null);
+                                    Optional<ButtonType> btnType = alert.showAndWait();
+                                                        Main.stg.close();
+
+                                    if (btnType.get() == ButtonType.OK) {
+                                        System.exit(0);
+                                    } else {
+                                           System.exit(0);
+                                    }
+                                }
+                            });
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -91,10 +110,37 @@ public class Client {
             });
             th.start();
         } catch (IOException e) {
-            System.out.print("hi");
-            e.printStackTrace();
+           // System.out.print("hi");
+           // e.printStackTrace();
             keepRunning = false;
-            stopConnection();
+            
+            stopConnection();            
+            Platform.runLater(new Runnable() {
+
+                @Override
+
+                public void run() {
+                   
+                    //Update UI here    
+                 
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setHeaderText("Server is not running please restart");
+                    alert.setContentText(null);
+                    Optional<ButtonType> btnType = alert.showAndWait();
+                    Main.stg.close();
+                    if (btnType.get() == ButtonType.OK) {
+                        
+                        System.exit(0);
+                        
+                    } else {
+                          System.exit(0);
+                    }
+                    Platform.exit();
+                    
+                }
+               
+            });
+             // System.exit(0);
         }
 
     }
@@ -201,21 +247,21 @@ public class Client {
         }
     }
 
-	public void handleRegister() {
-		String result = null;
-		setErrorMessage("");
-		try {
-			result = (String) recieveJson.get("res");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		if (result.equals("Successfully")) {
-			setErrorMessage("");
-		} else if (result.equals("failed")){
-			System.out.println(result);
-			setErrorMessage("Either username or email is duplicate");
-		}
-	}
+    public void handleRegister() {
+        String result = null;
+        setErrorMessage("");
+        try {
+            result = (String) recieveJson.get("res");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (result.equals("Successfully")) {
+            setErrorMessage("");
+        } else if (result.equals("failed")) {
+            System.out.println(result);
+            setErrorMessage("Either username or email is duplicate");
+        }
+    }
 
     public Player getPlayer() {
         return player;
@@ -243,12 +289,12 @@ public class Client {
             System.out.print("closed");
         }
     }
-    
+
     public void setPlayerToZero() {
-		player.setName("");
-		player.setScore(0);
-		player.setId(0);
-		player.setPlayingWith("");
+        player.setName("");
+        player.setScore(0);
+        player.setId(0);
+        player.setPlayingWith("");
     }
 
     public void login(String userName, String password) throws JSONException {

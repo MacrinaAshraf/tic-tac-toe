@@ -11,9 +11,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	LoginController loginControl;
 	static Client client = new Client();
-
+        static Stage stg;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+                stg=primaryStage;
 		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
 		Parent loginUI = loginLoader.load();
 		primaryStage.setTitle("TicTacToe");
