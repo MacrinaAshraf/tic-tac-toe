@@ -40,8 +40,8 @@ public class PlayersMenuController implements Initializable {
 	
 	static Parent helpUI;
 	static HelpController helpControl;
-	Refresh refresh;
-	Timer timer;
+	/*Refresh refresh;
+	Timer timer;*/
 
 	@FXML
 	private TableColumn<AllPlayers, String> playerName;
@@ -80,6 +80,11 @@ public class PlayersMenuController implements Initializable {
 
 		table.setItems(players);
 		
+		/*for (int i = 0; i < table.getItems().size(); i++) {
+			if(table.getItems().get(i).getStatus().equals("offline"))
+				table.getColumns().get(i).getCell;
+		}*/
+		
 		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
@@ -114,10 +119,10 @@ public class PlayersMenuController implements Initializable {
 
 		});
 	
-		refresh = new Refresh();
+		/*refresh = new Refresh();
 		timer = new Timer();
 		
-		timer.schedule(refresh, 0, 1000);
+		timer.schedule(refresh, 0, 1000);*/
 	}
 
 	public void addBtnsCol() {
@@ -137,7 +142,9 @@ public class PlayersMenuController implements Initializable {
                     		} catch (JSONException ex) {
                     			Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
                     		}
+                    	
                         });
+                        
                     }
 
                     @Override
@@ -229,10 +236,10 @@ public class PlayersMenuController implements Initializable {
 			e.printStackTrace();
 		}
 		
-		refresh.cancel();
+		/*refresh.cancel();
 		refresh = null;
 		timer.cancel();
-		timer = null;
+		timer = null;*/
 		
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage);
