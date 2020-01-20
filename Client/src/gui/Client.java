@@ -238,10 +238,18 @@ public class Client {
 
             System.out.println(HomePageController.playersMenuControl == null);
 
+            /*Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+				}
+            	
+            });*/
             if (HomePageController.playersMenuControl != null
-                    && HomePageController.playersMenuControl.getList() != null) {
-                HomePageController.playersMenuControl.getList().refresh();
-            }
+	                   && HomePageController.playersMenuControl.getTable() != null) {
+					HomePageController.playersMenuControl.getTable().refresh();
+	            }
 
         } catch (JSONException e) {
             e.printStackTrace();

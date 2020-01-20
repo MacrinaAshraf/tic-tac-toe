@@ -3,8 +3,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -95,18 +93,18 @@
 				<Font name="Segoe UI Black Italic" size="36.0" />
 			</font>
 		</Label>
-		<Label fx:id="usernameOne" layoutX="115.0" layoutY="402.0" prefHeight="30.0" prefWidth="91.0"  textFill="#d7c682">
+		<Label fx:id="usernameOne" layoutX="115.0" layoutY="402.0" prefHeight="30.0" prefWidth="91.0" textFill="#d7c682">
 			<font>
 				<Font name="Segoe UI Black Italic" size="27.0" />
 			</font>
 		</Label>
-		<Label layoutX="591.0"  fx:id="usernameTwo" layoutY="403.0" prefHeight="30.0" prefWidth="91.0"  textFill="#d7c682">
+		<Label fx:id="usernameTwo" layoutX="591.0" layoutY="403.0" prefHeight="30.0" prefWidth="91.0" textFill="#d7c682">
 
 			<font>
 				<Font name="Segoe UI Black Italic" size="25.0" />
 			</font>
 		</Label>
-		<Label layoutX="211.0" layoutY="404.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#a09dd7">
+		<Label layoutX="254.0" layoutY="404.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#a09dd7">
 			<font>
 				<Font name="Tahoma Bold" size="24.0" />
 			</font>
@@ -114,7 +112,7 @@
 				<Bloom threshold="0.62" />
 			</effect>
 		</Label>
-		<Label layoutX="679.0" layoutY="401.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#a09dd7">
+		<Label layoutX="728.0" layoutY="401.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#a09dd7">
 			<font>
 				<Font name="Tahoma Bold" size="27.0" />
 			</font>
@@ -122,7 +120,7 @@
 				<Bloom threshold="0.63" />
 			</effect>
 		</Label>
-		<Button layoutX="346.0" layoutY="434.0" mnemonicParsing="false" onAction="#reset" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Reset" textFill="#dac285">
+		<Button fx:id="returnHome" onAction="#backToHome" layoutX="319.0" layoutY="450.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="153.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Return to home" textFill="#dac285">
 			<font>
 				<Font name="Segoe UI Black" size="16.0" />
 			</font>
@@ -130,19 +128,6 @@
 				<Bloom threshold="0.78" />
 			</effect>
 		</Button>
-		<MenuButton layoutX="656.0" layoutY="1.0" mnemonicParsing="false" opacity="0.97" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: black; -fx-border-radius: 10; -fx-border-color: #dac285;" text="Menu" textAlignment="CENTER" textFill="#dac285" textOverrun="CLIP">
-			<items>
-				<MenuItem mnemonicParsing="false" onAction="#backToHome" text="Back to Home" />
-				<MenuItem mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
-				<MenuItem mnemonicParsing="false" onAction="#helpButtonAction" text="Help" />
-			</items>
-			<font>
-				<Font name="Segoe UI Black Italic" size="17.0" />
-			</font>
-			<effect>
-				<Bloom threshold="1.0" />
-			</effect>
-		</MenuButton>
 		<Text fill="#d7c682" layoutX="116.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score :" wrappingWidth="80.00001341660936">
 			<font>
 				<Font name="Segoe UI Black" size="17.0" />
@@ -166,7 +151,7 @@
 		</Label>
 		<Pane layoutX="175.0" layoutY="438.0" prefHeight="30.0" prefWidth="67.0" />
 		<Pane layoutX="649.0" layoutY="431.0" prefHeight="30.0" prefWidth="67.0" />
-      <Button layoutX="333.0" layoutY="61.0" mnemonicParsing="false" onAction="#reset" prefHeight="37.0" prefWidth="119.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Save Game" textFill="#dac285">
+      <Button layoutX="333.0" layoutY="52.0" mnemonicParsing="false" onAction="#reset" prefHeight="37.0" prefWidth="119.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Save Game" textFill="#dac285">
          <font>
             <Font name="Segoe UI Black" size="16.0" />
          </font>
