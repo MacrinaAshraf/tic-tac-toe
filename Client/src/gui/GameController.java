@@ -5,7 +5,6 @@
  */
 package gui;
 
-import static gui.HomePageController.loginControl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class GameController implements Initializable {
     private Label usernameOne;
     public int xCount = Main.client.getPlayer().getScore();
     public int oCount = Main.client.getPlayer().getScore();
-    static private Boolean turn;   
+    static private Boolean turn;
 
     @FXML
     private Button button1;
@@ -82,6 +81,7 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+
     public static String getThePlayer() {
         return thePlayer;
     }
@@ -122,11 +122,9 @@ public class GameController implements Initializable {
         for (int i = 0; i < 9; i++) {
             checkBoardArr.add(i, 1);
         }
-        System.out.println("----------"+Main.client.getPlayer().getScore());
-       
+        System.out.println("----------" + Main.client.getPlayer().getScore());
 
     }
-    
 
     public Label getScoreplayerX() {
         return scoreplayerX;
@@ -178,15 +176,15 @@ public class GameController implements Initializable {
 
         scoreplayerX.setText(String.valueOf(xCount));
         scoreplayerO.setText(String.valueOf(oCount));
-        System.out.println("-------"+xCount);
-         System.out.println("-------"+oCount);
+        System.out.println("-------" + xCount);
+        System.out.println("-------" + oCount);
     }
 
     public boolean draw() {
-        System.out.println("-------====="+String.valueOf(Main.client.getPlayer().getScore()));
-         scoreplayerX.setText(String.valueOf(Main.client.getPlayer().getScore()));
+        System.out.println("-------=====" + String.valueOf(Main.client.getPlayer().getScore()));
+        scoreplayerX.setText(String.valueOf(Main.client.getPlayer().getScore()));
         scoreplayerO.setText(String.valueOf(Main.client.getPlayer().getScore()));
-            
+
         for (int i = 0; i < checkBoardArr.size(); i++) {
             System.out.println(checkBoardArr.get(i));
         }
@@ -217,9 +215,9 @@ public class GameController implements Initializable {
 
             System.out.println("in x wins");
             Main.client.win();
-           
+
             score("X");
-             try {
+            try {
                 Main.client.endOfGame();
             } catch (JSONException ex) {
                 Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -242,10 +240,10 @@ public class GameController implements Initializable {
                 || arr[0].equals("O") && arr[4].equals("O") && arr[8].equals("O")
                 || arr[2].equals("O") && arr[4].equals("O") && arr[6].equals("O")) {
             Main.client.win();
-          
+
             System.out.println("in o wins");
             score("O");
-              try {
+            try {
                 Main.client.endOfGame();
             } catch (JSONException ex) {
                 Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -304,6 +302,7 @@ public class GameController implements Initializable {
                 } else {
                     button1.setText("X");
                 }
+                setValues(1);
             }
             button1.setDisable(true);
         } else if (GridPane.getRowIndex(button2) == row && GridPane.getColumnIndex(button2) == column) {
@@ -315,6 +314,7 @@ public class GameController implements Initializable {
                 } else {
                     button2.setText("X");
                 }
+                setValues(2);
             }
             button2.setDisable(true);
         } else if (GridPane.getRowIndex(button3) == row && GridPane.getColumnIndex(button3) == column) {
@@ -326,6 +326,7 @@ public class GameController implements Initializable {
                 } else {
                     button3.setText("X");
                 }
+                setValues(3);
             }
             button3.setDisable(true);
         } else if (GridPane.getRowIndex(button4) == row && GridPane.getColumnIndex(button4) == column) {
@@ -337,6 +338,7 @@ public class GameController implements Initializable {
                 } else {
                     button4.setText("X");
                 }
+                setValues(4);
             }
             button4.setDisable(true);
         } else if (GridPane.getRowIndex(button5) == row && GridPane.getColumnIndex(button5) == column) {
@@ -348,6 +350,7 @@ public class GameController implements Initializable {
                 } else {
                     button5.setText("X");
                 }
+                setValues(5);
             }
 
             button5.setDisable(true);
@@ -360,6 +363,7 @@ public class GameController implements Initializable {
                 } else {
                     button6.setText("X");
                 }
+                setValues(6);
             }
             button6.setDisable(true);
         } else if (GridPane.getRowIndex(button7) == row && GridPane.getColumnIndex(button7) == column) {
@@ -371,6 +375,7 @@ public class GameController implements Initializable {
                 } else {
                     button7.setText("X");
                 }
+                setValues(7);
             }
             button7.setDisable(true);
         } else if (GridPane.getRowIndex(button8) == row && GridPane.getColumnIndex(button8) == column) {
@@ -382,6 +387,7 @@ public class GameController implements Initializable {
                 } else {
                     button8.setText("X");
                 }
+                setValues(8);
             }
             button8.setDisable(true);
         } else if (GridPane.getRowIndex(button9) == row && GridPane.getColumnIndex(button9) == column) {
@@ -393,6 +399,7 @@ public class GameController implements Initializable {
                 } else {
                     button9.setText("X");
                 }
+                setValues(9);
             }
             button9.setDisable(true);
         }
@@ -865,12 +872,11 @@ public class GameController implements Initializable {
         try {
             Main.client.logout();
         } catch (JSONException ex) {
-            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Main.client.setPlayerToZero();
-        loginControl.setActionHandler(stage);
-
+        stage.setScene(new Scene(HomePageController.loginUI));
+        HomePageController.loginControl.setActionHandler(stage);
     }
 
     @FXML
