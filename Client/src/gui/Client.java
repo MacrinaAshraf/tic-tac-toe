@@ -371,7 +371,6 @@ public class Client {
         sendJson.put("type", "endofgame");
         sendJson.put("score", player.getScore());
         System.out.println("==============" + player.getScore() + "=====================");
-
         System.out.print(sendJson);
         sendToServer();
     }
@@ -390,6 +389,7 @@ public class Client {
     }
 
     public void getInviteResponse() {
+        System.out.println("=========response to invite========");
         try {
 
             if (recieveJson.get("response").toString().equals("accept")) {
