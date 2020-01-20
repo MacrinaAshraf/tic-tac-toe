@@ -55,6 +55,7 @@ public class HelpController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+                
 
 		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 

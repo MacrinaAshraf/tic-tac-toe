@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import org.json.JSONException;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -882,21 +883,5 @@ public class GameController implements Initializable {
         }
         stage.setScene(new Scene(homePageUI));
         homePageControl.setActionHandler(stage);
-    }
-
-    @FXML
-    private void logOutAction(ActionEvent event) {
-        try {
-            Main.client.logout();
-        } catch (JSONException ex) {
-            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Main.client.setPlayerToZero();
-        stage.setScene(new Scene(HomePageController.loginUI));
-        HomePageController.loginControl.setActionHandler(stage);
-    }
-
-    @FXML
-    private void helpButtonAction(ActionEvent event) {
     }
 }

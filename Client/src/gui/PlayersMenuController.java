@@ -2,8 +2,10 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,17 +18,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class PlayersMenuController implements Initializable {
 
@@ -34,100 +38,51 @@ public class PlayersMenuController implements Initializable {
 	private MenuItem logOutBtn;
 	@FXML
 	private MenuItem helpBtn;
-	@FXML
-	private ListView<FlowPane> lview;
-	private Button[] inviteBtns;
-	private FlowPane[] fPane;
-	private Label[] usernames;
-	private Label[] score;
-	private FlowPane headerPane;
+	
 	private Stage stage;
-	private int size;
-        private int i,place;
+	
 	static Parent helpUI;
 	static HelpController helpControl;
+	/*Refresh refresh;
+	Timer timer;*/
 
-	ObservableList<JSONObject> players;
-	ObservableList<JSONObject> silver;
-	ObservableList<JSONObject> bronze;
+	@FXML
+	private TableColumn<AllPlayers, String> playerName;
+	@FXML
+	private TableColumn<AllPlayers, String> status;
+	@FXML
+	private TableColumn<AllPlayers, String> rank;
+	@FXML
+	private TableColumn<AllPlayers, Void> btnsCol;
+	@FXML
+	private TableView<AllPlayers> table;
+
+	ObservableList<AllPlayers> players;
+
+	Vector<AllPlayers> allPlayers;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
 	}
+	
+	public TableView<AllPlayers> getTable() {
+		return table;
+	}
 
 	public void init() {
-		players = FXCollections.observableArrayList(Main.client.getGoldPlayers());
-		players.addAll(Main.client.getSilverPlayers());
-		players.addAll(Main.client.getBronzePlayers());
+		allPlayers = new Vector<AllPlayers>();
 
-		setSize(players.size());
-		inviteBtns = new Button[size];
-		fPane = new FlowPane[size];
-		usernames = new Label[size];
-		score = new Label[size];
-		headerPane = new FlowPane();
-		headerPane.setHgap(390 / 4);
-		headerPane.getChildren().addAll(new Label("Name"), new Label("Score"), new Label("Rank"));
-		lview.getItems().add(headerPane);
+		fillPlayersList();
 
-		for (int i = 0; i < size; i++) {
-			inviteBtns[i] = new Button("Invite");
-                        
-			fPane[i] = new FlowPane();
-			fPane[i].setHgap(400 / 4);
-			try {
-                                inviteBtns[i].setId(players.get(i).get("username").toString());
-				if (players.get(i).get("status").toString().equals("offline"))
-					inviteBtns[i].setDisable(true);
-				usernames[i] = new Label(players.get(i).get("username").toString());
-				score[i] = new Label(players.get(i).get("score").toString());
-				fPane[i].getChildren().add(usernames[i]);
-				fPane[i].getChildren().add(score[i]);
-				fPane[i].getChildren().addAll(new Label("Bronze"), inviteBtns[i]);
-				lview.getItems().add(fPane[i]);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		setActionHandler();
-	}
+		playerName.setCellValueFactory(new PropertyValueFactory<AllPlayers, String>("username"));
+		status.setCellValueFactory(new PropertyValueFactory<AllPlayers, String>("status"));
+		rank.setCellValueFactory(new PropertyValueFactory<AllPlayers, String>("rank"));
+		
+		addBtnsCol();
 
-	public ListView<FlowPane> getList() {
-		return lview;
-	}
-
-	public void setSize(int s) {
-		size = s;
-	}
-
-	public void setStage(Stage primaryStage) {
-		stage = primaryStage;
-	}
-
-	public void setActionHandler() {
-		FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
-
-		for (i = 0; i < size; i++) {
-			inviteBtns[i].addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-                                    
-                                        //					Alert alert = new Alert(AlertType.CONFIRMATION);
-//					alert.setHeaderText("Do you want to accept the invitation?");
-//					alert.setContentText(null);
-//					Optional<ButtonType> btnType = alert.showAndWait();
-//					if (btnType.get() == ButtonType.OK) {
-//						Scene scene = new Scene(new Label("Hello"), 400, 500);
-//						stage.setScene(scene);
-//					
-                                   
-                                handleInvite((Button) event.getSource());
-                                      //  Main.client.invite(Main.client.getPlayer().getName(), usernames[i].getText());
-                                  
-				}
-			});
-		}
+		table.setItems(players);
+		
 		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
@@ -147,6 +102,8 @@ public class PlayersMenuController implements Initializable {
 		helpBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+
 				try {
 					helpUI = helpLoader.load();
 				} catch (IOException e) {
@@ -159,7 +116,120 @@ public class PlayersMenuController implements Initializable {
 			}
 
 		});
+	
+		/*refresh = new Refresh();
+		timer = new Timer();
+		
+		timer.schedule(refresh, 0, 1000);*/
+	}
 
+	public void addBtnsCol() {
+		TableColumn<AllPlayers, Void> colBtn = new TableColumn("Button Column");
+
+        Callback<TableColumn<AllPlayers, Void>, TableCell<AllPlayers, Void>> cellFactory = new Callback<TableColumn<AllPlayers, Void>, TableCell<AllPlayers, Void>>() {
+            @Override
+            public TableCell<AllPlayers, Void> call(final TableColumn<AllPlayers, Void> param) {
+                final TableCell<AllPlayers, Void> cell = new TableCell<AllPlayers, Void>() {
+
+                    private final Button btn = new Button("Invite");
+                    {
+                    	for(int i = 0; i < table.getItems().size(); i++) {
+                			btn.setStyle("-fx-border-color:Black;");
+                			btn.setStyle("-fx-font-size:16px");
+                    	}
+                        btn.setOnAction((ActionEvent event) -> {
+                        	try {
+                    			Main.client.invite(Main.client.getPlayer().getName(), getTableView().getItems().get(getIndex()).getUsername());
+                    		} catch (JSONException ex) {
+                    			Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                    		}
+                    	
+                        });
+                        
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        colBtn.setCellFactory(cellFactory);
+
+        table.getColumns().add(colBtn);
+	}
+	
+	public void fillPlayersList(){
+		AllPlayers tempPlayer;
+
+		for (int i = 0 ; i < Main.client.getGoldPlayers().size(); i++){
+			tempPlayer = new AllPlayers();
+			try {
+				if(Main.client.getGoldPlayers().get(i).get("username").toString().equals(Client.player.getName())) 
+					continue;
+				tempPlayer.setUsername(Main.client.getGoldPlayers().get(i).get("username").toString());
+				tempPlayer.setPlaying(Main.client.getGoldPlayers().get(i).getBoolean("playing"));
+				tempPlayer.setRank("Gold");
+				if(Main.client.getGoldPlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");
+				tempPlayer.setScore(Main.client.getGoldPlayers().get(i).getInt("score"));
+				allPlayers.add(tempPlayer);
+			} catch (JSONException ex) {
+				Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		for (int i = 0 ; i < Main.client.getBronzePlayers().size(); i++){
+			tempPlayer = new AllPlayers ();
+			try {
+				if(Main.client.getBronzePlayers().get(i).get("username").toString().equals(Client.player.getName())) 
+					continue;
+				tempPlayer.setUsername(Main.client.getBronzePlayers().get(i).get("username").toString());
+				tempPlayer.setPlaying(Main.client.getBronzePlayers().get(i).getBoolean("playing"));
+				tempPlayer.setRank("Bronze");
+				if(Main.client.getBronzePlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");				tempPlayer.setScore(Main.client.getBronzePlayers().get(i).getInt("score"));
+				allPlayers.add(tempPlayer);
+			} catch (JSONException ex) {
+				Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+		}
+		for (int i = 0; i < Main.client.getSilverPlayers().size(); i++){
+			tempPlayer = new AllPlayers ();
+			try {
+				if(Main.client.getSilverPlayers().get(i).get("username").toString().equals(Client.player.getName())) 
+					continue;
+				tempPlayer.setUsername(Main.client.getSilverPlayers().get(i).get("username").toString());
+				tempPlayer.setPlaying(Main.client.getSilverPlayers().get(i).getBoolean("playing"));
+				tempPlayer.setRank("Silver");
+				if(Main.client.getSilverPlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");				
+				tempPlayer.setScore(Main.client.getSilverPlayers().get(i).getInt("score"));
+				allPlayers.add(tempPlayer);
+			} catch (JSONException ex) {
+				Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		
+		players = FXCollections.observableArrayList(allPlayers);
+	}
+
+	public void setStage(Stage primaryStage) {
+		stage = primaryStage;
 	}
 
 	@FXML
@@ -174,14 +244,23 @@ public class PlayersMenuController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		/*refresh.cancel();
+		refresh = null;
+		timer.cancel();
+		timer = null;*/
+		
 		stage.setScene(new Scene(homePageUI));
 		homePageControl.setActionHandler(stage);
 	}
-     private void handleInvite(Button c){
-            try {
-                Main.client.invite(Main.client.getPlayer().getName(), c.getId());
-            } catch (JSONException ex) {
-                Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-     }
+
+	class Refresh extends TimerTask {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			fillPlayersList();
+			table.setItems(players);
+		}
+		
+	}
 }

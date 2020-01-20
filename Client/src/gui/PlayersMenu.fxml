@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DisplacementMap?>
@@ -15,52 +16,60 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PlayersMenuController">
-   <children>
-      <ImageView fitHeight="506.0" fitWidth="913.0" layoutX="39.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/home.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="297.0" layoutY="448.0" mnemonicParsing="false" onAction="#ReturnHomeAction" opacity="0.85" prefHeight="34.0" prefWidth="159.0" style="-fx-background-color: black;" text="Return to Home" textFill="#eed555">
-         <font>
-            <Font name="Segoe UI Black" size="15.0" />
-         </font>
-         <effect>
-            <DisplacementMap>
-               <input>
-                  <Glow />
-               </input>
-               <mapData>
-                  <FloatMap />
-               </mapData>
-            </DisplacementMap>
-         </effect></Button>
-      <TitledPane animated="false" layoutX="118.0" layoutY="43.0" opacity="0.52" prefHeight="398.0" prefWidth="552.0" text="Avalibale Players" textOverrun="CLIP">
-         <content>
-            <ListView fx:id="lview" maxHeight="366.0" maxWidth="551.0" minHeight="273.0" minWidth="519.0" prefHeight="366.0" prefWidth="551.0" />
-         </content>
-         <font>
-            <Font name="Segoe UI Black Italic" size="15.0" />
-         </font>
-      </TitledPane>
-      <MenuButton layoutX="666.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="17.0" prefWidth="118.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#eed555" textOverrun="CLIP">
-         <items>
-            <MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
-            <MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
-         </items>
-         <font>
-            <Font name="Segoe UI Black Italic" size="17.0" />
-         </font>
-         <effect>
-            <Bloom>
-               <input>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                  </DisplacementMap>
-               </input></Bloom>
-         </effect>
-      </MenuButton>
-   </children>
+	<children>
+		<ImageView fitHeight="506.0" fitWidth="913.0" layoutX="39.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../img/home.png" />
+			</image>
+		</ImageView>
+		<Button layoutX="297.0" layoutY="448.0" mnemonicParsing="false" onAction="#ReturnHomeAction" opacity="0.85" prefHeight="34.0" prefWidth="159.0" style="-fx-background-color: black;" text="Return to Home" textFill="#eed555">
+			<font>
+				<Font name="Segoe UI Black" size="15.0" />
+			</font>
+			<effect>
+				<DisplacementMap>
+					<input>
+						<Glow />
+					</input>
+					<mapData>
+						<FloatMap />
+					</mapData>
+				</DisplacementMap>
+			</effect>
+		</Button>
+		<TitledPane animated="false" layoutX="118.0" layoutY="43.0" opacity="0.52" prefHeight="398.0" prefWidth="552.0" text="Avalibale Players" textOverrun="CLIP">
+			<content>
+				<TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
+					<columns>
+						<TableColumn fx:id="playerName" prefWidth="181.0" style="-fx-font-size: 15pt;" text="Player Name" />
+						<TableColumn fx:id="status" prefWidth="96.0" style="-fx-font-size: 15pt;" text="Status" />
+						<TableColumn fx:id="rank" prefWidth="141.0" style="-fx-font-size: 15pt;" text="Rank" />
+					</columns>
+				</TableView>
+			</content>
+			<font>
+				<Font name="Segoe UI Black Italic" size="15.0" />
+			</font>
+		</TitledPane>
+		<MenuButton layoutX="666.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.85" prefHeight="17.0" prefWidth="118.0" style="-fx-background-color: black;" text="Menu" textAlignment="CENTER" textFill="#eed555" textOverrun="CLIP">
+			<items>
+				<MenuItem fx:id="logOutBtn" mnemonicParsing="false" text="Logout" />
+				<MenuItem fx:id="helpBtn" mnemonicParsing="false" text="Help" />
+			</items>
+			<font>
+				<Font name="Segoe UI Black Italic" size="17.0" />
+			</font>
+			<effect>
+				<Bloom>
+					<input>
+						<DisplacementMap>
+							<mapData>
+								<FloatMap />
+							</mapData>
+						</DisplacementMap>
+					</input>
+				</Bloom>
+			</effect>
+		</MenuButton>
+	</children>
 </Pane>
