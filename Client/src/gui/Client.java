@@ -35,7 +35,7 @@ public class Client {
     JSONObject sendJson;
     JSONObject recieveJson;
     String playerName;
-    int r, c,score;
+    int r, c, score;
     private Vector<JSONObject> goldPlayers = new Vector<JSONObject>();
     private Vector<JSONObject> silverPlayers = new Vector<JSONObject>();
     private Vector<JSONObject> bronzePlayers = new Vector<JSONObject>();
@@ -182,6 +182,7 @@ public class Client {
                         //         Scene scene = new Scene(new Label("Hello"), 400, 500);
 //                    Stage stage = (Stage) HomePageController.playersMenuUI.getScene().getWindow();
 //                    stage.setScene(scene);
+                        HomePageController.getGameControl().setoCount(player.getScore());
                         respondeToInvite(player.getName(), playerName, true);
                     } catch (JSONException ex) {
                         Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
@@ -467,26 +468,59 @@ public class Client {
     }
 
     public void win() {
-        JSONObject win = new JSONObject();
         try {
-            win.put("type", "win");
+            JSONObject win = new JSONObject();
+            try {
+                win.put("type", "win");
+            } catch (JSONException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if ("X".equals(GameController.thePlayer)) {
+                win.put("score", HomePageController.getGameControl().getxCount());
+            } else {
+                win.put("score", HomePageController.getGameControl().getoCount());
+            }
+
+            sendJson = win;
+            sendToServer();
         } catch (JSONException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sendJson = win;
-        sendToServer();
     }
 
     public void handleLosing() {
         System.out.println("------lost--------");
+        System.out.println(recieveJson);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 //Update UI here    
                 System.out.println("------lost--------");
                 HomePageController.getGameControl().reset();
+                System.out.println(recieveJson);
+                if (GameController.thePlayer.equals("X")) {
+                    System.out.println("i am heeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrreeeeeeeeeeeee");
+                    try {
+                        HomePageController.getGameControl().setScoreplayerO(Integer.toString(recieveJson.getInt("score")+20));
+                        HomePageController.getGameControl().setoCount(recieveJson.getInt("score")+20);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    
+                    System.out.println("no iaaaam hereeeeeeeeeeeeee");
+                    try {
+                        HomePageController.getGameControl().setScoreplayerX(Integer.toString( recieveJson.getInt("score")+20));
+                        HomePageController.getGameControl().setxCount((int)recieveJson.get("score")+20);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setHeaderText("You Lost");
+
                 alert.setContentText(null);
                 Optional<ButtonType> btnType = alert.showAndWait();
                 if (btnType.get() == ButtonType.OK) {
@@ -552,10 +586,10 @@ public class Client {
     public void setOtherScore() {
         System.out.println("set other scoreee");
         System.out.println(recieveJson);
-        
+
         try {
-             score=(int) recieveJson.get("score");
-             System.out.println(score);
+            score = (int) recieveJson.get("score");
+            System.out.println(score);
         } catch (JSONException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -563,12 +597,10 @@ public class Client {
             @Override
             public void run() {
                 //Update UI here    
-                
-                    HomePageController.getGameControl().setxCount(score);
-                    HomePageController.getGameControl().setScoreplayerX(Integer.toString(score));
-                    Main.client.getPlayer().setScoreOfOpponent(score);
 
-               
+                HomePageController.getGameControl().setxCount(score);
+                HomePageController.getGameControl().setScoreplayerX(Integer.toString(score));
+                Main.client.getPlayer().setScoreOfOpponent(score);
 
             }
         });
