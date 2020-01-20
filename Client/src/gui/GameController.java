@@ -168,6 +168,8 @@ public class GameController implements Initializable {
         for (int i = 0; i < arr2.length; i++) {
             arr2[i].setText("");
             arr2[i].setStyle("-fx-background-color: d7c682;");
+            checkBoardArr.set(i, 1);
+            
         }
 
         EnableButton();
@@ -208,6 +210,8 @@ public class GameController implements Initializable {
         }
         System.out.println("in draw check and the board contains 1 = " + (checkBoardArr.contains(1)));
         if (!(checkBoardArr.contains(1))) {
+            
+            Main.client.draw();
             return true;
         }
         return false;
