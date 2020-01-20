@@ -24,6 +24,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -82,11 +83,6 @@ public class PlayersMenuController implements Initializable {
 
 		table.setItems(players);
 		
-		/*for (int i = 0; i < table.getItems().size(); i++) {
-			if(table.getItems().get(i).getStatus().equals("offline"))
-				table.getColumns().get(i).getCell;
-		}*/
-		
 		logOutBtn.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 
 			@Override
@@ -136,8 +132,11 @@ public class PlayersMenuController implements Initializable {
                 final TableCell<AllPlayers, Void> cell = new TableCell<AllPlayers, Void>() {
 
                     private final Button btn = new Button("Invite");
-
                     {
+                    	for(int i = 0; i < table.getItems().size(); i++) {
+                			btn.setStyle("-fx-border-color:Black;");
+                			btn.setStyle("-fx-font-size:16px");
+                    	}
                         btn.setOnAction((ActionEvent event) -> {
                         	try {
                     			Main.client.invite(Main.client.getPlayer().getName(), getTableView().getItems().get(getIndex()).getUsername());
@@ -157,16 +156,6 @@ public class PlayersMenuController implements Initializable {
                         } else {
                             setGraphic(btn);
                         }
-                        Rectangle rect = new Rectangle(100, 20);
-                        for (int i = 0; i < table.getItems().size(); i++){
-                        if (table.getItems().get(i).getStatus().equals("online")) {
-                            rect.setFill(Color.web("#74bb28"));
-                            setGraphic(rect);
-                        } else {
-                            setGraphic(null);
-                        }
-                        }
-
                     }
                 };
                 return cell;
@@ -189,7 +178,10 @@ public class PlayersMenuController implements Initializable {
 				tempPlayer.setUsername(Main.client.getGoldPlayers().get(i).get("username").toString());
 				tempPlayer.setPlaying(Main.client.getGoldPlayers().get(i).getBoolean("playing"));
 				tempPlayer.setRank("Gold");
-				tempPlayer.setStatus(Main.client.getGoldPlayers().get(i).getString("status"));
+				if(Main.client.getGoldPlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");
 				tempPlayer.setScore(Main.client.getGoldPlayers().get(i).getInt("score"));
 				allPlayers.add(tempPlayer);
 			} catch (JSONException ex) {
@@ -204,8 +196,10 @@ public class PlayersMenuController implements Initializable {
 				tempPlayer.setUsername(Main.client.getBronzePlayers().get(i).get("username").toString());
 				tempPlayer.setPlaying(Main.client.getBronzePlayers().get(i).getBoolean("playing"));
 				tempPlayer.setRank("Bronze");
-				tempPlayer.setStatus(Main.client.getBronzePlayers().get(i).getString("status"));
-				tempPlayer.setScore(Main.client.getBronzePlayers().get(i).getInt("score"));
+				if(Main.client.getBronzePlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");				tempPlayer.setScore(Main.client.getBronzePlayers().get(i).getInt("score"));
 				allPlayers.add(tempPlayer);
 			} catch (JSONException ex) {
 				Logger.getLogger(PlayersMenuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,7 +214,10 @@ public class PlayersMenuController implements Initializable {
 				tempPlayer.setUsername(Main.client.getSilverPlayers().get(i).get("username").toString());
 				tempPlayer.setPlaying(Main.client.getSilverPlayers().get(i).getBoolean("playing"));
 				tempPlayer.setRank("Silver");
-				tempPlayer.setStatus(Main.client.getSilverPlayers().get(i).getString("status"));
+				if(Main.client.getSilverPlayers().get(i).getString("status").equals("offline"))
+					tempPlayer.setStatus("OFF");
+				else
+					tempPlayer.setStatus("ON");				
 				tempPlayer.setScore(Main.client.getSilverPlayers().get(i).getInt("score"));
 				allPlayers.add(tempPlayer);
 			} catch (JSONException ex) {

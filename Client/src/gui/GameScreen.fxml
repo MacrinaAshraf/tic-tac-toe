@@ -120,7 +120,7 @@
 				<Bloom threshold="0.63" />
 			</effect>
 		</Label>
-		<Button fx:id="returnHome" layoutX="319.0" layoutY="450.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="153.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Return to home" textFill="#dac285">
+		<Button fx:id="returnHome" onAction="#backToHome" layoutX="319.0" layoutY="450.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="153.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Return to home" textFill="#dac285">
 			<font>
 				<Font name="Segoe UI Black" size="16.0" />
 			</font>
