@@ -5,6 +5,15 @@ public class Player {
 	private int score;
 	private int id;
 	private String playingWith;
+        private int scoreOfOpponent;
+
+    public int getScoreOfOpponent() {
+        return scoreOfOpponent;
+    }
+
+    public void setScoreOfOpponent(int scoreOfOpponent) {
+        this.scoreOfOpponent = scoreOfOpponent;
+    }
 	
 	public Player() {
 		name = "";
