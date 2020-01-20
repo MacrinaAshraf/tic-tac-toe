@@ -46,8 +46,10 @@ public class GameController implements Initializable {
     private Label usernameTwo;
     @FXML
     private Label usernameOne;
-    public int xCount = Main.client.getPlayer().getScore();
-    public int oCount = Main.client.getPlayer().getScore();
+    public int xCount;
+    public int oCount;
+
+   
     static private Boolean turn;
 
     @FXML
@@ -70,6 +72,7 @@ public class GameController implements Initializable {
     private Button button9;
     @FXML
     private Label scoreplayerX;
+    
 
     @FXML
     private Label scoreplayerO;
@@ -93,7 +96,21 @@ public class GameController implements Initializable {
     public static Boolean getTurn() {
         return turn;
     }
+     public int getxCount() {
+        return xCount;
+    }
 
+    public void setxCount(int xCount) {
+        this.xCount = xCount;
+    }
+
+    public int getoCount() {
+        return oCount;
+    }
+
+    public void setoCount(int oCount) {
+        this.oCount = oCount;
+    }
     public static void setTurn(Boolean turn) {
         GameController.turn = turn;
     }
@@ -150,6 +167,7 @@ public class GameController implements Initializable {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
         for (int i = 0; i < arr2.length; i++) {
             arr2[i].setText("");
+            arr2[i].setStyle("-fx-background-color: d7c682;");
         }
 
         EnableButton();
@@ -183,7 +201,7 @@ public class GameController implements Initializable {
     public boolean draw() {
         System.out.println("-------=====" + String.valueOf(Main.client.getPlayer().getScore()));
         scoreplayerX.setText(String.valueOf(Main.client.getPlayer().getScore()));
-        scoreplayerO.setText(String.valueOf(Main.client.getPlayer().getScore()));
+        scoreplayerO.setText(String.valueOf(Main.client.getPlayer().getScoreOfOpponent()));
 
         for (int i = 0; i < checkBoardArr.size(); i++) {
             System.out.println(checkBoardArr.get(i));
@@ -841,7 +859,6 @@ public class GameController implements Initializable {
             int row = GridPane.getRowIndex(button9);
             int col = GridPane.getColumnIndex(button9);
             Main.client.inGame(row, col);
-//           / choosePlayer();
             turn = false;
 
             setValues(9);

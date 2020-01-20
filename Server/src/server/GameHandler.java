@@ -118,13 +118,15 @@ class GameHandler extends Thread {
 
     public void sendMessage(String msg) {
         //get the stream of the player's opponent from the dictionary with getPLayingWith
-        PrintStream opponentPS=null;
-        if(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith()!=null)
-             opponentPS = (PrintStream) streams.get(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith());
+        PrintStream opponentPS = null;
+        if (GameServer.clientsVector.elementAt(placeInVector).getPlayingWith() != null) {
+            opponentPS = (PrintStream) streams.get(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith());
+        }
         System.out.println(GameServer.clientsVector.elementAt(placeInVector).getPlayingWith());
         //write in the player's stream and his/her opponent's stream
-        if(opponentPS!=null)
-          opponentPS.println(msg);
+        if (opponentPS != null) {
+            opponentPS.println(msg);
+        }
     }
 
     public void invite(JSONObject msg) throws JSONException {
@@ -146,24 +148,43 @@ class GameHandler extends Thread {
         //getting the stream of the player to respond to
         PrintStream opponentPS = (PrintStream) streams.get(msg.get("toPlayWith"));
         JSONObject responseToInviteMessage = new JSONObject();
+        PrintStream myPS= null;
         //setting the type of the JSON Object and username of the player who accepted/rejected the invitation
         responseToInviteMessage.put("type", "responsetoinvite");
         responseToInviteMessage.put("username", msg.get("username"));
+        int score2 = 0;
+        int score = 0;
         if (msg.get("response").equals("accept")) {
+             JSONObject scoring = new JSONObject();
+            scoring.put("type", "score");
+            
             //setting connections
             String username = (String) msg.get("username");
             String toPlayWith = (String) msg.get("toPlayWith");
+            
             for (int n : placesInVector) {
                 if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("toPlayWith"))) {
                     System.out.println("--------------here------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(username);
-                    GameServer.clientsVector.elementAt(n).setIsPlaying(true);
+                    GameServer.clientsVector.elementAt(n).setIsPlaying(true);                    
+                    score2 = GameServer.clientsVector.elementAt(n).getScore();
+                    
+                    System.out.println("==========score++++" + score2);
                 } else if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("username"))) {
                     System.out.println("--------------here2------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(toPlayWith);
                     GameServer.clientsVector.elementAt(n).setIsPlaying(true);
+                    score = GameServer.clientsVector.elementAt(n).getScore();
+                    myPS=GameServer.clientsVector.elementAt(n).getPrintStream();
+                    
                 }
             }
+            scoring.put("score", score2);
+            System.out.println(myPS);
+            if(myPS!=null)
+            myPS.println(scoring);
+            System.out.println(scoring);
+            responseToInviteMessage.put("score", score);
             responseToInviteMessage.put("response", "accept");
             playersJSON();
 
@@ -173,6 +194,9 @@ class GameHandler extends Thread {
         }
         //sending the response JSON object to the askingPlayer
         opponentPS.println(responseToInviteMessage.toString());
+       
+//        System.out.println(client.pss);
+//        client.pss.println(score.toString());
     }
 
     public void login(JSONObject data) throws JSONException {
@@ -270,7 +294,7 @@ class GameHandler extends Thread {
         } catch (JSONException ex) {
             Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         GameServer.clientsVector.elementAt(placeInVector).setScore(score);
         try {
             playersJSON();
