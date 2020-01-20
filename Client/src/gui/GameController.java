@@ -188,7 +188,10 @@ public class GameController implements Initializable {
             xCount += 20;
             Main.client.getPlayer().setScore(xCount);
         } else {
+            System.out.println("oooooooooooooooooooooooooooooooooooooo");
+             System.out.println(oCount);
             oCount += 20;
+            System.out.println(oCount);
             Main.client.getPlayer().setScore(oCount);
         }
 
@@ -199,9 +202,6 @@ public class GameController implements Initializable {
     }
 
     public boolean draw() {
-        System.out.println("-------=====" + String.valueOf(Main.client.getPlayer().getScore()));
-        scoreplayerX.setText(String.valueOf(Main.client.getPlayer().getScore()));
-        scoreplayerO.setText(String.valueOf(Main.client.getPlayer().getScoreOfOpponent()));
 
         for (int i = 0; i < checkBoardArr.size(); i++) {
             System.out.println(checkBoardArr.get(i));
