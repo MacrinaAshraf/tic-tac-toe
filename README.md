@@ -16,3 +16,12 @@ Before downloading the game make sure that your environment is set, this game re
 4. Sign in with your user name and password.
 5. Choose to play against computer or another online player.
 6. Have Fun!
+
+
+# Collaborators 
+- Mohamed Adham ([@mohamedadham](https://github.com/mohamedadham))
+- Mohamed Mostafa ([@MohamadFeeshar](https://github.com/MohamadFeeshar))
+- Nouran Yehia ([@Nouran-yehia](https://github.com/Nouran-yehia))
+- Ismail Ismail ([@IsmailKhadr1995](https://github.com/IsmailKhadr1995))
+- Ali Ismail ([@Ali-ismail-g](https://github.com/Ali-ismail-g))
+- Macrina Ashraf ([@MacrinaAshraf](https://github.com/MacrinaAshraf))
