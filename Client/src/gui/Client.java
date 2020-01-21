@@ -91,6 +91,9 @@ public class Client {
                                 case "score":
                                     setOtherScore();
                                     break;
+                                case "draw":
+                                    handleDraw();
+                                    break;
                             }
                         } catch (IOException ex) {
 
@@ -613,5 +616,36 @@ public class Client {
             }
         });
 
+    }
+    public void draw(){
+        JSONObject draw=new JSONObject();
+        try {
+            draw.put("type", "draw");
+        } catch (JSONException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sendJson=draw;
+        sendToServer();
+                
+    }
+    public void handleDraw(){
+             Platform.runLater(new Runnable() {
+
+                                @Override
+
+                                public void run() {
+                                    //Update UI here    
+                                    Alert alert = new Alert(AlertType.INFORMATION);
+                                    alert.setHeaderText("No One Wins");
+                                    alert.setContentText(null);
+                                    Optional<ButtonType> btnType = alert.showAndWait();
+
+                                    if (btnType.get() == ButtonType.OK) {
+                                         HomePageController.getGameControl().reset();
+                                    } else {
+                                       HomePageController.getGameControl().reset();
+                                    }
+                                }
+                            });
     }
 }
