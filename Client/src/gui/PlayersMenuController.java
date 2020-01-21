@@ -24,6 +24,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -155,6 +157,16 @@ public class PlayersMenuController implements Initializable {
                         } else {
                             setGraphic(btn);
                         }
+                        Rectangle rect = new Rectangle(100, 20);
+                        for (int i = 0; i < table.getItems().size(); i++){
+                        if (table.getItems().get(i).getStatus().equals("online")) {
+                            rect.setFill(Color.web("#74bb28"));
+                            setGraphic(rect);
+                        } else {
+                            setGraphic(null);
+                        }
+                        }
+
                     }
                 };
                 return cell;
