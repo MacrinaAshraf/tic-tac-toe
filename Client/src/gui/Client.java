@@ -231,14 +231,13 @@ public class Client {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					if (HomePageController.playersMenuControl != null
-		                   && HomePageController.playersMenuControl.getTable() != null) {
-		                System.out.println("Inside run");
-						HomePageController.playersMenuControl.getTable().refresh();
-		            }
 				}
             	
             });*/
+            if (HomePageController.playersMenuControl != null
+	                   && HomePageController.playersMenuControl.getTable() != null) {
+					HomePageController.playersMenuControl.getTable().refresh();
+	            }
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -110,7 +110,7 @@ public class LoginController implements Initializable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				stage.setScene(new Scene(signUpUI));
-                                signUpControl.setActionHandler(stage);
+                signUpControl.setActionHandler(stage);
 			}
 
 		});
