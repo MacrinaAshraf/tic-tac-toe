@@ -5,18 +5,15 @@
  */
 package gui;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.json.JSONException;
-
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,6 +61,8 @@ public class GameController implements Initializable {
     public static void setTurn(Boolean turn) {
         GameController.turn = turn;
     }
+    @FXML
+    private Button returnHome;
 
     public  Label getUsernameOne() {
         return usernameOne;
@@ -106,12 +105,33 @@ public class GameController implements Initializable {
     private Alert gameOverAlert;
     ButtonType yesbtn = new ButtonType("Yes");
     ButtonType nobtn = new ButtonType("No");
+    static Parent HomePageUI;
+    HomePageController HomePageControl;
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    
     }
+    
+    public void setActionHandler(Stage stage) {
+        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        try {
+			HomePageUI = homeLoader.load();
+                        HomePageControl = (HomePageController) homeLoader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+                        returnHome.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                                        @Override
+                                public void handle(ActionEvent event) {
+                                        stage.setScene(new Scene(HomePageUI));
+                                        HomePageControl.setActionHandler(stage);
+			}
 
+		});
+    }
     public GameController() {
 
         alert4 = new Alert(Alert.AlertType.INFORMATION);
@@ -127,6 +147,7 @@ public class GameController implements Initializable {
         stage = primaryStage;
     }
 
+    @FXML
     public void reset() {
         Button arr2[] = {button1, button2, button3, button4, button5, button6, button7, button8, button9};
         for (int i = 0; i < arr2.length; i++) {
@@ -781,15 +802,4 @@ public class GameController implements Initializable {
 
     }
 
-    @FXML
-    private void backToHome(ActionEvent event) {
-    }
-
-    @FXML
-    private void logOutAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void helpButtonAction(ActionEvent event) {
-    }
 }
