@@ -18,12 +18,12 @@
 	<children>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../img/screen.gif" />
+				<Image url="@../img/Screen.gif" />
 			</image>
 		</ImageView>
 		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="413.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../img/screen.gif" />
+				<Image url="@../img/Screen.gif" />
 			</image>
 		</ImageView>
 		<GridPane gridLinesVisible="true" layoutX="123.0" layoutY="112.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0" style="-fx-background-color: d7c682; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;">

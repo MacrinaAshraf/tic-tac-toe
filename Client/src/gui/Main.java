@@ -12,10 +12,11 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
 	LoginController loginControl;
 	static Client client = new Client();
-        static Stage stg;
+	static Stage stg;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		stg=primaryStage;
+		stg = primaryStage;
 		FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
 		Parent loginUI = loginLoader.load();
 		primaryStage.setTitle("TicTacToe");
@@ -31,12 +32,11 @@ public class Main extends Application {
 			client.stopConnection();
 			System.exit(0);
 		});
-		
-		
+
 		loginControl = (LoginController) loginLoader.getController();
 		loginControl.setActionHandler(primaryStage);
-                primaryStage.setResizable(false);
-                primaryStage.show();
+		primaryStage.setResizable(false);
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {

@@ -97,14 +97,14 @@ public class SignUpController implements Initializable {
                 }
                 if (validation) {
                     try {
-                        System.out.println("YO YO");
+                        //System.out.println("YO YO");
                         sendPlayerData();
                     } catch (JSONException e) {
                         System.out.println(e);
                     }
                     if (Main.client.getErrorMessage().equals("")) {
                         System.out.println(Main.client.getErrorMessage());
-                        System.out.println("MWT NFSk");
+                        //System.out.println("MWT NFSk");
                         validationError.setText("");
                         stage.setScene(new Scene(loginPageUI));
                         loginControl.setActionHandler(stage);

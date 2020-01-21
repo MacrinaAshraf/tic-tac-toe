@@ -65,7 +65,7 @@
             </ColorAdjust>
          </effect>
       </Text>
-      <TextArea layoutX="191.0" layoutY="310.0" opacity="0.47" prefHeight="177.0" prefWidth="539.0" style="-fx-border-color: #fceeb0; -fx-border-width: 5px;" text="Ali &#10;Ismaail&#10;Macrina Ashraf&#10;Mohamed Adham&#10;Mohamed Mostafa&#10;Nouran Mohamed">
+      <TextArea layoutX="191.0" layoutY="310.0" opacity="0.47" prefHeight="177.0" prefWidth="539.0" style="-fx-border-color: #fceeb0; -fx-border-width: 5px;" text="Ali Ismail&#10;Ismail Ismail&#10;Macrina Ashraf&#10;Mohamed Adham&#10;Mohamed Mostafa&#10;Nouran Mohamed">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
