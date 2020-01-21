@@ -76,6 +76,7 @@ class GameHandler extends Thread {
                             register(message);
                             break;
                         case "win":
+                        case "draw":
                         case "chat":
                             sendMessage(message.toString());
                             break;
