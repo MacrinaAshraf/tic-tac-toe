@@ -83,6 +83,15 @@ class GameHandler extends Thread {
                         case "ingame":
                             sendMessage(message.toString());
                             break;
+                        case "save":
+                            saveGame(message);
+                            break;
+                        case "load":
+                            loadGame(message);
+                            break;
+                        case "delete":
+                            deleteGame(message);
+                            break;
                         case "endofgame":
                             endOfGame(message);
                             break;
@@ -96,7 +105,7 @@ class GameHandler extends Thread {
 
                             break;
                     }
-                } catch (IOException | JSONException ex) {
+                } catch (IOException | SQLException | JSONException ex) {
                     Logger.getLogger(GameHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -149,41 +158,42 @@ class GameHandler extends Thread {
         //getting the stream of the player to respond to
         PrintStream opponentPS = (PrintStream) streams.get(msg.get("toPlayWith"));
         JSONObject responseToInviteMessage = new JSONObject();
-        PrintStream myPS= null;
+        PrintStream myPS = null;
         //setting the type of the JSON Object and username of the player who accepted/rejected the invitation
         responseToInviteMessage.put("type", "responsetoinvite");
         responseToInviteMessage.put("username", msg.get("username"));
         int score2 = 0;
         int score = 0;
         if (msg.get("response").equals("accept")) {
-             JSONObject scoring = new JSONObject();
+            JSONObject scoring = new JSONObject();
             scoring.put("type", "score");
-            
+
             //setting connections
             String username = (String) msg.get("username");
             String toPlayWith = (String) msg.get("toPlayWith");
-            
+
             for (int n : placesInVector) {
                 if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("toPlayWith"))) {
                     System.out.println("--------------here------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(username);
-                    GameServer.clientsVector.elementAt(n).setIsPlaying(true);                    
+                    GameServer.clientsVector.elementAt(n).setIsPlaying(true);
                     score2 = GameServer.clientsVector.elementAt(n).getScore();
-                    
+
                     System.out.println("==========score++++" + score2);
                 } else if (GameServer.clientsVector.elementAt(n).getUserName().equals(msg.get("username"))) {
                     System.out.println("--------------here2------------");
                     GameServer.clientsVector.elementAt(n).setPlayingWith(toPlayWith);
                     GameServer.clientsVector.elementAt(n).setIsPlaying(true);
                     score = GameServer.clientsVector.elementAt(n).getScore();
-                    myPS=GameServer.clientsVector.elementAt(n).getPrintStream();
-                    
+                    myPS = GameServer.clientsVector.elementAt(n).getPrintStream();
+
                 }
             }
             scoring.put("score", score2);
             System.out.println(myPS);
-            if(myPS!=null)
-            myPS.println(scoring);
+            if (myPS != null) {
+                myPS.println(scoring);
+            }
             System.out.println(scoring);
             responseToInviteMessage.put("score", score);
             responseToInviteMessage.put("response", "accept");
@@ -195,7 +205,7 @@ class GameHandler extends Thread {
         }
         //sending the response JSON object to the askingPlayer
         opponentPS.println(responseToInviteMessage.toString());
-       
+
 //        System.out.println(client.pss);
 //        client.pss.println(score.toString());
     }
@@ -282,6 +292,39 @@ class GameHandler extends Thread {
             ServerGUI.table.refresh();
         }
 
+    }
+
+    private void loadGame(JSONObject data) throws SQLException, JSONException, IOException {
+        String playerX = data.getString("player1");
+        String playerO = data.getString("player2");
+        LoadController load = new LoadController();
+        if (LoadController.checkGameExist(playerX, playerO)) {
+            load.load(playerX, playerO);
+        } else {
+            load.load(playerX, playerO);
+        }
+    }
+
+    public void saveGame(JSONObject data) throws JSONException, IOException, SQLException {
+        SaveController save = new SaveController();
+        String cells = data.getString("cells");
+        char turn = data.getString("turn").charAt(0);
+        String playerX = data.getString("playerX");
+        String playerO = data.getString("playerO");
+        save.insertIntoDatabase(cells, turn, playerX, playerO);
+        ps.println(save.getResult());
+    }
+
+    public void deleteGame(JSONObject data) throws SQLException, JSONException {
+        DeleteController delete = new DeleteController();
+        String playerX = data.getString("playerX");
+        String playerO = data.getString("playerO");
+        if (LoadController.checkGameExist(playerX, playerO)) {
+            delete.delete(playerX, playerO);
+        } else {
+            delete.delete(playerO, playerX);
+        }
+        ps.println(delete.getResult());
     }
 
     public void endOfGame(JSONObject data) {
