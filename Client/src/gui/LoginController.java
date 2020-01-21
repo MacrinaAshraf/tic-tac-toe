@@ -62,8 +62,8 @@ public class LoginController implements Initializable {
 
 	public void setActionHandler(Stage stg) {
 		FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
-                stage=stg;
+		FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("Signup.fxml"));
+                stage = stg;
 		try {
 			homePageUI = homePageLoader.load();
 			homePageControl = (HomePageController) homePageLoader.getController();
