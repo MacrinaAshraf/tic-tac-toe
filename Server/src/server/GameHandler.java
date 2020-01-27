@@ -97,6 +97,7 @@ class GameHandler extends Thread {
                             break;
                         case "stop":
                             System.out.println("stop");
+                            logout();
                             stopClient();
                             break;
                         case "endofbattle":
@@ -114,6 +115,7 @@ class GameHandler extends Thread {
             GameServer.clientsVector.elementAt(placeInVector).setStatus("offline");
             GameServer.clientsVector.elementAt(placeInVector).setIsPlaying(false);
             ServerGUI.table.refresh();
+            logout();
             stopClient();
 
         } catch (NullPointerException e) {
