@@ -94,30 +94,12 @@ public class Client {
                                 case "draw":
                                     handleDraw();
                                     break;
+                                case "stop":
+                                    handleServerStop();
                             }
                         } catch (IOException ex) {
+                            handleServerStop();
 
-                            keepRunning = false;
-                            System.out.print("server has closed");
-                            Platform.runLater(new Runnable() {
-
-                                @Override
-
-                                public void run() {
-                                    //Update UI here    
-                                    Alert alert = new Alert(AlertType.ERROR);
-                                    alert.setHeaderText("Server has stopped, please restart");
-                                    alert.setContentText(null);
-                                    Optional<ButtonType> btnType = alert.showAndWait();
-                                    Main.stg.close();
-
-                                    if (btnType.get() == ButtonType.OK) {
-                                        System.exit(0);
-                                    } else {
-                                        System.exit(0);
-                                    }
-                                }
-                            });
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -243,18 +225,18 @@ public class Client {
 
             Platform.runLater(new Runnable() {
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-			
-            if (HomePageController.playersMenuControl != null
-	                   && HomePageController.playersMenuControl.getTable() != null) {
-            	System.out.println("tableeeeeeeee");
-					HomePageController.playersMenuControl.getTable().refresh();
-				//	PlayersMenuController.table.refresh();
-	            }
-	}
-            	
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+
+                    if (HomePageController.playersMenuControl != null
+                            && HomePageController.playersMenuControl.getTable() != null) {
+                        System.out.println("tableeeeeeeee");
+                        HomePageController.playersMenuControl.getTable().refresh();
+                        //	PlayersMenuController.table.refresh();
+                    }
+                }
+
             });
 
         } catch (JSONException e) {
@@ -515,18 +497,18 @@ public class Client {
                 if (GameController.thePlayer.equals("X")) {
                     System.out.println("i am heeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrreeeeeeeeeeeee");
                     try {
-                        HomePageController.getGameControl().setScoreplayerO(Integer.toString(recieveJson.getInt("score")+20));
-                        HomePageController.getGameControl().setoCount(recieveJson.getInt("score")+20);
+                        HomePageController.getGameControl().setScoreplayerO(Integer.toString(recieveJson.getInt("score") + 20));
+                        HomePageController.getGameControl().setoCount(recieveJson.getInt("score") + 20);
                     } catch (JSONException ex) {
                         Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 } else {
-                    
+
                     System.out.println("no iaaaam hereeeeeeeeeeeeee");
                     try {
-                        HomePageController.getGameControl().setScoreplayerX(Integer.toString( recieveJson.getInt("score")+20));
-                        HomePageController.getGameControl().setxCount((int)recieveJson.get("score")+20);
+                        HomePageController.getGameControl().setScoreplayerX(Integer.toString(recieveJson.getInt("score") + 20));
+                        HomePageController.getGameControl().setxCount((int) recieveJson.get("score") + 20);
                     } catch (JSONException ex) {
                         Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -620,35 +602,61 @@ public class Client {
         });
 
     }
-    public void draw(){
-        JSONObject draw=new JSONObject();
+
+    public void draw() {
+        JSONObject draw = new JSONObject();
         try {
             draw.put("type", "draw");
         } catch (JSONException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sendJson=draw;
+        sendJson = draw;
         sendToServer();
-                
+
     }
-    public void handleDraw(){
-             Platform.runLater(new Runnable() {
 
-                                @Override
+    public void handleDraw() {
+        Platform.runLater(new Runnable() {
 
-                                public void run() {
-                                    //Update UI here    
-                                    Alert alert = new Alert(AlertType.INFORMATION);
-                                    alert.setHeaderText("No One Wins");
-                                    alert.setContentText(null);
-                                    Optional<ButtonType> btnType = alert.showAndWait();
+            @Override
 
-                                    if (btnType.get() == ButtonType.OK) {
-                                         HomePageController.getGameControl().reset();
-                                    } else {
-                                       HomePageController.getGameControl().reset();
-                                    }
-                                }
-                            });
+            public void run() {
+                //Update UI here    
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setHeaderText("No One Wins");
+                alert.setContentText(null);
+                Optional<ButtonType> btnType = alert.showAndWait();
+
+                if (btnType.get() == ButtonType.OK) {
+                    HomePageController.getGameControl().reset();
+                } else {
+                    HomePageController.getGameControl().reset();
+                }
+            }
+        });
+    }
+
+    public void handleServerStop() {
+        keepRunning = false;
+        System.out.print("server has closed");
+        Platform.runLater(new Runnable() {
+
+            @Override
+
+            public void run() {
+                //Update UI here    
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setHeaderText("Server has stopped, please restart");
+                alert.setContentText(null);
+                Optional<ButtonType> btnType = alert.showAndWait();
+                Main.stg.close();
+
+                if (btnType.get() == ButtonType.OK) {
+                    System.exit(0);
+                } else {
+                    System.exit(0);
+                }
+            }
+        });
     }
 }
