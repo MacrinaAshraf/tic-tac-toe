@@ -334,8 +334,10 @@ public class Client {
         if (inviteStatus) {
             sendJson.put("response", "accept");
             GameController.setTurn(false);
+            HomePageController.vsComputer=false;
             player.setPlayingWith(userName1);
             GameController.setThePlayer("O");
+            sendToServer();
             HomePageController.getGameControl().setUsernameOne(userName2);
             HomePageController.getGameControl().setUsernameTwo(userName1);
             HomePageController.getGameControl().setScoreplayerO(Integer.toString(player.getScore()));
@@ -343,8 +345,9 @@ public class Client {
             HomePageController.loadGame();
         } else {
             sendJson.put("response", "rejected");
+             sendToServer();
         }
-        sendToServer();
+       
     }
 
     public void register(String userName, String password, String email) throws JSONException {
