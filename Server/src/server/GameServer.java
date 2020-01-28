@@ -59,6 +59,7 @@ public class GameServer {
             myServerSocket.close();
             ch.stopSending();
             System.out.println("Stopped");
+            stop();
         }catch(IOException ex) {
            System.out.println(ex);
         }
@@ -88,6 +89,7 @@ public class GameServer {
             //new Socket("localhost", 5008);
             myServerSocket.close();
             System.out.println("Stopped");
+            
         }catch(Exception ex){
             System.out.println(ex);
         }
