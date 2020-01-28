@@ -45,7 +45,7 @@ public class Client {
         sendJson = new JSONObject();
         try {
             keepRunning = true;
-            clientSocket = new Socket("127.0.0.1", 5008);
+            clientSocket = new Socket("7.7.7.28", 5008);
             dis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             ps = new PrintStream(clientSocket.getOutputStream());
             setErrorMessage("");
@@ -94,31 +94,15 @@ public class Client {
                                 case "draw":
                                     handleDraw();
                                     break;
+                                case "stop":
+                                	handleServerStop();
+                              
                             }
                         } catch (IOException ex) {
-
-                            keepRunning = false;
-                            System.out.print("server has closed");
-                            Platform.runLater(new Runnable() {
-
-                                @Override
-
-                                public void run() {
-                                    //Update UI here    
-                                    Alert alert = new Alert(AlertType.ERROR);
-                                    alert.setHeaderText("Server has stopped, please restart");
-                                    alert.setContentText(null);
-                                    Optional<ButtonType> btnType = alert.showAndWait();
-                                    Main.stg.close();
-
-                                    if (btnType.get() == ButtonType.OK) {
-                                        System.exit(0);
-                                    } else {
-                                        System.exit(0);
-                                    }
-                                }
-                            });
+                        	handleServerStop();
+                          
                         } catch (JSONException e) {
+                        	
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
@@ -650,5 +634,28 @@ public class Client {
                                     }
                                 }
                             });
+    }
+    public void handleServerStop() {
+    	  keepRunning = false;
+          System.out.print("server has closed");
+          Platform.runLater(new Runnable() {
+
+              @Override
+
+              public void run() {
+                  //Update UI here    
+                  Alert alert = new Alert(AlertType.ERROR);
+                  alert.setHeaderText("Server has stopped, please restart");
+                  alert.setContentText(null);
+                  Optional<ButtonType> btnType = alert.showAndWait();
+                  Main.stg.close();
+
+                  if (btnType.get() == ButtonType.OK) {
+                      System.exit(0);
+                  } else {
+                      System.exit(0);
+                  }
+              }
+          });
     }
 }
