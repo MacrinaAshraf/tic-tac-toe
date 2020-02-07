@@ -2,5 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="M:/ITI/Java/Project/tic-tac-toe/Client/src/java-json.jar"/>
+	<classpathentry kind="lib" path="M:/ITI/Java/Project/tic-tac-toe/Client/src/fontawesomefx-8.9.jar"/>
 	<classpathentry kind="output" path="out/production/Client"/>
 </classpath>

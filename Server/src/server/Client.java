@@ -1,19 +1,44 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.PrintStream;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
-public class Client {
+public class Client implements Observable{
     String userName;
     String playingWith;
     int score;
-    DataInputStream diss;
+    Boolean isPlaying;    
+    String status;
+    BufferedReader diss;
     PrintStream pss;
-    
-    Client(DataInputStream dis,PrintStream ps){
+    Client(){
+        isPlaying=false;  
+        status="offline";
+        score=0;
+    }
+    Client(BufferedReader dis,PrintStream ps){
         diss = dis;
-        pss = ps;      
-       
+        pss = ps; 
+        isPlaying=false;  
+        status="offline";       
+    }
+    public Boolean getIsPlaying() {
+        return isPlaying;
+    }
+
+    public void setIsPlaying(Boolean isPlaying) {
+        this.isPlaying = isPlaying;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     public String getPlayingWith() {
         return playingWith;
@@ -21,10 +46,10 @@ public class Client {
     public void setPlayingWith(String playingWith) {
         this.playingWith = playingWith;
     }
-    public DataInputStream getDataInputStream() {
+    public BufferedReader getDataInputStream() {
         return diss;
     }
-    public void setDataInputStream(DataInputStream diss) {
+    public void setDataInputStream(BufferedReader diss) {
         this.diss = diss;
     }
     public PrintStream getPrintStream() {
@@ -44,6 +69,16 @@ public class Client {
     }
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        System.out.print("changed");//To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

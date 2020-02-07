@@ -1,0 +1,92 @@
+all json objects  should have a type key with values could be depending on the case:
+type :
+1- invite
+2-responsetoinvite
+3-login
+4-register
+5- chat
+from clients to servers:
+
+1-invite json object will also have
+
+-askingplayername key with value of the username sending the request.
+-toPlayWith key with value of the username who will got the request.
+
+
+2- responsetoinvite object will also have
+
+-toPlayWith key with the username of the player to respond to
+-username key with the value of the username responding to the request
+-response key with value accept or rejected
+
+3-login jSONObject will also have:
+
+username key with value which the user entered
+password key with value which the user entered
+
+4-register
+keys:
+username 
+password
+email
+
+5- when client stop or logout
+json with type stop or logout depends on case
+
+6- when two players finish the game, everyone of them will send json object with type-->endofgame and the new score of him.
+
+
+from server to client:
+
+1-when client login or register
+
+server will send json object with key res and value could be Successfully or failed
+
+2-when any player login or start a game or finish game server will send a json object of players categorized with keys --> Gold arrary , silver array, bronze jsonarray and type which would be like 
+
+{
+"Gold":[],
+"Silver":[],
+"type":"playerlist",
+"bronze":[
+{"score":0,"playing":false,"username":"a","status":"offline"},
+{"score":0,"playing":false,"username":"aaaa","status":"offline"},
+{"score":0,"playing":false,"username":"mohamed","status":"offline"},
+{"score":0,"playing":false,"username":"mohamssed","status":"offline"},
+{"score":0,"playing":false,"username":"mohassmed","status":"offline"},
+{"score":0,"playing":false,"username":"mohamesssssssd","status":"offline"},{"score":0,"playing":false,"username":"mohamasdasdasded","status":"offline"},{"score":0,"playing":false,"username":"mohed","status":"offline"},{"score":0,"playing":false,"username":"mohaasdasaamed","status":"offline"},{"score":0,"playing":false,"username":"mohamasdwsed","status":"offline"},{"score":0,"playing":false,"username":"mohamaaed","status":"offline"},{"score":0,"playing":false,"username":"mohameddddsa","status":"offline"},{"score":0,"playing":false,"username":"mohameasdawd","status":"offline"},{"score":0,"playing":false,"username":"mohamaasded","status":"offline"},{"score":0,"playing":false,"username":"mohamasaasded","status":"offline"},{"score":0,"playing":false,"username":"test1","status":"offline"},
+{"score":0,"playing":false,"username":"mohasamasaasded","status":"offline"},{"score":0,"playing":false,"username":"mohasamasaasaded","status":"offline"},{"score":0,"playing":false,"username":"mohasamasaasdaed","status":"offline"},{"score":0,"playing":false,"username":"mohasamasaasasded","status":"offline"},{"score":0,"playing":false,"username":"ayman","status":"offline"},{"score":0,"playing":false,"username":"aayman","status":"offline"},{"score":0,"playing":false,"username":"aaayman","status":"offline"},{"score":0,"playing":false,"username":"ayaasman","status":"offline"},{"score":0,"playing":false,"username":"aymansha","status":"online"}]}
+
+3- when player invite another player to play:
+
+JSon that will be send to other player is :
+
+{"type":"invite","username":"test1"} the username is the username of the player who sent the request
+
+if the other player accept the request, a json object will be sent to the player who sent the request:
+{"response":"accept","type":"responsetoinvite","username":"mohamed"}
+
+response could be also "rejected" depends on the situation
+
+4- when a server stops a json object will bes sent to client like this:
+{"type":"stop"}
+
+5- if the server stops suddenly
+
+the client will know in the catch of the while loop:
+
+ public void run() {
+                    while (keepRunning) {
+
+                        try {
+                            System.out.println("client !");
+                            String msg = dis.readLine();
+                            ui.appendMsg(msg);
+                        } catch (IOException ex) {
+
+                            keepRunning = false;
+                    ----------------------->        System.out.print("server has closed");
+                        }
+
+                    }
+                }
