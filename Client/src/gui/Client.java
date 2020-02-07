@@ -45,7 +45,7 @@ public class Client {
         sendJson = new JSONObject();
         try {
             keepRunning = true;
-            clientSocket = new Socket("127.0.0.1", 5008);
+            clientSocket = new Socket("7.7.7.28", 5008);
             dis = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             ps = new PrintStream(clientSocket.getOutputStream());
             setErrorMessage("");
@@ -95,12 +95,20 @@ public class Client {
                                     handleDraw();
                                     break;
                                 case "stop":
+<<<<<<< HEAD
                                     handleServerStop();
                             }
                         } catch (IOException ex) {
                             handleServerStop();
 
+=======
+                                	handleServerStop();
+                            }
+                        } catch (IOException ex) {
+                            handleServerStop();
+>>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
                         } catch (JSONException e) {
+                        	
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
@@ -643,9 +651,13 @@ public class Client {
         keepRunning = false;
         System.out.print("server has closed");
         Platform.runLater(new Runnable() {
+<<<<<<< HEAD
 
             @Override
 
+=======
+            @Override
+>>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
             public void run() {
                 //Update UI here    
                 Alert alert = new Alert(AlertType.ERROR);
