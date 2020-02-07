@@ -95,18 +95,10 @@ public class Client {
                                     handleDraw();
                                     break;
                                 case "stop":
-<<<<<<< HEAD
-                                    handleServerStop();
-                            }
-                        } catch (IOException ex) {
-                            handleServerStop();
-
-=======
                                 	handleServerStop();
                             }
                         } catch (IOException ex) {
                             handleServerStop();
->>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
                         } catch (JSONException e) {
                         	
                             // TODO Auto-generated catch block
@@ -651,13 +643,8 @@ public class Client {
         keepRunning = false;
         System.out.print("server has closed");
         Platform.runLater(new Runnable() {
-<<<<<<< HEAD
 
             @Override
-
-=======
-            @Override
->>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
             public void run() {
                 //Update UI here    
                 Alert alert = new Alert(AlertType.ERROR);
