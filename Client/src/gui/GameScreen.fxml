@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="498.0" maxWidth="783.0" minHeight="498.0" minWidth="783.0" prefHeight="498.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController">
+	<children>
+		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../img/Screen.gif" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="593.0" fitWidth="1057.0" layoutX="413.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../img/Screen.gif" />
+			</image>
+		</ImageView>
+		<GridPane gridLinesVisible="true" layoutX="123.0" layoutY="112.0" opacity="0.73" prefHeight="275.0" prefWidth="539.0" style="-fx-background-color: d7c682; -fx-background-radius: 15px; -fx-vgap: 4px; -fx-hgap: 4px;">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Button fx:id="button1" mnemonicParsing="false" onAction="#btn1" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="0">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button2" mnemonicParsing="false" onAction="#btn2" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="0">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button3" mnemonicParsing="false" onAction="#btn3" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="0">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button4" mnemonicParsing="false" onAction="#btn4" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="1">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button5" mnemonicParsing="false" onAction="#btn5" prefHeight="88.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="1">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button6" mnemonicParsing="false" onAction="#btn6" prefHeight="102.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="1">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button7" mnemonicParsing="false" onAction="#btn7" prefHeight="92.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="0" GridPane.rowIndex="2">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button8" mnemonicParsing="false" onAction="#btn8" prefHeight="90.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="1" GridPane.rowIndex="2">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+				<Button fx:id="button9" mnemonicParsing="false" onAction="#btn9" prefHeight="80.0" prefWidth="177.0" style="-fx-background-color: d7c682;" textFill="#2f902b" GridPane.columnIndex="2" GridPane.rowIndex="2">
+					<font>
+						<Font name="Tahoma Bold" size="41.0" />
+					</font>
+				</Button>
+			</children>
+		</GridPane>
+		<FontAwesomeIconView fill="#dd4242" glyphName="USER" layoutX="75.0" layoutY="430.0" size="40" wrappingWidth="36.0" />
+		<FontAwesomeIconView fill="#8396d6" glyphName="USER" layoutX="552.0" layoutY="431.0" size="40" wrappingWidth="36.00001786430221" />
+		<Label layoutX="24.0" layoutY="33.0" prefHeight="55.0" prefWidth="250.0" text="Tic Tac Toe" textFill="#d7c682">
+
+			<font>
+				<Font name="Segoe UI Black Italic" size="36.0" />
+			</font>
+		</Label>
+		<Label fx:id="usernameOne" layoutX="115.0" layoutY="402.0" prefHeight="30.0" prefWidth="91.0" textFill="#d7c682">
+			<font>
+				<Font name="Segoe UI Black Italic" size="27.0" />
+			</font>
+		</Label>
+		<Label fx:id="usernameTwo" layoutX="591.0" layoutY="403.0" prefHeight="30.0" prefWidth="91.0" textFill="#d7c682">
+
+			<font>
+				<Font name="Segoe UI Black Italic" size="25.0" />
+			</font>
+		</Label>
+		<Label layoutX="254.0" layoutY="404.0" prefHeight="30.0" prefWidth="28.0" text="X" textFill="#a09dd7">
+			<font>
+				<Font name="Tahoma Bold" size="24.0" />
+			</font>
+			<effect>
+				<Bloom threshold="0.62" />
+			</effect>
+		</Label>
+		<Label layoutX="728.0" layoutY="401.0" prefHeight="30.0" prefWidth="28.0" text="O" textFill="#a09dd7">
+			<font>
+				<Font name="Tahoma Bold" size="27.0" />
+			</font>
+			<effect>
+				<Bloom threshold="0.63" />
+			</effect>
+		</Label>
+		<Button fx:id="returnHome" onAction="#backToHome" layoutX="319.0" layoutY="450.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="153.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Return to home" textFill="#dac285">
+			<font>
+				<Font name="Segoe UI Black" size="16.0" />
+			</font>
+			<effect>
+				<Bloom threshold="0.78" />
+			</effect>
+		</Button>
+		<Text fill="#d7c682" layoutX="116.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score :" wrappingWidth="80.00001341660936">
+			<font>
+				<Font name="Segoe UI Black" size="17.0" />
+			</font>
+		</Text>
+		<Label fx:id="scoreplayerX" layoutX="169.0" layoutY="453.0" text="0" textFill="#dd4242">
+			<font>
+				<Font name="System Bold" size="29.0" />
+			</font>
+		</Label>
+		
+		<Text fill="#d7c682" layoutX="593.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score :" wrappingWidth="80.00001341660936">
+			<font>
+				<Font name="Segoe UI Black" size="17.0" />
+			</font>
+		</Text>
+		<Label fx:id="scoreplayerO" layoutX="644.0" layoutY="451.0" text="0" textFill="#8396d6">
+			<font>
+				<Font name="System Bold" size="29.0" />
+			</font>
+		</Label>
+		<Pane layoutX="175.0" layoutY="438.0" prefHeight="30.0" prefWidth="67.0" />
+		<Pane layoutX="649.0" layoutY="431.0" prefHeight="30.0" prefWidth="67.0" />
+      <Button layoutX="333.0" layoutY="52.0" mnemonicParsing="false" onAction="#reset" prefHeight="37.0" prefWidth="119.0" style="-fx-background-color: Black; -fx-border-color: #dac285; -fx-border-radius: 10;" text="Save Game" textFill="#dac285">
+         <font>
+            <Font name="Segoe UI Black" size="16.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.78" />
+         </effect>
+      </Button>
+	</children>
+</AnchorPane>

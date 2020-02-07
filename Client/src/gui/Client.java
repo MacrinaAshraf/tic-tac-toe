@@ -96,17 +96,23 @@ public class Client {
                                     break;
                                 case "stop":
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     handleServerStop();
                             }
                         } catch (IOException ex) {
                             handleServerStop();
 
 =======
+=======
+>>>>>>> parent of 536ac37... Revert "Merge pull request #1 from MacrinaAshraf/Development"
                                 	handleServerStop();
                             }
                         } catch (IOException ex) {
                             handleServerStop();
+<<<<<<< HEAD
 >>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
+=======
+>>>>>>> parent of 536ac37... Revert "Merge pull request #1 from MacrinaAshraf/Development"
                         } catch (JSONException e) {
                         	
                             // TODO Auto-generated catch block
@@ -652,12 +658,16 @@ public class Client {
         System.out.print("server has closed");
         Platform.runLater(new Runnable() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             @Override
 
 =======
             @Override
 >>>>>>> 36188300973c9acec3206f2ea3bed4e214dc907a
+=======
+            @Override
+>>>>>>> parent of 536ac37... Revert "Merge pull request #1 from MacrinaAshraf/Development"
             public void run() {
                 //Update UI here    
                 Alert alert = new Alert(AlertType.ERROR);
